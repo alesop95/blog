@@ -1,0 +1,80 @@
+# Builds the static site and publishes it to GitHub Pages on every push to main.
+# Manual runs are also supported via the "Run workflow" button.
+#
+# Prereq (one-time): in the repo Settings → Pages, set the source to
+# "GitHub Actions" (not "Deploy from a branch"). Then push to main.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GITHUB_TOKEN permissions required by the official Pages actions.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Avoid concurrent deploys racing each other.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify (typecheck + lint)
+        run: pnpm typecheck && pnpm lint
+
+      - name: Build
+        run: pnpm build
+        env:
+          # Project-site mode (ADR-004): the blog lives under /blog so the
+          # user-site root slot (<user>.github.io) stays free for the future.
+          # BASE_PATH drives next.config's basePath; NEXT_PUBLIC_SITE_URL is the
+          # full public origin INCLUDING the base path — every absolute URL
+          # (canonical, OG, sitemap, feed, JSON-LD) is built from it.
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/blog
+          BASE_PATH: /blog
+
+      - name: Add .nojekyll
+        # Prevents GitHub Pages from running Jekyll on our output (which would
+        # otherwise mangle _next/static paths starting with an underscore).
+        run: touch out/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

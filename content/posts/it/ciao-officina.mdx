@@ -1,0 +1,42 @@
+---
+title: "Ciao, officina"
+description: "Una prima nota su cos'è questo posto, come funziona sotto il cofano, e come ci atterrano gli articoli nuovi."
+date: 2026-05-27
+tags: ["meta", "officina"]
+articleId: "hello-workshop"
+draft: true
+---
+
+> ⚠️ **Bozza** — traduzione di partenza dall'inglese. Da rileggere e rifinire a voce d'autore.
+
+Questo è il primo articolo. Volevo scrivere qualcosa prima di ogni altra cosa, in parte perché scrivere mi costringe a impegnarmi su una struttura, e in parte perché ogni studio ha bisogno di un primo pezzo appeso al muro — anche solo un cartello che dice *siamo aperti*.
+
+## Cos'è questo posto
+
+A metà strada fra un blog e un banco di lavoro. Uno spazio in cui posso ragionare ad alta voce di ingegneria, musica, audio, armonia, e di quelle strane cuciture in cui questi mondi si toccano. Alcuni pezzi saranno tecnici fino al midollo. Altri saranno un paragrafo su un accordo che mi tormenta da due giorni. Non ho intenzione di disciplinare la varianza.
+
+## Come funziona sotto il cofano
+
+Tutto il sito è un solo repository. Niente CMS, niente database, niente auth, niente servizio di backend in alcun senso significativo. Ogni articolo che leggi è un semplice file di testo:
+
+```
+content/
+└── posts/
+    └── it/
+        ├── ciao-officina.mdx
+        └── …
+```
+
+Ogni file inizia con un piccolo header YAML che dice quando è stato scritto, di cosa parla, e che tag porta con sé. Il resto è MDX — markdown con l'opzione di infilare un componente React in linea quando la prosa non basta (un grafico, lo schema di un circuito, uno snippet di notazione musicale).
+
+## Come ci atterrano gli articoli nuovi
+
+Apro un editor. Scrivo. Quando un pezzo è pronto, faccio commit e push. Una pipeline di build a monte raccoglie il nuovo file, lo rende statico, e in qualche secondo è online. Niente bottoni da cliccare in una dashboard, niente plugin da aggiornare. Il flusso di lavoro è lo stesso che userei per uno script di un microcontrollore — il che mi fa piacere, perché significa che il blog non chiederà mai più di quanto io decida di dargli.
+
+## Cosa aspettarsi
+
+I primi pezzi orbiteranno attorno alla musica, perché è il mondo a cui sto dedicando la maggior parte del cervello in questo momento. Aspettati prove tecniche, esercizi di armonia, parti del libro su cui sto lavorando, ogni tanto un giro fra i pedali. Quando avrò qualcosa da dire fuori dalla musica, lo dirò.
+
+Non c'è una cadenza promessa. Ci sarà uno scritto quando ne avrà senso uno.
+
+Benvenuti nell'officina.

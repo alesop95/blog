@@ -1,0 +1,51 @@
+{
+  "site": {
+    "name": "Alessio Sopranzi",
+    "tagline": "Curiosity-driven engineer, musician, deep-diver.",
+    "description": "Personal writings of Alessio Sopranzi at the intersection of engineering, music, audio, and the philosophy of how things actually work."
+  },
+  "nav": {
+    "home": "Writings",
+    "writings": "Writings"
+  },
+  "home": {
+    "sectionAbout": "About me",
+    "sectionWritings": "Writings",
+    "emptyState": "Nothing here yet. The first article is brewing."
+  },
+  "post": {
+    "minRead": "{minutes} min read",
+    "previous": "Previous",
+    "next": "Next",
+    "contents": "Contents",
+    "sectionMoreWritings": "More writings",
+    "tagsLabel": "Tags",
+    "publishedOn": "Published {date}",
+    "updatedOn": "Updated {date}"
+  },
+  "footer": {
+    "copyright": "© {year} Alessio Sopranzi",
+    "rss": "RSS",
+    "sitemap": "Sitemap",
+    "credit": "Hand-built with Next.js & Tailwind. Source on GitHub."
+  },
+  "theme": {
+    "ariaLabel": "Theme: {current}. Click to switch to {next}.",
+    "modes": {
+      "light": "light",
+      "dark": "dark",
+      "system": "system"
+    }
+  },
+  "locale": {
+    "switchLabel": "Switch to {locale}",
+    "current": "EN",
+    "other": "IT"
+  },
+  "splash": {
+    "title": "Alessio Sopranzi",
+    "fallbackText": "Please choose a language:",
+    "linkEn": "English",
+    "linkIt": "Italiano"
+  }
+}

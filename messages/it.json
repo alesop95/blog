@@ -1,0 +1,51 @@
+{
+  "site": {
+    "name": "Alessio Sopranzi",
+    "tagline": "Ingegnere curioso, musicista, divulgatore di profondità.",
+    "description": "Scritti personali di Alessio Sopranzi all'incrocio fra ingegneria, musica, audio e la filosofia di come le cose funzionano davvero."
+  },
+  "nav": {
+    "home": "Scritti",
+    "writings": "Scritti"
+  },
+  "home": {
+    "sectionAbout": "Chi sono",
+    "sectionWritings": "Scritti",
+    "emptyState": "Ancora niente qui. Il primo articolo è in cottura."
+  },
+  "post": {
+    "minRead": "{minutes} min di lettura",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "contents": "Indice",
+    "sectionMoreWritings": "Altri scritti",
+    "tagsLabel": "Tag",
+    "publishedOn": "Pubblicato il {date}",
+    "updatedOn": "Aggiornato il {date}"
+  },
+  "footer": {
+    "copyright": "© {year} Alessio Sopranzi",
+    "rss": "RSS",
+    "sitemap": "Sitemap",
+    "credit": "Costruito a mano con Next.js & Tailwind. Sorgente su GitHub."
+  },
+  "theme": {
+    "ariaLabel": "Tema: {current}. Clicca per passare a {next}.",
+    "modes": {
+      "light": "chiaro",
+      "dark": "scuro",
+      "system": "sistema"
+    }
+  },
+  "locale": {
+    "switchLabel": "Passa a {locale}",
+    "current": "IT",
+    "other": "EN"
+  },
+  "splash": {
+    "title": "Alessio Sopranzi",
+    "fallbackText": "Scegli una lingua:",
+    "linkEn": "English",
+    "linkIt": "Italiano"
+  }
+}

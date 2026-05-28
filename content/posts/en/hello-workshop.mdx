@@ -1,0 +1,43 @@
+---
+title: "Hello, workshop"
+description: "A first note about what this place is, how it works under the hood, and how new articles land here."
+date: 2026-05-27
+tags: ["meta", "workshop"]
+articleId: "hello-workshop"
+---
+
+This is the first article. I wanted to write something before anything else, partly because writing forces me to commit to a structure, and partly because every studio needs a first piece on the wall — even if it's just a sign that says *we're open*.
+
+## What this place is
+
+Somewhere between a blog and a workbench. A space where I get to think out loud about engineering, music, audio, harmony, and the strange seams where those things touch each other. Some posts will be technical to the bone. Others will be a paragraph about a chord that has been bothering me for two days. I'm not going to discipline the variance.
+
+## How it works under the hood
+
+The whole site is one repository. There's no CMS, no database, no auth, no backend service in any meaningful sense. Every article you read is a plain text file:
+
+```
+content/
+└── posts/
+    ├── hello-workshop.mdx
+    └── …
+```
+
+Each file starts with a small YAML header that says when it was written, what it's about, and which tags it carries. The rest is MDX — markdown plus the option to drop a React component inline when prose isn't enough (a chart, a circuit diagram, a snippet of musical notation).
+
+When I push a commit, Vercel rebuilds the site automatically and the new article is live within a minute. There is something quietly satisfying about a publishing pipeline whose final step is `git push`.
+
+## What the stack actually is
+
+Next.js 16 with the App Router, React 19.2, Tailwind v4, MDX rendered on the server so the browser never has to parse it. Fonts self-hosted. Search will be Pagefind once I wire it up. Code highlighting via Shiki, soon. The whole thing weighs almost nothing on the wire.
+
+<Callout kind="aside">
+  This entire post is itself an `.mdx` file — frontmatter at the top, body
+  below, custom components like this `<Callout>` available without imports.
+</Callout>
+
+## What's next
+
+In rough order of how much I want it: per-post OG images, code-block syntax highlighting, full-text search, a tag system, and eventually a `<Score>` component so I can actually paste musical examples into the harmony posts instead of saying *imagine a vi → IV cadence*.
+
+That's it for now. The kettle's on.
