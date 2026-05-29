@@ -2,7 +2,7 @@
  * The home-page "About me" content, per locale.
  *
  * EN: lifted faithfully from Alessio's BIOPIC.
- * IT: faithful translation, intended as a starting draft —
+ * IT: faithful translation, intended as a starting draft –
  *     Alessio is invited to rewrite in his authorial voice.
  *
  * The id values are shared across locales so that translations
@@ -12,7 +12,7 @@
 import type { Locale } from '@/i18n/routing'
 
 export interface BioParagraph {
-  /** Stable key across locales — never rendered. */
+  /** Stable key across locales – never rendered. */
   id: string
   /** The paragraph body. */
   text: string
@@ -22,7 +22,7 @@ export const bio: Record<Locale, BioParagraph[]> = {
   en: [
     {
       id: 'curiosity',
-      text: `A tech-savvy enthusiast with an instinct for diving vertically into almost anything. I love taking things apart—conceptually, digitally, sometimes literally—just to understand how they truly work. My brain runs on a strange hybrid engine: part engineer, part entrepreneur, part manager, fully nerd. I like turning messy problems into clean systems, dissecting challenges on my own and engineering more efficient personal workflows. I love optimizing life like it's one giant R&D lab, and teaching myself whatever I need to solve the next puzzle. Every dive leaves a lasting imprint, shaping the way I think and sharpening the way I learn, so each new challenge becomes a deeper version of the last. It's a never-ending process… Curiosity is my default setting and deep dives are my natural habitat, and often I have way too much fun figuring things out on my own. I am passionate about understanding how things work in depth, and designing automations and processes for greater efficiency in daily life. I actively study new technologies to solve problems and gain real insights.`,
+      text: `A tech-savvy enthusiast with an instinct for diving vertically into almost anything. I love taking things apart – conceptually, digitally, sometimes literally – just to understand how they truly work. My brain runs on a strange hybrid engine: part engineer, part entrepreneur, part manager, fully nerd. I like turning messy problems into clean systems, dissecting challenges on my own and engineering more efficient personal workflows. I love optimizing life like it's one giant R&D lab, and teaching myself whatever I need to solve the next puzzle. Every dive leaves a lasting imprint, shaping the way I think and sharpening the way I learn, so each new challenge becomes a deeper version of the last. It's a never-ending process… Curiosity is my default setting and deep dives are my natural habitat, and often I have way too much fun figuring things out on my own. I am passionate about understanding how things work in depth, and designing automations and processes for greater efficiency in daily life. I actively study new technologies to solve problems and gain real insights.`,
     },
     {
       id: 'guitar',
@@ -42,7 +42,7 @@ export const bio: Record<Locale, BioParagraph[]> = {
     },
     {
       id: 'acoustic',
-      text: `I've always been fascinated by songs in their rawest form, before production layers or genre conventions are added. A song that thrives acoustically shows the composer's real intention and emotional honesty—the closest we get to hearing it exactly as it wanted to be born. I cherish the idea of songs arising in their purest form, songwriting stripped of production layers and genre-specific embellishments. In their raw acoustic state, these songs reveal the composer's genuine talent and the emotions they aim to convey, connecting directly with the listener in the way they were meant to be born.`,
+      text: `I've always been fascinated by songs in their rawest form, before production layers or genre conventions are added. A song that thrives acoustically shows the composer's real intention and emotional honesty – the closest we get to hearing it exactly as it wanted to be born. I cherish the idea of songs arising in their purest form, songwriting stripped of production layers and genre-specific embellishments. In their raw acoustic state, these songs reveal the composer's genuine talent and the emotions they aim to convey, connecting directly with the listener in the way they were meant to be born.`,
     },
     {
       id: 'arrangement',
@@ -50,7 +50,7 @@ export const bio: Record<Locale, BioParagraph[]> = {
     },
     {
       id: 'discovery',
-      text: `At the same time, I constantly explore new musical discoveries, seeking originality in productions, arrangements and lyrics—a pursuit that nurtures that same humanistic side, because I still love music first and foremost as the most complete art form to me (subjective thought indeed, I know!). It's the only one I can experience at 360°, understanding every nuance without losing the emotional pull.`,
+      text: `At the same time, I constantly explore new musical discoveries, seeking originality in productions, arrangements and lyrics – a pursuit that nurtures that same humanistic side, because I still love music first and foremost as the most complete art form to me (subjective thought indeed, I know!). It's the only one I can experience at 360°, understanding every nuance without losing the emotional pull.`,
     },
     {
       id: 'book',
@@ -70,12 +70,12 @@ export const bio: Record<Locale, BioParagraph[]> = {
     },
   ],
 
-  // ⚠️ DRAFT — traduzione fedele dall'inglese. Da rivedere e
+  // ⚠️ DRAFT – traduzione fedele dall'inglese. Da rivedere e
   //    riscrivere a voce d'autore quando Alessio ne ha voglia.
   it: [
     {
       id: 'curiosity',
-      text: `Un appassionato di tecnologia con l'istinto di tuffarsi in verticale dentro praticamente qualsiasi cosa. Adoro smontare le cose—concettualmente, digitalmente, a volte letteralmente—solo per capire come funzionano davvero. Il mio cervello gira su uno strano motore ibrido: parte ingegnere, parte imprenditore, parte manager, completamente nerd. Mi piace trasformare problemi disordinati in sistemi puliti, sezionare sfide in autonomia e progettare flussi di lavoro personali più efficienti. Amo ottimizzare la vita come se fosse un grande laboratorio di R&S, e imparare da solo qualunque cosa serva per risolvere il prossimo enigma. Ogni immersione lascia un'impronta duratura, modella il modo in cui penso e affina il modo in cui imparo, così ogni nuova sfida diventa una versione più profonda della precedente. È un processo senza fine… La curiosità è il mio stato di default e le immersioni profonde il mio habitat naturale, e spesso mi diverto fin troppo a capire le cose per conto mio. Sono appassionato di capire come funzionano le cose in profondità, e di progettare automazioni e processi per una maggiore efficienza nella vita quotidiana. Studio attivamente nuove tecnologie per risolvere problemi e ottenere intuizioni reali.`,
+      text: `Un appassionato di tecnologia con l'istinto di tuffarsi in verticale dentro praticamente qualsiasi cosa. Adoro smontare le cose – concettualmente, digitalmente, a volte letteralmente – solo per capire come funzionano davvero. Il mio cervello gira su uno strano motore ibrido: parte ingegnere, parte imprenditore, parte manager, completamente nerd. Mi piace trasformare problemi disordinati in sistemi puliti, sezionare sfide in autonomia e progettare flussi di lavoro personali più efficienti. Amo ottimizzare la vita come se fosse un grande laboratorio di R&S, e imparare da solo qualunque cosa serva per risolvere il prossimo enigma. Ogni immersione lascia un'impronta duratura, modella il modo in cui penso e affina il modo in cui imparo, così ogni nuova sfida diventa una versione più profonda della precedente. È un processo senza fine… La curiosità è il mio stato di default e le immersioni profonde il mio habitat naturale, e spesso mi diverto fin troppo a capire le cose per conto mio. Sono appassionato di capire come funzionano le cose in profondità, e di progettare automazioni e processi per una maggiore efficienza nella vita quotidiana. Studio attivamente nuove tecnologie per risolvere problemi e ottenere intuizioni reali.`,
     },
     {
       id: 'guitar',
@@ -95,7 +95,7 @@ export const bio: Record<Locale, BioParagraph[]> = {
     },
     {
       id: 'acoustic',
-      text: `Mi hanno sempre affascinato le canzoni nella loro forma più grezza, prima che vi vengano aggiunti strati di produzione o convenzioni di genere. Una canzone che vive in acustico mostra l'intenzione reale del compositore e la sua onestà emotiva—il più vicino a sentirla esattamente come voleva nascere. Custodisco l'idea di canzoni che sorgono nella loro forma più pura, songwriting spogliato di strati di produzione ed orpelli di genere. Nel loro stato acustico grezzo, queste canzoni rivelano il talento genuino del compositore e le emozioni che vuole trasmettere, collegandosi direttamente con l'ascoltatore nel modo in cui erano destinate a nascere.`,
+      text: `Mi hanno sempre affascinato le canzoni nella loro forma più grezza, prima che vi vengano aggiunti strati di produzione o convenzioni di genere. Una canzone che vive in acustico mostra l'intenzione reale del compositore e la sua onestà emotiva – il più vicino a sentirla esattamente come voleva nascere. Custodisco l'idea di canzoni che sorgono nella loro forma più pura, songwriting spogliato di strati di produzione ed orpelli di genere. Nel loro stato acustico grezzo, queste canzoni rivelano il talento genuino del compositore e le emozioni che vuole trasmettere, collegandosi direttamente con l'ascoltatore nel modo in cui erano destinate a nascere.`,
     },
     {
       id: 'arrangement',
@@ -103,7 +103,7 @@ export const bio: Record<Locale, BioParagraph[]> = {
     },
     {
       id: 'discovery',
-      text: `Allo stesso tempo, esploro costantemente nuove scoperte musicali, cercando originalità in produzioni, arrangiamenti e testi—una ricerca che nutre quello stesso lato umanistico, perché ancora amo la musica prima di tutto come la forma d'arte più completa per me (pensiero soggettivo, certo!). È l'unica che riesco a vivere a 360°, capendo ogni sfumatura senza perdere la spinta emotiva.`,
+      text: `Allo stesso tempo, esploro costantemente nuove scoperte musicali, cercando originalità in produzioni, arrangiamenti e testi – una ricerca che nutre quello stesso lato umanistico, perché ancora amo la musica prima di tutto come la forma d'arte più completa per me (pensiero soggettivo, certo!). È l'unica che riesco a vivere a 360°, capendo ogni sfumatura senza perdere la spinta emotiva.`,
     },
     {
       id: 'book',

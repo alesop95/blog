@@ -27,7 +27,7 @@
     "copyright": "© {year} Alessio Sopranzi",
     "rss": "RSS",
     "sitemap": "Sitemap",
-    "credit": "Hand-built with Next.js & Tailwind. Source on GitHub."
+    "credit": "Built with Next.js & Tailwind. Source on GitHub."
   },
   "theme": {
     "ariaLabel": "Theme: {current}. Click to switch to {next}.",

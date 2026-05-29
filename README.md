@@ -1,32 +1,32 @@
-# Alessio Sopranzi — writings
+# Alessio Sopranzi – writings
 
 Personal blog & writings studio. Bilingual EN + IT, hand-built on Next.js 16 +
 Tailwind v4 + MDX, hosted on GitHub Pages.
 
-> **Live URL** — `https://alesop95.github.io/blog` (GitHub Pages project site, repo `blog`; see ADR-004)
+> **Live URL** – `https://alesop95.github.io/blog` (GitHub Pages project site, repo `blog`; see ADR-004)
 
 ## What this is
 
 A file-based blog: every article is a `.mdx` file in `content/posts/{en,it}/`,
 type-checked frontmatter, build-time static export, no backend, no CMS.
 
-Each article exists in both languages (or only one — locale-exclusive posts
+Each article exists in both languages (or only one – locale-exclusive posts
 are explicitly allowed) and is paired across locales via an `articleId`
 frontmatter field.
 
 ## Project memory
 
-Before reading anything else, read **`.claude/CLAUDE.md`** — it explains the
+Before reading anything else, read **`.claude/CLAUDE.md`** – it explains the
 current state, conventions, and how to resume work in a fresh session.
 
 Related docs in `.claude/`:
 
-- `architecture.md` — technical deep-dive
-- `roadmap.md` — phases and checkboxes
-- `decisions/` — Architecture Decision Records
-  - `001-stack.md` — framework + tooling choices
-  - `002-hosting-github-pages.md` — why GitHub Pages and no custom domain
-  - `003-i18n.md` — bilingual design
+- `architecture.md` – technical deep-dive
+- `roadmap.md` – phases and checkboxes
+- `decisions/` – Architecture Decision Records
+  - `001-stack.md` – framework + tooling choices
+  - `002-hosting-github-pages.md` – why GitHub Pages and no custom domain
+  - `003-i18n.md` – bilingual design
 
 ## Quick start
 
@@ -113,7 +113,7 @@ If you'd rather the blog own the root URL instead of `/blog`:
 Currently we use the free GitHub Pages subdomain (see ADR-002). To switch
 to a custom domain later:
 
-1. Buy the domain (cheap registrars: Porkbun, Cloudflare Registrar — ~€7–10/year for `.it`).
+1. Buy the domain (cheap registrars: Porkbun, Cloudflare Registrar – ~€7–10/year for `.it`).
 2. Configure DNS at the registrar:
    - 4 A records on the apex: `185.199.108.153`, `109.153`, `110.153`, `111.153`.
    - 1 CNAME on `www` pointing to `alesop95.github.io`.
@@ -136,5 +136,5 @@ No code changes beyond `public/CNAME` and the env var.
 
 ## License
 
-MIT. Code is freely reusable. Article content is © Alessio Sopranzi —
+MIT. Code is freely reusable. Article content is © Alessio Sopranzi –
 ask before republishing.

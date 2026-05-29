@@ -1,13 +1,13 @@
 /**
  * Table-of-contents extraction from raw MDX content.
  *
- * IDs are produced with `github-slugger` — the SAME slugger that `rehype-slug`
- * uses at render time — so each entry's `id` matches the heading's rendered
+ * IDs are produced with `github-slugger` – the SAME slugger that `rehype-slug`
+ * uses at render time – so each entry's `id` matches the heading's rendered
  * anchor exactly. Every heading (any level) advances the slugger in document
  * order, so duplicate heading texts receive the same `-1`/`-2` suffixes
  * rehype-slug would assign; only h2/h3 are returned for the ToC.
  *
- * Build-time only — never shipped to the client.
+ * Build-time only – never shipped to the client.
  */
 
 import GithubSlugger from 'github-slugger'

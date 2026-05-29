@@ -7,7 +7,7 @@ interface PostsListProps {
 }
 
 /**
- * The home-page archive list. Tight, typographic, no thumbnails —
+ * The home-page archive list. Tight, typographic, no thumbnails –
  * the title carries the post.
  */
 export function PostsList({ posts }: PostsListProps) {

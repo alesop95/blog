@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing'
 /**
  * Root locale-detect splash.
  *
- * GitHub Pages serves only static files — there is no server-side request
+ * GitHub Pages serves only static files – there is no server-side request
  * handler that can read `Accept-Language` and redirect. So this page emits
  * a minimal document with an inline `<script>` that:
  *
@@ -19,7 +19,7 @@ import { routing } from '@/i18n/routing'
  * The page opts out of indexing so crawlers see /en/ and /it/ as the
  * canonical URLs (and the splash itself is invisible to search).
  *
- * Intentionally inherits ONLY the bare root layout — no fonts, no Tailwind,
+ * Intentionally inherits ONLY the bare root layout – no fonts, no Tailwind,
  * no providers. The user is here for <200 ms before the redirect fires.
  */
 
@@ -50,7 +50,7 @@ const inlineRedirectScript = `
       window.location.replace(bp + '/' + saved + '/');
       return;
     }
-  } catch (e) { /* localStorage may throw — fall through */ }
+  } catch (e) { /* localStorage may throw – fall through */ }
   var lang = (navigator.language || 'en').toLowerCase();
   var target = lang.indexOf('it') === 0 ? bp + '/it/' : bp + '/en/';
   window.location.replace(target);
@@ -72,7 +72,7 @@ export default function RootSplash() {
       <script dangerouslySetInnerHTML={{ __html: inlineRedirectScript }} />
       <noscript>
         <h1>Alessio Sopranzi</h1>
-        <p>Please choose a language — Scegli una lingua:</p>
+        <p>Please choose a language – Scegli una lingua:</p>
         <p>
           <a href={`${siteConfig.basePath}/en/`}>English</a>
           <a href={`${siteConfig.basePath}/it/`}>Italiano</a>

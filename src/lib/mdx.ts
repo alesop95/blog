@@ -2,7 +2,7 @@
  * MDX plugin pipeline. Imported by the post page when compiling MDX
  * with `next-mdx-remote/rsc`.
  *
- * Keep the list short and curated — every plugin is HTML emitted into
+ * Keep the list short and curated – every plugin is HTML emitted into
  * every post forever, so additions should be justified.
  */
 
@@ -18,7 +18,7 @@ import remarkSmartypants from 'remark-smartypants'
 /**
  * Shiki configuration for code-block syntax highlighting.
  *
- * • Two themes — `github-light` and `github-dark` — emitted as CSS variables
+ * • Two themes – `github-light` and `github-dark` – emitted as CSS variables
  *   on every token. We swap them via the `.dark` class on <html> set by
  *   next-themes. Zero JavaScript at runtime.
  * • `keepBackground: false` lets our own CSS own the surface colour, so the

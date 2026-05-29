@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* -------------------------------------------------------------------------- */
-/*  Design tokens — Tailwind v4 CSS-first configuration.                      */
+/*  Design tokens – Tailwind v4 CSS-first configuration.                      */
 /*                                                                            */
 /*  Every token here becomes:                                                 */
 /*    1. A CSS custom property (--color-accent, --font-display, etc).         */
@@ -18,10 +18,10 @@
   --font-mono: var(--font-jetbrains, "JetBrains Mono"), ui-monospace,
     SFMono-Regular, Menlo, monospace;
 
-  /* Colours — light mode defaults. Dark overrides in @variant dark below.    */
+  /* Colours – light mode defaults. Dark overrides in @variant dark below.    */
   --color-paper: oklch(0.985 0.005 80);   /* warm paper background          */
   --color-ink: oklch(0.18 0.015 80);      /* near-black with a warm tilt    */
-  --color-accent: oklch(0.66 0.16 55);    /* warm copper — amp glow         */
+  --color-accent: oklch(0.66 0.16 55);    /* warm copper – amp glow         */
 
   /* Radii & shadows -------------------------------------------------------- */
   --radius-sm: 4px;
@@ -29,7 +29,7 @@
   --radius-lg: 12px;
 }
 
-/* Dark mode overrides — class-based, driven by next-themes (.dark on <html>) */
+/* Dark mode overrides – class-based, driven by next-themes (.dark on <html>) */
 @variant dark (&:where(.dark, .dark *));
 
 :root.dark {
@@ -39,7 +39,7 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Base layer — paper, ink, body type, focus rings.                          */
+/*  Base layer – paper, ink, body type, focus rings.                          */
 /* -------------------------------------------------------------------------- */
 
 @layer base {
@@ -82,7 +82,7 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Prose — applied to the rendered MDX body. We deliberately do NOT use      */
+/*  Prose – applied to the rendered MDX body. We deliberately do NOT use      */
 /*  `@tailwindcss/typography`: it brings opinions we'd have to spend more     */
 /*  time overriding than writing ourselves.                                   */
 /* -------------------------------------------------------------------------- */
@@ -215,7 +215,7 @@
 /*    --shiki-light  (default) and --shiki-dark                               */
 /*  In dark mode we redirect --shiki-light to --shiki-dark so the same        */
 /*  inline-styled tokens render in the alternate palette without re-emitting  */
-/*  the markup. Zero JS at runtime — pure CSS swap.                           */
+/*  the markup. Zero JS at runtime – pure CSS swap.                           */
 /* -------------------------------------------------------------------------- */
 
 @layer components {
@@ -266,7 +266,7 @@
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 
-  /* Line numbering — opt-in via `[showLineNumbers]` on the code fence */
+  /* Line numbering – opt-in via `[showLineNumbers]` on the code fence */
   .prose code[data-line-numbers] > [data-line]::before {
     counter-increment: line;
     content: counter(line);
@@ -285,7 +285,7 @@
     padding-left: calc(1.1rem - 2px);
   }
 
-  /* Code-block titles — when an author writes ` ```ts title="foo.ts" `        */
+  /* Code-block titles – when an author writes ` ```ts title="foo.ts" `        */
   .prose [data-rehype-pretty-code-title] {
     font-family: var(--font-mono);
     font-size: 0.78em;

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { buildFeed } from '@/lib/feed'
 import { isLocale, routing } from '@/i18n/routing'
 
-// Force static rendering — the feed is rebuilt with the rest of the site.
+// Force static rendering – the feed is rebuilt with the rest of the site.
 export const dynamic = 'force-static'
 
 export async function generateStaticParams() {

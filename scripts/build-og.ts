@@ -65,7 +65,7 @@ interface CardProps {
   title: string
   subtitle: string
   locale: Locale
-  /** "writings" / "scritti" — the section label */
+  /** "writings" / "scritti" – the section label */
   section: string
   /** Already-localized reading time, e.g. "5 min read" / "5 min di lettura". */
   readingLabel?: string
@@ -233,7 +233,7 @@ async function renderPng(
   fonts: Array<{ name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }>,
   outPath: string,
 ) {
-  // @ts-expect-error — satori's JSX type accepts our hand-built node
+  // @ts-expect-error – satori's JSX type accepts our hand-built node
   const svg = await satori(element, { width: 1200, height: 630, fonts })
   const png = await sharp(Buffer.from(svg)).png({ quality: 95 }).toBuffer()
   await mkdir(dirname(outPath), { recursive: true })
@@ -296,7 +296,7 @@ async function main() {
   const [regular, bold, fraunces] = await Promise.all([
     loadGoogleFont('Inter', 400),
     loadGoogleFont('Inter', 700),
-    // Fraunces is the site's display serif — used for the card title so the
+    // Fraunces is the site's display serif – used for the card title so the
     // OG image speaks in the same voice as the page <h1>.
     loadGoogleFont('Fraunces', 700),
   ])
@@ -309,7 +309,7 @@ async function main() {
   // 1) Default site card
   await renderPng(
     buildCard({
-      title: 'Alessio Sopranzi — writings',
+      title: 'Alessio Sopranzi – writings',
       subtitle:
         'Engineering, music, audio, and the philosophy of how things actually work.',
       locale: 'en',

@@ -3,7 +3,7 @@ import type { TocEntry } from '@/lib/toc'
 /**
  * Inline, collapsible table of contents for long posts.
  *
- * Native `<details>` — open by default, keyboard-accessible, zero JS. Links are
+ * Native `<details>` – open by default, keyboard-accessible, zero JS. Links are
  * fragment-only (`#id`), so they need no basePath. The post page decides when to
  * render this (word count + heading count gate).
  */

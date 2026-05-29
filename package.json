@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Personal blog of Alessio Sopranzi — engineering, music, and the workshop in between.",
+  "description": "Personal blog of Alessio Sopranzi – engineering, music, and the workshop in between.",
   "author": "Alessio Sopranzi",
   "license": "MIT",
   "engines": {

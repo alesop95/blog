@@ -1,4 +1,4 @@
-# Architecture — technical deep-dive
+# Architecture – technical deep-dive
 
 > Updated 2026-05-27 (Session #4). Companion to `CLAUDE.md`.
 
@@ -11,7 +11,7 @@ The site is a GitHub Pages **project site** served at `https://alesop95.github.i
 - `NEXT_PUBLIC_SITE_URL` is the **full origin including the base path**
   (`https://alesop95.github.io/blog`), so `siteConfig.url` already carries `/blog`.
   Every absolute URL (canonical, OG, sitemap, robots, feed, JSON-LD,
-  `openGraph.url`) is built from it via string concatenation — correct by default.
+  `openGraph.url`) is built from it via string concatenation – correct by default.
 - **Metadata rule**: Next.js does NOT apply `basePath` to App Router metadata, and
   `new URL('/en', '.../blog')` drops `/blog`. So root-relative metadata
   (`alternates.canonical`/`languages`/`types`, OG/twitter `images`) is made
@@ -36,7 +36,7 @@ Consequences:
 - All pages are Server Components rendered at build time.
 - No `revalidate`, no on-demand revalidation. To update content, rebuild and
   redeploy (1–2 minutes via GitHub Actions).
-- `next/image` runs unoptimised — resize source images before commit.
+- `next/image` runs unoptimised – resize source images before commit.
 - Dynamic OG images are pre-generated at build time (`scripts/build-og.ts`).
 - The root locale redirect is browser-side JavaScript (no server to read
   `Accept-Language`).
@@ -51,13 +51,13 @@ src/app/
 ├── robots.ts                  ← robots.txt
 └── [locale]/                  ← all real routes
     ├── layout.tsx             ← fonts, ThemeProvider, NextIntlClientProvider
-    ├── page.tsx               ← /en/, /it/ — home (bio + posts list)
+    ├── page.tsx               ← /en/, /it/ – home (bio + posts list)
     ├── globals.css            ← Tailwind v4 + @theme tokens
     ├── posts/[slug]/page.tsx  ← /en/posts/<slug>, /it/articoli/<slug>
     └── feed.xml/route.ts      ← /en/feed.xml, /it/feed.xml
 ```
 
-**One `<html>/<body>` in the tree, in `src/app/layout.tsx`** — Next.js requires
+**One `<html>/<body>` in the tree, in `src/app/layout.tsx`** – Next.js requires
 this. The locale layout wraps children in a `<div lang={locale}>` instead.
 
 ## Data flow
@@ -74,14 +74,14 @@ content/posts/{en,it}/*.mdx
      • getAllPosts(locale)
      • getPostBySlug(locale, slug)
      • getAdjacentPosts(locale, slug)
-     • getTranslation(post) — finds gemella via articleId
+     • getTranslation(post) – finds gemella via articleId
         │
-        ├──► [locale]/page.tsx — home renders all posts
-        ├──► [locale]/posts/[slug]/page.tsx — single post + adjacent + translation
+        ├──► [locale]/page.tsx – home renders all posts
+        ├──► [locale]/posts/[slug]/page.tsx – single post + adjacent + translation
         │      + extractToc (src/lib/toc.ts): h2/h3 ToC, slugs match rehype-slug
-        ├──► [locale]/feed.xml/route.ts — RSS/Atom/JSON per locale
-        ├──► app/sitemap.ts — bilingual sitemap with hreflang
-        └──► scripts/build-og.ts — one OG PNG per post per locale
+        ├──► [locale]/feed.xml/route.ts – RSS/Atom/JSON per locale
+        ├──► app/sitemap.ts – bilingual sitemap with hreflang
+        └──► scripts/build-og.ts – one OG PNG per post per locale
 ```
 
 ## i18n internals
@@ -113,7 +113,7 @@ Wiring:
 - Navigation uses the typed helpers from `src/i18n/navigation.ts` (Link,
   router, pathname) so URL segments are auto-localized.
 - `setRequestLocale(locale)` is called in every page/layout that takes a
-  `locale` param — required by next-intl for proper static rendering.
+  `locale` param – required by next-intl for proper static rendering.
 
 ## Translation pairing
 
@@ -125,10 +125,10 @@ Each post can declare an `articleId` in frontmatter. Two posts with the same
 
 This pairing is used by:
 
-- The locale switcher in the header — clicking IT on an EN post navigates
+- The locale switcher in the header – clicking IT on an EN post navigates
   to the gemella IT slug, not just `/it/` home.
-- The sitemap — emits `<xhtml:link rel="alternate" hreflang>` annotations.
-- Post page metadata — `alternates.languages` for canonical hreflang.
+- The sitemap – emits `<xhtml:link rel="alternate" hreflang>` annotations.
+- Post page metadata – `alternates.languages` for canonical hreflang.
 
 Slugs are explicitly distinct per locale. SEO-pure.
 
@@ -160,7 +160,7 @@ Generated at build time by `scripts/build-og.ts`:
 Fonts are pulled from Google Fonts at build time. For a fully offline build,
 vendor the `.ttf` files into `public/fonts/` and read them via `readFile`.
 
-`public/og/` is gitignored — regenerated on every deploy.
+`public/og/` is gitignored – regenerated on every deploy.
 
 ## Theme switching
 

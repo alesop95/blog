@@ -2,7 +2,7 @@
  * The blog's bilingual post collection.
  *
  * Posts live as `.mdx` files in `content/posts/{en,it}/`. Each has YAML
- * frontmatter validated by a Zod schema — invalid frontmatter fails the
+ * frontmatter validated by a Zod schema – invalid frontmatter fails the
  * build, on purpose.
  *
  * This module is *the* source of truth. Every route that needs posts

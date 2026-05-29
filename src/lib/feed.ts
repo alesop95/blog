@@ -30,8 +30,8 @@ export async function buildFeed(locale: Locale): Promise<Feed> {
   // a circular import on next-intl server helpers in this leaf module).
   const title =
     locale === 'it'
-      ? 'Alessio Sopranzi — scritti'
-      : 'Alessio Sopranzi — writings'
+      ? 'Alessio Sopranzi – scritti'
+      : 'Alessio Sopranzi – writings'
   const description =
     locale === 'it'
       ? "Scritti personali di Alessio Sopranzi all'incrocio fra ingegneria, musica, audio e la filosofia di come le cose funzionano davvero."

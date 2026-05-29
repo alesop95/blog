@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 /**
- * Root layout — intentionally minimal.
+ * Root layout – intentionally minimal.
  *
  * Provides only the `<html>` / `<body>` shell required by Next.js.
  * Fonts, theme provider, and i18n provider live in the [locale]/layout.tsx

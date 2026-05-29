@@ -9,7 +9,7 @@ import type { ComponentProps } from 'react'
  *
  * Wraps the original `<pre>` (already syntax-highlighted by rehype-pretty-code)
  * with a hover-visible "copy" button. The button reads the rendered code's
- * `textContent` so it copies exactly what the reader sees, not the source —
+ * `textContent` so it copies exactly what the reader sees, not the source –
  * which means typographic preprocessing (smartypants etc.) doesn't sneak into
  * pasted code.
  *
@@ -22,7 +22,7 @@ export function CodeBlock(props: ComponentProps<'pre'>) {
   const [supported, setSupported] = useState(false)
 
   // Only mount the button if the Clipboard API is actually available
-  // (it requires HTTPS in production — which we always have on GH Pages —
+  // (it requires HTTPS in production – which we always have on GH Pages –
   // and a user activation gesture, which a click satisfies).
   useEffect(() => {
     setSupported(
@@ -38,7 +38,7 @@ export function CodeBlock(props: ComponentProps<'pre'>) {
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1800)
     } catch {
-      // Clipboard write can fail in restricted contexts — fail silently.
+      // Clipboard write can fail in restricted contexts – fail silently.
     }
   }
 

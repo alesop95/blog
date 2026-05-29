@@ -51,7 +51,7 @@ jobs:
           # Project-site mode (ADR-004): the blog lives under /blog so the
           # user-site root slot (<user>.github.io) stays free for the future.
           # BASE_PATH drives next.config's basePath; NEXT_PUBLIC_SITE_URL is the
-          # full public origin INCLUDING the base path — every absolute URL
+          # full public origin INCLUDING the base path – every absolute URL
           # (canonical, OG, sitemap, feed, JSON-LD) is built from it.
           NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/blog
           BASE_PATH: /blog

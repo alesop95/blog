@@ -53,13 +53,13 @@ export async function generateMetadata({
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'site' })
   const localTitle =
-    locale === 'it' ? `${siteConfig.name} — scritti` : `${siteConfig.name} — writings`
+    locale === 'it' ? `${siteConfig.name} – scritti` : `${siteConfig.name} – writings`
 
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
       default: localTitle,
-      template: `%s — ${siteConfig.name}`,
+      template: `%s – ${siteConfig.name}`,
     },
     description: t('description'),
     authors: [{ name: siteConfig.authorName }],
@@ -81,7 +81,7 @@ export async function generateMetadata({
       description: t('description'),
       images: [`${siteConfig.url}${siteConfig.ogImage}`],
     },
-    // All alternates are absolute on purpose — see the openGraph note above.
+    // All alternates are absolute on purpose – see the openGraph note above.
     alternates: {
       canonical: `${siteConfig.url}/${locale}`,
       languages: Object.fromEntries(
@@ -103,8 +103,8 @@ export const viewport: Viewport = {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Locale layout — wraps in fonts + theme + i18n providers.                  */
-/*  Does NOT render <html>/<body> — that lives in the root layout.            */
+/*  Locale layout – wraps in fonts + theme + i18n providers.                  */
+/*  Does NOT render <html>/<body> – that lives in the root layout.            */
 /* -------------------------------------------------------------------------- */
 
 export default async function LocaleLayout({

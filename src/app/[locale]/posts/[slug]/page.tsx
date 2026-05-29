@@ -117,7 +117,7 @@ export default async function PostPage({ params }: { params: Params }) {
   const toc = extractToc(post.content)
   const showToc = post.readingTime.words > TOC_MIN_WORDS && toc.length >= 3
 
-  // Absolute URLs (include basePath via siteConfig.url) — see ADR-004.
+  // Absolute URLs (include basePath via siteConfig.url) – see ADR-004.
   const postUrl = `${siteConfig.url}/${locale}/${locale === 'it' ? 'articoli' : 'posts'}/${slug}`
   const ogImage = `${siteConfig.url}/og/${locale}/${slug}.png`
   const person = {

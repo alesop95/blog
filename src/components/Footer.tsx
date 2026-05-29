@@ -14,7 +14,7 @@ export function Footer() {
           <li>
             <a
               // Plain anchor (feed.xml is a route handler, not in routing.pathnames),
-              // so basePath isn't applied automatically — prefix it manually.
+              // so basePath isn't applied automatically – prefix it manually.
               href={`${siteConfig.basePath}/${locale}/feed.xml`}
               className="transition-colors hover:text-accent"
             >

@@ -4,7 +4,7 @@ import { defineRouting } from 'next-intl/routing'
  * The shape of our i18n routing.
  *
  * `localePrefix: 'always'` means every real route has either `/en/...` or
- * `/it/...` — never a bare URL. The bare root `/` is handled by a separate
+ * `/it/...` – never a bare URL. The bare root `/` is handled by a separate
  * splash page (`src/app/page.tsx`) that redirects browser-side.
  *
  * `pathnames` localizes the URL segments themselves, not just the language.

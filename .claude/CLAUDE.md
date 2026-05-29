@@ -1,30 +1,30 @@
-# CLAUDE.md — Project Memory
+# CLAUDE.md – Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-05-27** · Session #4 — project-site `/blog` migration (ADR-004); Phase 2-A completed (OG v2, auto ToC, JSON-LD audit, Prev/Next polish).
+> Last update: **2026-05-29** · Session #5 – typographic housekeeping: em dash `—` → spaced en dash ` – ` repo-wide (216 swaps, 39 files), footer copy `Hand-built…` → `Built…`, private `_notes/` technical diary established.
 
 ---
 
 ## 1. Project identity
 
-**Name**: Alessio Sopranzi — writings
-**URL**: `https://alesop95.github.io/blog` (GitHub Pages **project site**, repo `blog`, `basePath: /blog` — free forever). See ADR-004.
+**Name**: Alessio Sopranzi – writings
+**URL**: `https://alesop95.github.io/blog` (GitHub Pages **project site**, repo `blog`, `basePath: /blog` – free forever). See ADR-004.
 **Owner**: Alessio Sopranzi · GitHub: [`alesop95`](https://github.com/alesop95)
 **Type**: Personal blog / writings studio
-**Inspired by**: [`dgopsq/writings`](https://github.com/dgopsq/writings) — same conceptual shape (file-based MDX, no custom backend, static rendering), rebuilt from scratch on the modern 2026 stack and personalised to Alessio's voice.
+**Inspired by**: [`dgopsq/writings`](https://github.com/dgopsq/writings) – same conceptual shape (file-based MDX, no custom backend, static rendering), rebuilt from scratch on the modern 2026 stack and personalised to Alessio's voice.
 
-> **Hosting shape (ADR-004)**: the blog is a GitHub *project site* at `/blog`. The single **user-site root slot (`alesop95.github.io`) is deliberately left empty** — no repo, bare domain 404s — so it stays free for a future portfolio/landing page. Coexists independently with the pre-existing `https://alesop95.github.io/skills/` project site. Each GitHub user has one user-site slot (root URL) and unlimited project sites (sub-path URLs), all free forever.
+> **Hosting shape (ADR-004)**: the blog is a GitHub *project site* at `/blog`. The single **user-site root slot (`alesop95.github.io`) is deliberately left empty** – no repo, bare domain 404s – so it stays free for a future portfolio/landing page. Coexists independently with the pre-existing `https://alesop95.github.io/skills/` project site. Each GitHub user has one user-site slot (root URL) and unlimited project sites (sub-path URLs), all free forever.
 
-> **Custom domain decision (Session #2)**: Alessio investigated `alessioblog.it` on Register.it. Quoted at €71.43/year (€58.55 + 22% IVA) — too expensive for a personal blog, and Alessio explicitly does not want any recurring cost tied to URL personalisation. Decision: **stay on the free `*.github.io` subdomain indefinitely**. If a custom domain is wanted in the future, the cheapest acceptable path is Porkbun or Cloudflare Registrar (~€8/year for a `.it`), and the migration is a 30-minute DNS + GitHub setting change with zero code impact.
+> **Custom domain decision (Session #2)**: Alessio investigated `alessioblog.it` on Register.it. Quoted at €71.43/year (€58.55 + 22% IVA) – too expensive for a personal blog, and Alessio explicitly does not want any recurring cost tied to URL personalisation. Decision: **stay on the free `*.github.io` subdomain indefinitely**. If a custom domain is wanted in the future, the cheapest acceptable path is Porkbun or Cloudflare Registrar (~€8/year for a `.it`), and the migration is a 30-minute DNS + GitHub setting change with zero code impact.
 
 ### Editorial positioning (from BIOPIC)
 
 Alessio writes from the intersection of:
 
-- **Engineering & systems** — musical acoustics, multimedia signal processing, computer music, audio hardware (PA, car audio, marine speakers), guitar pedal circuits, workflow automation.
-- **Music** — lead guitar, music production, songwriting & arrangement, Italian *cantautorato* lyrics, the philosophy of the acoustically-bare song, encyclopedic rock culture.
-- **Theory & humanism** — an in-progress book on harmony and Western music theory (mathematical *and* philosophical).
-- **The R&D-as-life mindset** — curiosity-driven deep dives, taking things apart to learn how they work.
+- **Engineering & systems** – musical acoustics, multimedia signal processing, computer music, audio hardware (PA, car audio, marine speakers), guitar pedal circuits, workflow automation.
+- **Music** – lead guitar, music production, songwriting & arrangement, Italian *cantautorato* lyrics, the philosophy of the acoustically-bare song, encyclopedic rock culture.
+- **Theory & humanism** – an in-progress book on harmony and Western music theory (mathematical *and* philosophical).
+- **The R&D-as-life mindset** – curiosity-driven deep dives, taking things apart to learn how they work.
 
 Bilingual from day one (EN + IT) because Alessio writes natively in both. Default fallback is EN.
 
@@ -76,7 +76,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 ┌────────────────────────────────────────────────────────────────────────┐
 │  src/lib/posts.ts                                                       │
 │  • getAllPosts(locale) / getPostBySlug(locale, slug)                    │
-│  • getTranslationPair(post) — finds the gemella in the other locale     │
+│  • getTranslationPair(post) – finds the gemella in the other locale     │
 │    via the `articleId` frontmatter field                                │
 └────────┬───────────────────────────────────┬───────────────────────────┘
          │ (Server Component)                │ (Build-time scripts)
@@ -179,26 +179,31 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 
 ---
 
-## 7. Current state (end of Session #4)
+## 7. Current state (end of Session #5)
 
-✅ **Phase 1 — Foundation** (Session #1) — full skeleton, monolingual EN, Vercel target.
-✅ **Phase R1 — Re-platform** (Session #2) — GitHub Pages + bilingual EN/IT, OG build-time, deploy workflow.
-✅ **Phase 2-A — Reading experience** (Sessions #3–#4 — complete):
+✅ **Phase 1 – Foundation** (Session #1) – full skeleton, monolingual EN, Vercel target.
+✅ **Phase R1 – Re-platform** (Session #2) – GitHub Pages + bilingual EN/IT, OG build-time, deploy workflow.
+✅ **Phase 2-A – Reading experience** (Sessions #3–#4 – complete):
 - ✅ Syntax-highlighted code via `rehype-pretty-code` + Shiki (github-light + github-dark-dimmed, CSS-variable swap)
 - ✅ Copy-button on code blocks (hover-visible, Clipboard API, graceful fallback)
-- ✅ Heading anchor links — explicit `#` span, hover-reveal styling
-- ✅ Auto Table of Contents (`src/lib/toc.ts` + `Toc.tsx`) — inline collapsible `<details>`, gated >1500 words & ≥3 h2/h3; IDs via `github-slugger` to match `rehype-slug`
-- ✅ OG card v2 — Fraunces title + reading-time & first-tag badges (`scripts/build-og.ts`)
-- ✅ JSON-LD audit — `BlogPosting` with image, publisher, wordCount, keywords[], mainEntityOfPage, `translationOfWork` (via `articleId` pair)
-- ✅ Prev/Next polish — lucide chevrons, title-aware aria-labels
+- ✅ Heading anchor links – explicit `#` span, hover-reveal styling
+- ✅ Auto Table of Contents (`src/lib/toc.ts` + `Toc.tsx`) – inline collapsible `<details>`, gated >1500 words & ≥3 h2/h3; IDs via `github-slugger` to match `rehype-slug`
+- ✅ OG card v2 – Fraunces title + reading-time & first-tag badges (`scripts/build-og.ts`)
+- ✅ JSON-LD audit – `BlogPosting` with image, publisher, wordCount, keywords[], mainEntityOfPage, `translationOfWork` (via `articleId` pair)
+- ✅ Prev/Next polish – lucide chevrons, title-aware aria-labels
 
-✅ **Project-site `/blog` migration (ADR-004)** — repo `blog`, `basePath: /blog`, all absolute URLs centralised on `siteConfig.url`; user-site root slot left empty.
+✅ **Project-site `/blog` migration (ADR-004)** – repo `blog`, `basePath: /blog`, all absolute URLs centralised on `siteConfig.url`; user-site root slot left empty.
 
-GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.github.io/blog`** (project site). User-site root (`alesop95.github.io`) intentionally left empty. Coexists independently with `https://alesop95.github.io/skills/` — see section 1 + ADR-004.
+✅ **Typographic housekeeping (Session #5 – 2026-05-29)**:
+- ✅ Em dash `—` → **spaced en dash ` – `** repo-wide (216 swaps across 39 files). New project convention: the en dash is the canonical separator/parenthetical glyph — never the em dash. `bio.ts` tight cases respaced to ` – `.
+- ✅ Footer credit: `Hand-built with…` → `Built with…` (EN), `Costruito a mano con…` → `Costruito con…` (IT) in `messages/{en,it}.json`.
+- ✅ Private **`_notes/`** technical diary established (gitignored, uses-personal): `README.md`, `DIARIO.md` (per-intervention log), `STACK.md` (always-updated stack + flow). Verbose private layer complementing the versioned `.claude/` truth.
+
+GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.github.io/blog`** (project site). User-site root (`alesop95.github.io`) intentionally left empty. Coexists independently with `https://alesop95.github.io/skills/` – see section 1 + ADR-004.
 
 🔜 **Next session (Phase 2-C → 2-B)**:
-- Phase 2-C — Polish editoriale (View Transitions, pull-quote, drop-cap)
-- Phase 2-B — Discoverability (Pagefind, tags, archive)
+- Phase 2-C – Polish editoriale (View Transitions, pull-quote, drop-cap)
+- Phase 2-B – Discoverability (Pagefind, tags, archive)
 - Optional follow-up: add a `public/favicon.ico` + `icons` metadata (currently none shipped; `feed.ts` references a non-existent `/favicon.ico`).
 
 ---
@@ -208,7 +213,7 @@ GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.g
 The project is fully recoverable from this folder. **Suggested opening prompt**:
 
 > ```
-> Sto continuando il progetto del mio blog personale "Alessio Sopranzi — writings"
+> Sto continuando il progetto del mio blog personale "Alessio Sopranzi – writings"
 > (URL https://alesop95.github.io/blog, host GitHub Pages project site, bilingue EN+IT).
 > Tutto lo stato è nel repository. Per favore:
 >
@@ -217,7 +222,7 @@ The project is fully recoverable from this folder. **Suggested opening prompt**:
 > 3. Leggi `.claude/roadmap.md` per vedere fasi e checkbox.
 > 4. Skim di `.claude/decisions/*.md` per le ADR già stabilite.
 >
-> Siamo a fine [Sessione N — descrizione]. Devo procedere con [Fase X-Y].
+> Siamo a fine [Sessione N – descrizione]. Devo procedere con [Fase X-Y].
 > Non assumere nulla che non sia scritto in `.claude/`. Se serve una decisione
 > nuova, proponila e apri una ADR prima di scrivere codice.
 > ```
