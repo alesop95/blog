@@ -1,7 +1,7 @@
 # CLAUDE.md – Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-05-29** · Session #5 – typographic housekeeping: em dash `—` → spaced en dash ` – ` repo-wide (216 swaps, 39 files), footer copy `Hand-built…` → `Built…`, private `_notes/` technical diary established.
+> Last update: **2026-05-29** · Session #6 – editorial features: justified body text (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — see ADR-005. Prev: Session #5 typographic housekeeping (em→en dash, footer copy, `_notes/` diary).
 
 ---
 
@@ -42,6 +42,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 | i18n | **`next-intl`** | Path-based, locale-prefixed (`/en/...`, `/it/...`), pathname localization (`/en/posts/...` vs `/it/articoli/...`). |
 | Frontmatter | **`gray-matter`** + Zod | YAML, validated. Build fails on malformed input. |
 | Code highlighting | **`rehype-pretty-code`** + Shiki (Phase 2-A) | VS Code-grade themes, build-time. |
+| Math | **`remark-math`** + **`rehype-katex`** + KaTeX (Session #6) | `$…$`/`$$…$$` rendered to HTML+MathML at build; only katex.min.css ships (post route). siunitx macros `\SI`/`\si`. ADR-005. |
 | Reading time | **`reading-time`** | Computed at build. |
 | Search | **Pagefind** (Phase 2-B) | Static, build-time index, multilingual. |
 | Feeds | **`feed`** package | RSS + Atom + JSON per locale. |
@@ -179,7 +180,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 
 ---
 
-## 7. Current state (end of Session #5)
+## 7. Current state (end of Session #6)
 
 ✅ **Phase 1 – Foundation** (Session #1) – full skeleton, monolingual EN, Vercel target.
 ✅ **Phase R1 – Re-platform** (Session #2) – GitHub Pages + bilingual EN/IT, OG build-time, deploy workflow.
@@ -198,6 +199,14 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 - ✅ Em dash `—` → **spaced en dash ` – `** repo-wide (216 swaps across 39 files). New project convention: the en dash is the canonical separator/parenthetical glyph — never the em dash. `bio.ts` tight cases respaced to ` – `.
 - ✅ Footer credit: `Hand-built with…` → `Built with…` (EN), `Costruito a mano con…` → `Costruito con…` (IT) in `messages/{en,it}.json`.
 - ✅ Private **`_notes/`** technical diary established (gitignored, uses-personal): `README.md`, `DIARIO.md` (per-intervention log), `STACK.md` (always-updated stack + flow). Verbose private layer complementing the versioned `.claude/` truth.
+
+✅ **Editorial features (Session #6 – 2026-05-29)** – see **ADR-005**:
+- ✅ **Justified body text** with automatic hyphenation (`.prose p, .prose li`; keys off `lang` on the [locale] wrapper, works EN+IT). Headings/captions/code stay left-aligned.
+- ✅ **basePath-aware images**: markdown `![alt](/images/… "caption")` mapped to a `MdxImage` component + `<Figure>`, both resolving the `/blog` basePath (plain `<img>` doesn't get it on static export). Source images under `public/images/<slug>/`, resized before commit. CSS for responsive figures.
+- ✅ **KaTeX math**: `remark-math` + `rehype-katex` in the MDX pipeline; `$…$`/`$$…$$` rendered to HTML+MathML at build; `katex.min.css` imported only in the post route; siunitx macros `\SI`/`\si`; `throwOnError:false`. Display-math overflow + ink-colour CSS.
+- ✅ Demo draft `content/posts/it/propagazione-acustica-parete.mdx` (acoustics, `draft:true`) = authoring template + pipeline smoke-test (verified: 46 katex spans, MathML, `\SI` rendered).
+
+⚠️ **Observed (out of scope, for a future session)**: static export emits the IT post route at `/it/posts/<slug>/`, **not** the localized `/it/articoli/<slug>/` that the docs assume. next-intl pathname localization for the dynamic `[slug]` route doesn't seem to apply under `output:'export'`. Latent (all IT seed posts are drafts, so never built in production before). Needs its own investigation/ADR.
 
 GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.github.io/blog`** (project site). User-site root (`alesop95.github.io`) intentionally left empty. Coexists independently with `https://alesop95.github.io/skills/` – see section 1 + ADR-004.
 

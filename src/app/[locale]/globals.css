@@ -99,6 +99,17 @@
     margin-top: 1.1em;
   }
 
+  /* Justified body text with automatic hyphenation. Hyphenation keys off the
+     `lang` attribute set on the [locale] layout wrapper, so it works for both
+     EN and IT. Headings, captions, and code stay left-aligned (rules below). */
+  .prose p,
+  .prose li {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
   .prose h2,
   .prose h3,
   .prose h4 {
@@ -163,6 +174,24 @@
     padding-left: 1.1rem;
     font-style: italic;
     color: oklch(from var(--color-ink) l c h / 0.8);
+  }
+
+  /* Images & figures (markdown `![]()` and the <Figure> component). Source
+     images are committed under public/images/ and resized before commit
+     (images.unoptimized — no runtime resizing on static export). */
+  .prose figure {
+    margin: 2em 0;
+  }
+  .prose img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+    border-radius: var(--radius-md);
+  }
+  .prose figcaption {
+    margin-top: 0.6em;
+    text-align: center;
   }
 
   .prose ul,
@@ -301,5 +330,26 @@
     border-top: none;
     border-radius: 0 0 0.5rem 0.5rem;
     margin-top: 0;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Math (remark-math + rehype-katex). KaTeX renders to HTML+MathML at build;  */
+/*  only katex.min.css ships to the client (imported in the post route).       */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  /* Inherit the editorial ink colour in both themes. */
+  .prose .katex {
+    color: var(--color-ink);
+    font-size: 1.05em;
+  }
+  /* Long display equations scroll horizontally instead of overflowing on
+     narrow viewports. Never justify math. */
+  .prose .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5em 0;
+    text-align: center;
   }
 }

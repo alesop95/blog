@@ -8,12 +8,30 @@
 
 import type { MDXRemoteProps } from 'next-mdx-remote/rsc'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode, {
   type Options as PrettyCodeOptions,
 } from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import remarkSmartypants from 'remark-smartypants'
+
+/**
+ * KaTeX configuration. Math is written as `$inline$` and `$$display$$` in MDX
+ * and rendered to HTML+MathML at build (zero runtime JS; only katex.min.css
+ * ships, imported in the post route). `macros` add the few siunitx-style
+ * helpers we use so `\SI{6.02}{dB}` and `\si{dB}` work out of the box.
+ * `throwOnError: false` degrades a malformed expression to red source text
+ * instead of failing the whole build. See ADR-005.
+ */
+const katexOptions = {
+  throwOnError: false,
+  macros: {
+    '\\SI': '#1\\,\\mathrm{#2}',
+    '\\si': '\\mathrm{#1}',
+  },
+}
 
 /**
  * Shiki configuration for code-block syntax highlighting.
@@ -47,9 +65,13 @@ export const mdxOptions: MDXRemoteProps['options'] = {
       remarkGfm,
       // smartypants typographic quotes / dashes
       [remarkSmartypants, { quotes: true, dashes: 'oldschool' }],
+      // parse `$inline$` and `$$display$$` math into math nodes
+      remarkMath,
     ],
     rehypePlugins: [
       rehypeSlug,
+      // render math nodes to KaTeX HTML+MathML at build time
+      [rehypeKatex, katexOptions],
       [
         rehypeAutolinkHeadings,
         {

@@ -68,6 +68,17 @@ Piccoli interventi trasversali, fuori fase. Dettaglio granulare in `_notes/DIARI
 - [x] Footer copy: `Hand-built with…` → `Built with…` (EN) / `Costruito con…` (IT).
 - [x] Diario tecnico privato `_notes/` (gitignored): README + DIARIO + STACK.
 
+## Editorial features (Session #6 – 2026-05-29)
+
+Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
+
+- [x] Testo giustificato con sillabazione automatica (`.prose p, .prose li`, EN+IT).
+- [x] Immagini basePath-aware: `![]()` + `<Figure>` → `/blog/...`; storage in `public/images/<slug>/`.
+- [x] Matematica KaTeX: `remark-math` + `rehype-katex`, `$…$`/`$$…$$`, macro siunitx `\SI`/`\si`.
+- [x] Post demo/template `it/propagazione-acustica-parete.mdx` (draft) + smoke-test pipeline.
+- [ ] Circuiti circuitikz: pre-render a SVG (flusso documentato; nessuna toolchain nel repo). Da usare quando servirà.
+- [ ] ⚠️ Bug latente da indagare: export statico emette `/it/posts/<slug>/` invece di `/it/articoli/<slug>/` (pathname localization next-intl su route dinamica non applicata in `output:'export'`).
+
 ## Phase 2-C – Polish editoriale (Session #4)
 
 - [ ] View Transitions on route change (React 19.2 API; behind feature flag in next.config)

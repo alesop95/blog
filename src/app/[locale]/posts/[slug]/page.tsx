@@ -1,3 +1,4 @@
+import 'katex/dist/katex.min.css'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server'

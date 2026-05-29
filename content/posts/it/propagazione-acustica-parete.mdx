@@ -1,0 +1,84 @@
+---
+title: "Rinforzo da parete: il +6 dB spiegato dalle onde"
+description: "Perché un cabinet rivolto verso una parete rigida guadagna alle basse frequenze, e da dove esce davvero quel +6 dB — un esempio di post con matematica in KaTeX."
+date: 2026-05-29
+tags: ["acustica", "matematica", "audio"]
+draft: true
+articleId: "wall-loading-6db"
+---
+
+> Questo è un post **demo** (bozza): mostra come scrivere matematica in stile LaTeX
+> dentro un articolo MDX. La matematica va fra `$…$` (inline) e `$$…$$` (display).
+
+Che succede se metto un amplificatore per basso completamente rivolto con il suo
+speaker verso una parete verticale? Qual è il principio matematico per cui i bassi
+raddoppiano? Da dove viene il calcolo del $+6\,\mathrm{dB}$?
+
+A bassa frequenza, dove le dimensioni del cono sono piccole rispetto alla lunghezza
+d'onda, il campo è sferico e vale $p(r) = \frac{A}{r}\,e^{-jkr}$, con
+$k = \frac{2\pi}{\lambda}$.
+
+## Equazione delle onde e linearità
+
+Nel regime acustico lineare, la pressione $p(\mathbf{x},t)$ in un mezzo omogeneo,
+isotropo e *lossless* soddisfa l'equazione delle onde:
+
+$$
+\nabla^2 p - \frac{1}{c^2}\frac{\partial^2 p}{\partial t^2} = 0
+$$
+
+L'operatore associato $\mathcal{L}[p] = \nabla^2 p - \frac{1}{c^2}\,\partial_t^2 p$
+è **lineare**: vale il principio di sovrapposizione, fondamento dell'interferenza.
+
+### Separazione delle variabili
+
+Cercando una soluzione separabile $p(\mathbf{x},t) = X(\mathbf{x})\,T(t)$ e dividendo
+per $XT$ si ottengono due equazioni disaccoppiate:
+
+$$
+\begin{aligned}
+\ddot{T} + \omega^2 T &= 0 \\
+\nabla^2 X + k^2 X &= 0
+\end{aligned}
+$$
+
+L'ultima è l'**equazione di Helmholtz**, con $k = \dfrac{\omega}{c} = \dfrac{2\pi}{\lambda}$.
+
+## Da dove esce il +6 dB
+
+Vicino a una parete rigida ideale (impedenza infinita, velocità normale nulla) il
+problema equivale a una **sorgente immagine** in fase. Quando la distanza cono–parete
+è molto minore di $\lambda/4$, le due onde arrivano in fase e con uguale ampiezza.
+Poiché il livello di pressione sonora è
+
+$$
+\mathrm{SPL} = 20\log_{10}\!\left(\frac{p}{p_0}\right),
+$$
+
+se la pressione raddoppia:
+
+$$
+\Delta\,\mathrm{SPL} = 20\log_{10}(2) \approx \SI{6.02}{dB}.
+$$
+
+Il rinforzo deriva quindi da:
+
+- linearità dell'equazione delle onde;
+- condizione al contorno di Neumann sulla parete;
+- selezione delle soluzioni uscenti (Sommerfeld);
+- interferenza coerente con la sorgente immagine.
+
+Non è un effetto universale su tutto lo spettro: salendo in frequenza i ritardi
+diventano comparabili a $\lambda/4$ e il rinforzo si trasforma in *comb filtering*.
+
+## Inserire un disegno di circuito (o un'immagine)
+
+I disegni `circuitikz` si esportano in SVG una volta (LaTeX locale) e si inseriscono
+come immagini. La sintassi markdown — con didascalia fra virgolette — è:
+
+```md
+![Schema del modello a sorgente immagine](/images/propagazione-acustica-parete/immagine.svg "Sorgente reale + immagine speculare")
+```
+
+Le immagini vanno committate sotto `public/images/<slug>/` e ridimensionate prima del
+commit (l'export statico non le ottimizza a runtime).
