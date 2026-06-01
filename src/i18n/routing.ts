@@ -7,9 +7,14 @@ import { defineRouting } from 'next-intl/routing'
  * `/it/...` – never a bare URL. The bare root `/` is handled by a separate
  * splash page (`src/app/page.tsx`) that redirects browser-side.
  *
- * `pathnames` localizes the URL segments themselves, not just the language.
- * So `/en/posts/foo` ↔ `/it/articoli/foo` are *the same* logical page,
- * rendered by *the same* file (`src/app/[locale]/posts/[slug]/page.tsx`).
+ * NOTE on localized post paths: the post collection uses a *localized URL
+ * segment* (`/en/posts/...` ↔ `/it/articoli/...`). We do NOT express that via
+ * next-intl `pathnames`, because next-intl's pathname localization relies on
+ * the middleware to rewrite localized URLs to internal ones at request time –
+ * and there is no middleware on a static export (GitHub Pages). Instead the
+ * route segment is a real dynamic param (`[locale]/[section]/[slug]`) and we
+ * generate the localized paths directly at build time. `postSection` /
+ * `postPath` below are the single source of truth for that mapping. See ADR-006.
  */
 
 export const routing = defineRouting({
@@ -18,13 +23,6 @@ export const routing = defineRouting({
   localePrefix: 'always',
   pathnames: {
     '/': '/',
-    '/posts/[slug]': {
-      en: '/posts/[slug]',
-      it: '/articoli/[slug]',
-    },
-    // Phase 2-B will add:
-    // '/tags':       { en: '/tags',       it: '/tag' },
-    // '/tags/[tag]': { en: '/tags/[tag]', it: '/tag/[tag]' },
   },
 })
 
@@ -33,4 +31,23 @@ export type Locale = (typeof routing.locales)[number]
 /** Runtime guard for unknown locale strings (e.g. from URL params). */
 export function isLocale(value: string): value is Locale {
   return (routing.locales as readonly string[]).includes(value)
+}
+
+/**
+ * The localized URL segment for the posts collection, per locale.
+ * EN → `posts`, IT → `articoli`. Single source of truth — used by the route's
+ * `generateStaticParams`, every post link, the sitemap, and the feeds.
+ */
+export function postSection(locale: Locale): string {
+  return locale === 'it' ? 'articoli' : 'posts'
+}
+
+/**
+ * Locale-prefixed path for a single post (no origin, no basePath).
+ * e.g. `postPath('it', 'foo')` → `/it/articoli/foo`.
+ * Prepend `siteConfig.url` for absolute URLs; pass straight to `next/link`
+ * (which applies the basePath) for in-app navigation.
+ */
+export function postPath(locale: Locale, slug: string): string {
+  return `/${locale}/${postSection(locale)}/${slug}`
 }

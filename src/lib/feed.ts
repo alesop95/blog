@@ -7,17 +7,12 @@
 
 import { Feed } from 'feed'
 import { siteConfig } from '@/config/site'
-import type { Locale } from '@/i18n/routing'
-import { routing } from '@/i18n/routing'
+import { type Locale, postPath } from '@/i18n/routing'
 import { getAllPosts } from './posts'
 
-/** Builds the locale-prefixed URL for a post, using the localized pathname. */
+/** Builds the locale-prefixed absolute URL for a post (localized segment). */
 function postUrl(locale: Locale, slug: string): string {
-  const pathnames = routing.pathnames['/posts/[slug]']
-  const localized =
-    typeof pathnames === 'string' ? pathnames : pathnames[locale]
-  const path = localized.replace('[slug]', slug)
-  return `${siteConfig.url}/${locale}${path}`
+  return `${siteConfig.url}${postPath(locale, slug)}`
 }
 
 export async function buildFeed(locale: Locale): Promise<Feed> {

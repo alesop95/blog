@@ -32,7 +32,7 @@ export default async function HomePage({ params }: { params: Params }) {
 
         <section className="mb-20">
           <SectionTitle>{t('home.sectionAbout')}</SectionTitle>
-          <div className="space-y-5 leading-relaxed text-ink/90">
+          <div className="space-y-5 text-justify leading-relaxed text-ink/90 hyphens-auto">
             {bio[locale].map((para) => (
               <p key={para.id}>{para.text}</p>
             ))}

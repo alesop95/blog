@@ -1,5 +1,7 @@
-import { useFormatter, useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
+import type { Route } from 'next'
+import { useFormatter, useLocale, useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { type Locale, postPath } from '@/i18n/routing'
 import type { Post } from '@/lib/posts'
 
 interface PostsListProps {
@@ -13,6 +15,7 @@ interface PostsListProps {
 export function PostsList({ posts }: PostsListProps) {
   const t = useTranslations()
   const format = useFormatter()
+  const locale = useLocale() as Locale
 
   if (posts.length === 0) {
     return (
@@ -25,7 +28,7 @@ export function PostsList({ posts }: PostsListProps) {
       {posts.map((post) => (
         <li key={post.slug}>
           <Link
-            href={{ pathname: '/posts/[slug]', params: { slug: post.slug } }}
+            href={postPath(locale, post.slug) as Route}
             className="group flex flex-col gap-1.5 py-5 transition-colors hover:text-accent sm:flex-row sm:items-baseline sm:gap-6"
           >
             <time

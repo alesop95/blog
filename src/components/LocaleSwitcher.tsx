@@ -1,10 +1,10 @@
 'use client'
 
+import type { Route } from 'next'
 import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from '@/i18n/navigation'
-import type { Locale } from '@/i18n/routing'
-import { routing } from '@/i18n/routing'
+import { type Locale, postPath, routing } from '@/i18n/routing'
 
 interface LocaleSwitcherProps {
   /**
@@ -21,14 +21,19 @@ const STORAGE_KEY = 'preferred-locale'
  * IT / EN toggle.
  * • Click → writes preference to localStorage (so the root splash respects it)
  *           then navigates to the equivalent page in the other locale.
- * • On post pages with a known translation slug → goes to the gemella article.
- * • Otherwise → goes to the home of the other locale via next-intl's router.
+ * • On a post page with a known gemella → goes to that translation
+ *   (`postPath` builds the localized URL, e.g. /it/articoli/...).
+ * • Otherwise (home, or a post without an articleId twin) → the other-locale
+ *   home; a missing twin can't map to an equivalent slug (ADR-003).
+ *
+ * Uses the plain `next/navigation` router because post URLs are real localized
+ * routes now, not next-intl `pathnames` (see ADR-006). The router applies the
+ * basePath automatically.
  */
 export function LocaleSwitcher({ translationSlug }: LocaleSwitcherProps) {
   const currentLocale = useLocale() as Locale
   const t = useTranslations('locale')
   const router = useRouter()
-  const pathname = usePathname()
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
@@ -43,23 +48,10 @@ export function LocaleSwitcher({ translationSlug }: LocaleSwitcherProps) {
       // localStorage can throw in private/embedded modes – non-fatal.
     }
 
-    // On a single post page, prefer the translation if we know it.
-    if (translationSlug && pathname === '/posts/[slug]') {
-      router.replace(
-        { pathname: '/posts/[slug]', params: { slug: translationSlug } },
-        { locale: otherLocale },
-      )
-      return
-    }
-
-    // Otherwise navigate to the same logical pathname in the other locale.
-    // A post page without a known translation (no articleId gemella) can't map
-    // to an equivalent slug, so it falls back to the other-locale home (ADR-003).
-    if (pathname === '/posts/[slug]') {
-      router.replace('/', { locale: otherLocale })
-    } else {
-      router.replace(pathname, { locale: otherLocale })
-    }
+    const target = translationSlug
+      ? postPath(otherLocale, translationSlug)
+      : `/${otherLocale}`
+    router.replace(target as Route)
   }
 
   // Until mounted, render the same label as on the server (current locale)

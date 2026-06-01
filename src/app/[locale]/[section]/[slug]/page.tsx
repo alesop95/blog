@@ -1,8 +1,9 @@
 import 'katex/dist/katex.min.css'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import type { Metadata } from 'next'
+import type { Metadata, Route } from 'next'
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -10,15 +11,14 @@ import { mdxComponents } from '@/components/MDXComponents'
 import { SectionTitle } from '@/components/SectionTitle'
 import { Toc } from '@/components/Toc'
 import { siteConfig } from '@/config/site'
-import { Link } from '@/i18n/navigation'
-import { isLocale, routing } from '@/i18n/routing'
-import { mdxOptions } from '@/lib/mdx'
+import { isLocale, postPath, postSection, routing } from '@/i18n/routing'
 import {
   getAdjacentPosts,
   getAllSlugs,
   getPostBySlug,
   getTranslation,
 } from '@/lib/posts'
+import { mdxOptions } from '@/lib/mdx'
 import { extractToc } from '@/lib/toc'
 
 /** Posts longer than this (in words) get an auto-generated Table of Contents. */
@@ -26,51 +26,48 @@ const TOC_MIN_WORDS = 1500
 
 /* -------------------------------------------------------------------------- */
 /*  Static generation                                                         */
+/*                                                                            */
+/*  The `[section]` segment is the LOCALIZED collection slug (en: posts,       */
+/*  it: articoli). We emit it as a real param so the localized URLs exist as   */
+/*  static files — next-intl's pathname rewriting needs middleware, which a    */
+/*  static export on GitHub Pages doesn't have. See ADR-006.                   */
 /* -------------------------------------------------------------------------- */
 
 export async function generateStaticParams() {
-  const pairs = await Promise.all(
-    routing.locales.map(async (locale) => {
-      const slugs = await getAllSlugs(locale)
-      return slugs.map((slug) => ({ locale, slug }))
-    }),
-  )
-  return pairs.flat()
+  const params: { locale: string; section: string; slug: string }[] = []
+  for (const locale of routing.locales) {
+    const slugs = await getAllSlugs(locale)
+    for (const slug of slugs) {
+      params.push({ locale, section: postSection(locale), slug })
+    }
+  }
+  return params
 }
 
 /* -------------------------------------------------------------------------- */
 /*  Per-post metadata                                                         */
 /* -------------------------------------------------------------------------- */
 
-type Params = Promise<{ locale: string; slug: string }>
+type Params = Promise<{ locale: string; section: string; slug: string }>
 
 export async function generateMetadata({
   params,
 }: { params: Params }): Promise<Metadata> {
-  const { locale, slug } = await params
-  if (!isLocale(locale)) return {}
+  const { locale, section, slug } = await params
+  if (!isLocale(locale) || section !== postSection(locale)) return {}
   const post = await getPostBySlug(locale, slug)
   if (!post) return {}
 
-  const pathnames = routing.pathnames['/posts/[slug]']
-  const localized =
-    typeof pathnames === 'string' ? pathnames : pathnames[locale]
-  const path = `/${locale}${localized.replace('[slug]', slug)}`
-  const url = `${siteConfig.url}${path}`
+  // Absolute URLs: Next does NOT apply basePath to metadata, so a root-relative
+  // path resolved against metadataBase would drop `/blog`. See ADR-004.
+  const url = `${siteConfig.url}${postPath(locale, slug)}`
   const ogImage = `${siteConfig.url}/og/${locale}/${slug}.png`
 
   const translation = await getTranslation(post)
-  // Absolute URLs: Next does NOT apply basePath to metadata, so a root-relative
-  // path resolved against metadataBase would drop `/blog`. See ADR-004.
   const languages: Record<string, string> = { [locale]: url }
   if (translation) {
-    const otherPathnames = routing.pathnames['/posts/[slug]']
-    const otherLocalized =
-      typeof otherPathnames === 'string'
-        ? otherPathnames
-        : otherPathnames[translation.locale]
     languages[translation.locale] =
-      `${siteConfig.url}/${translation.locale}${otherLocalized.replace('[slug]', translation.slug)}`
+      `${siteConfig.url}${postPath(translation.locale, translation.slug)}`
   }
 
   return {
@@ -102,8 +99,8 @@ export async function generateMetadata({
 /* -------------------------------------------------------------------------- */
 
 export default async function PostPage({ params }: { params: Params }) {
-  const { locale, slug } = await params
-  if (!isLocale(locale)) notFound()
+  const { locale, section, slug } = await params
+  if (!isLocale(locale) || section !== postSection(locale)) notFound()
   setRequestLocale(locale)
 
   const post = await getPostBySlug(locale, slug)
@@ -119,7 +116,7 @@ export default async function PostPage({ params }: { params: Params }) {
   const showToc = post.readingTime.words > TOC_MIN_WORDS && toc.length >= 3
 
   // Absolute URLs (include basePath via siteConfig.url) – see ADR-004.
-  const postUrl = `${siteConfig.url}/${locale}/${locale === 'it' ? 'articoli' : 'posts'}/${slug}`
+  const postUrl = `${siteConfig.url}${postPath(locale, slug)}`
   const ogImage = `${siteConfig.url}/og/${locale}/${slug}.png`
   const person = {
     '@type': 'Person',
@@ -149,7 +146,7 @@ export default async function PostPage({ params }: { params: Params }) {
             '@type': 'BlogPosting',
             name: translation.frontmatter.title,
             inLanguage: translation.locale,
-            url: `${siteConfig.url}/${translation.locale}/${translation.locale === 'it' ? 'articoli' : 'posts'}/${translation.slug}`,
+            url: `${siteConfig.url}${postPath(translation.locale, translation.slug)}`,
           },
         }
       : {}),
@@ -215,6 +212,7 @@ export default async function PostPage({ params }: { params: Params }) {
               <div className="grid gap-6 sm:grid-cols-2">
                 {previous ? (
                   <AdjacentLink
+                    locale={locale}
                     direction={t('post.previous')}
                     slug={previous.slug}
                     title={previous.frontmatter.title}
@@ -224,6 +222,7 @@ export default async function PostPage({ params }: { params: Params }) {
                 )}
                 {next ? (
                   <AdjacentLink
+                    locale={locale}
                     direction={t('post.next')}
                     slug={next.slug}
                     title={next.frontmatter.title}
@@ -242,11 +241,13 @@ export default async function PostPage({ params }: { params: Params }) {
 }
 
 function AdjacentLink({
+  locale,
   direction,
   slug,
   title,
   align = 'left',
 }: {
+  locale: 'en' | 'it'
   direction: string
   slug: string
   title: string
@@ -257,7 +258,7 @@ function AdjacentLink({
 
   return (
     <Link
-      href={{ pathname: '/posts/[slug]', params: { slug } }}
+      href={postPath(locale, slug) as Route}
       aria-label={`${direction}: ${title}`}
       className={`group block rounded-md border border-ink/10 p-5 transition-colors hover:border-accent/40 ${
         isRight ? 'sm:text-right' : ''

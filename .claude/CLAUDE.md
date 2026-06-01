@@ -1,7 +1,7 @@
 # CLAUDE.md – Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-05-29** · Session #6 – editorial features: justified body text (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — see ADR-005. Prev: Session #5 typographic housekeeping (em→en dash, footer copy, `_notes/` diary).
+> Last update: **2026-06-01** · Session #6 – editorial features: justified body text + home bio (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — ADR-005. Fixed localized IT post URLs on static export: route now `[locale]/[section]/[slug]`, `/it/articoli/…` emitted as real files — ADR-006. Dev port → 8642.
 
 ---
 
@@ -84,7 +84,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
          ▼                                   ▼
 ┌─────────────────────────────┐  ┌──────────────────────────────────────┐
 │ app/[locale]/page.tsx       │  │ app/[locale]/feed.xml/route.ts       │
-│ app/[locale]/posts/[slug]/  │  │ app/sitemap.ts (bilingual + hreflang)│
+│ app/[locale]/[section]/[slug]│ │ app/sitemap.ts (bilingual + hreflang)│
 │ app/page.tsx (splash redir) │  │ scripts/build-og.ts → public/og/...  │
 └─────────────────────────────┘  └──────────────────────────────────────┘
                                           │
@@ -133,7 +133,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 │   │   │   ├── layout.tsx
 │   │   │   ├── page.tsx
 │   │   │   ├── globals.css
-│   │   │   ├── posts/[slug]/
+│   │   │   ├── [section]/[slug]/   ← localized: en /posts/, it /articoli/ (ADR-006)
 │   │   │   └── feed.xml/
 │   │   ├── sitemap.ts           ← bilingual with hreflang
 │   │   └── robots.ts
@@ -165,7 +165,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 - **Imports**: `@/` alias for `src/`.
 - **Frontmatter**: validated via Zod. Bad frontmatter → build error.
 - **Slugs**: filename = slug. **Distinct per locale**. Paired via `articleId` field.
-- **Pathname localization**: `/en/posts/[slug]` ↔ `/it/articoli/[slug]`. `/en/tags/[tag]` ↔ `/it/tag/[tag]`.
+- **Pathname localization**: `/en/posts/[slug]` ↔ `/it/articoli/[slug]`. `/en/tags/[tag]` ↔ `/it/tag/[tag]`. Implemented via a localized dynamic route segment (`[section]`) + `postSection`/`postPath` in `src/i18n/routing.ts`, NOT next-intl `pathnames` (no middleware on static export — ADR-006).
 - **Drafts**: `draft: true` → visible in dev, hidden in production.
 - **Style tokens**: defined in `globals.css` under `@theme`.
 
@@ -206,7 +206,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 - ✅ **KaTeX math**: `remark-math` + `rehype-katex` in the MDX pipeline; `$…$`/`$$…$$` rendered to HTML+MathML at build; `katex.min.css` imported only in the post route; siunitx macros `\SI`/`\si`; `throwOnError:false`. Display-math overflow + ink-colour CSS.
 - ✅ Demo draft `content/posts/it/propagazione-acustica-parete.mdx` (acoustics, `draft:true`) = authoring template + pipeline smoke-test (verified: 46 katex spans, MathML, `\SI` rendered).
 
-⚠️ **Observed (out of scope, for a future session)**: static export emits the IT post route at `/it/posts/<slug>/`, **not** the localized `/it/articoli/<slug>/` that the docs assume. next-intl pathname localization for the dynamic `[slug]` route doesn't seem to apply under `output:'export'`. Latent (all IT seed posts are drafts, so never built in production before). Needs its own investigation/ADR.
+✅ **Localized IT post URLs fixed (Session #6 – ADR-006)**: the static export used to emit IT posts at `/it/posts/<slug>/` while links pointed to `/it/articoli/<slug>/` (404 on every IT post — next-intl pathname localization needs middleware, absent on `output:'export'`). Fixed by making the collection segment a real dynamic route param: `app/[locale]/[section]/[slug]/`, with `generateStaticParams` emitting the localized section. `postSection`/`postPath` (`src/i18n/routing.ts`) are the single source of truth; `routing.pathnames` reduced to `{ '/': '/' }`. Verified: `out/it/articoli/…` emitted, old `/it/posts/…` gone, home link + sitemap consistent. Also: home bio now justified; dev port `8642`; KaTeX demo post published.
 
 GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.github.io/blog`** (project site). User-site root (`alesop95.github.io`) intentionally left empty. Coexists independently with `https://alesop95.github.io/skills/` – see section 1 + ADR-004.
 

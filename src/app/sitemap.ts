@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config/site'
-import { routing } from '@/i18n/routing'
+import { postPath, routing } from '@/i18n/routing'
 import { getAllPosts } from '@/lib/posts'
 
 // Emit a static sitemap.xml at build time (required by `output: export`).
@@ -11,15 +11,8 @@ export const dynamic = 'force-static'
  *
  * Every URL emitted carries `alternates.languages` so Google can
  * understand the EN ↔ IT pairs as translations of the same content.
+ * Post paths use the shared `postPath` helper (localized: en /posts/, it /articoli/).
  */
-
-function postPath(locale: 'en' | 'it', slug: string): string {
-  const localized =
-    typeof routing.pathnames['/posts/[slug]'] === 'string'
-      ? '/posts/[slug]'
-      : routing.pathnames['/posts/[slug]'][locale]
-  return `/${locale}${localized.replace('[slug]', slug)}`
-}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = []
