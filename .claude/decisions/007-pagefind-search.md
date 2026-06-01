@@ -1,0 +1,55 @@
+# ADR-007 – Static full-text search with Pagefind + ⌘K modal
+
+**Status**: Accepted · **Date**: 2026-06-01 · **Session**: #6 (Phase 2-B)
+
+## Context
+
+The blog is a static export on GitHub Pages — no server, no database — so search
+must run entirely client-side against a pre-built index. Requirements: full-text
+across posts, bilingual (EN + IT), lightweight, no runtime backend.
+
+## Decision
+
+Use **Pagefind**. Pipeline:
+
+- **Index at build**: `pnpm build` = `build-og && next build && pagefind --site out`.
+  Pagefind scans the generated HTML in `out/`, builds a chunked index into
+  `out/pagefind/`, which is deployed with the rest of the site. Both CI and deploy
+  already run `pnpm build`, so no workflow changes were needed.
+- **Index only post content**: the post `<article>` carries `data-pagefind-body`, so
+  only post pages are indexed (home / tag / archive are skipped). The related and
+  prev/next blocks carry `data-pagefind-ignore` to keep them out of excerpts.
+- **⌘K modal**: a client component (`src/components/Search.tsx`) in the header. Opens
+  on Cmd/Ctrl+K or button click, lazy-imports `${basePath}/pagefind/pagefind.js` on
+  first open, debounced search, results show title + highlighted excerpt, link
+  navigates to the post. `Esc` / backdrop closes.
+
+### Locale scoping — the trade-off
+
+Pagefind detects a page's language from the `<html lang>` attribute. Our root layout
+renders a single static `<html lang="en">` for *every* page (it can't read the locale —
+it sits above the `[locale]` segment, and only the root layout may render `<html>`).
+So Pagefind builds **one English index** (English stemming for both languages).
+
+Rather than restructure the layout to emit a per-locale `<html lang>` (a larger change),
+we scope results with a **Pagefind filter**: each post is tagged
+`data-pagefind-filter="lang:<locale>"`, and the modal queries
+`pagefind.search(q, { filters: { lang: currentLocale } })`. EN visitors get EN hits, IT
+visitors get IT hits.
+
+**Accepted limitation**: IT content is stemmed with the English analyzer (slightly less
+ideal morphological matching). Substring/loose matching still works fine. Proper
+per-language stemming would require per-page `<html lang>` — revisit if IT search quality
+proves insufficient (would pair with a layout refactor).
+
+## Consequences
+
+- `pagefind` added as a devDependency; `build:search` script for ad-hoc reindex.
+- **Dev caveat**: `pnpm dev` has no `out/pagefind/`, so the modal can't load the index —
+  it catches the failed import and shows an "unavailable in dev" message. Search is only
+  testable against a production build / the deployed site.
+- basePath handled twice: the import URL (`${siteConfig.basePath}/pagefind/pagefind.js`)
+  and each result URL (`${siteConfig.basePath}${result.url}`), since Pagefind indexes
+  `out/` whose paths don't include `/blog`.
+- The dynamic import uses `/* webpackIgnore: true */ /* turbopackIgnore: true */` so the
+  bundler leaves it as a true runtime import.

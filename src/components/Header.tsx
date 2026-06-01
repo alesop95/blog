@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { siteConfig } from '@/config/site'
 import { LocaleSwitcher } from './LocaleSwitcher'
+import { Search } from './Search'
 import { ThemeToggle } from './ThemeToggle'
 
 interface HeaderProps {
@@ -34,6 +35,7 @@ export function Header({ translationSlug = null }: HeaderProps) {
         </Link>
 
         <nav className="flex items-center gap-1">
+          <Search />
           <LocaleSwitcher translationSlug={translationSlug} />
           <span aria-hidden className="mx-1 h-4 w-px bg-ink/15" />
           <ThemeToggle />

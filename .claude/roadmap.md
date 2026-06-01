@@ -94,8 +94,8 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 
 ## Phase 2-B – Discoverability (Session #5)
 
-- [ ] Pagefind index, multilingual mode
-- [ ] `⌘K` search modal
+- [x] Pagefind index — built at `pnpm build` (`pagefind --site out`), indexes only post `<article>` (`data-pagefind-body`); one English index scoped per-locale via a `lang` filter (ADR-007).
+- [x] `⌘K` search modal — `src/components/Search.tsx` in the header (Cmd/Ctrl+K, lazy pagefind load, locale-filtered, highlighted excerpts). Dev shows an "unavailable" message (index only exists in the production build).
 - [x] Tag pages: `/en/tags/[tag]` + `/it/tag/[tag]` — static localized folders (`tags/`, `tag/`) sharing `<TagPage>`; `tagSection`/`tagPath`/`tagsIndexPath` helpers; tags clickable on posts; footer link; sitemap entries.
 - [x] Tag indexes: `/en/tags` + `/it/tag` — tag cloud with post counts.
 - [x] Archive by year: `/en/archive` + `/it/archivio` — posts grouped by year (static localized folders, `<ArchivePage>`, `archiveSection`/`archivePath`); footer link; sitemap (paired).

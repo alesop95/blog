@@ -37,6 +37,12 @@
     "intro": "Tutti gli scritti, per anno.",
     "empty": "Ancora nulla in archivio."
   },
+  "search": {
+    "open": "Cerca",
+    "placeholder": "Cerca tra gli scritti…",
+    "noResults": "Nessun risultato.",
+    "unavailable": "La ricerca è attiva sul sito pubblicato (non in sviluppo locale)."
+  },
   "footer": {
     "copyright": "© {year} Alessio Sopranzi",
     "rss": "RSS",

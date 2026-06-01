@@ -159,7 +159,10 @@ export default async function PostPage({ params }: { params: Params }) {
       <Header translationSlug={translation?.slug ?? null} />
 
       <main className="flex-1 pb-24 pt-12 sm:pt-20">
-        <article>
+        {/* data-pagefind-body marks this as searchable content; only pages that
+            have it are indexed (so home/tag/archive are skipped). The lang
+            filter lets the ⌘K modal scope results to the current locale. */}
+        <article data-pagefind-body data-pagefind-filter={`lang:${locale}`}>
           <script
             type="application/ld+json"
             // biome-ignore lint/security/noDangerouslySetInnerHtml: structured data
@@ -216,7 +219,7 @@ export default async function PostPage({ params }: { params: Params }) {
           </div>
 
           {related.length > 0 && (
-            <section className="mt-20">
+            <section className="mt-20" data-pagefind-ignore>
               <SectionTitle>{t('post.related')}</SectionTitle>
               <ul className="mt-2 divide-y divide-ink/10">
                 {related.map((r) => (
@@ -247,7 +250,7 @@ export default async function PostPage({ params }: { params: Params }) {
           )}
 
           {(previous || next) && (
-            <nav className="mt-20" aria-label="Adjacent posts">
+            <nav className="mt-20" aria-label="Adjacent posts" data-pagefind-ignore>
               <SectionTitle>{t('post.sectionMoreWritings')}</SectionTitle>
               <div className="grid gap-6 sm:grid-cols-2">
                 {previous ? (
