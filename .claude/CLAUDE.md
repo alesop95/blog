@@ -1,7 +1,7 @@
 # CLAUDE.md – Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-06-01** · Session #6 – editorial features: justified body text + home bio (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — ADR-005. Fixed localized IT post URLs on static export: route now `[locale]/[section]/[slug]`, `/it/articoli/…` emitted as real files — ADR-006. Dev port → 8642. Engineering authoring: `<Diagram>` (SVG on a dark-mode-safe plate, `wide`), KaTeX macros `\dd`/`\abs`/`\norm`, circuitikz→SVG guide (`_notes/AUTHORING-ENGINEERING.md`). Home wordmark is now plain text (no self-link GET). Bio portrait added to the home About section (`public/images/alessio.jpg`, resized 900×1200/118KB, basePath-aware). Acoustics demo now bilingual: EN twin `content/posts/en/wall-reinforcement-6db.mdx` (articleId `wall-loading-6db`). **Phase 2-B started**: tag system — localized tag index + per-tag pages (`/en/tags`, `/it/tag`), tags clickable on posts, footer link, sitemap entries.
+> Last update: **2026-06-01** · Session #6 – editorial features: justified body text + home bio (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — ADR-005. Fixed localized IT post URLs on static export: route now `[locale]/[section]/[slug]`, `/it/articoli/…` emitted as real files — ADR-006. Dev port → 8642. Engineering authoring: `<Diagram>` (SVG on a dark-mode-safe plate, `wide`), KaTeX macros `\dd`/`\abs`/`\norm`, circuitikz→SVG guide (`_notes/AUTHORING-ENGINEERING.md`). Home wordmark is now plain text (no self-link GET). Bio portrait added to the home About section (`public/images/alessio.jpg`, resized 900×1200/118KB, basePath-aware). Acoustics demo now bilingual: EN twin `content/posts/en/wall-reinforcement-6db.mdx` (articleId `wall-loading-6db`). **Phase 2-B**: tag system (localized index + per-tag pages, clickable tags, footer link, sitemap); archive by year (`/en/archive` ↔ `/it/archivio`); related posts (tag overlap, dormant until posts share tags). Remaining: Pagefind + ⌘K.
 
 ---
 
@@ -217,7 +217,9 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 
 🚧 **Phase 2-B – Discoverability (started Session #6)**:
 - ✅ **Tag system** – localized tag index (`/en/tags`, `/it/tag`) + per-tag pages (`/en/tags/[tag]`, `/it/tag/[tag]`). Helpers `tagSection`/`tagsIndexPath`/`tagPath` in `src/i18n/routing.ts`; data via `getAllTags`/`getPostsByTag` (`src/lib/posts.ts`); shared `<TagPage>` component. Routes are **static localized folders** (`app/[locale]/tags`, `app/[locale]/tag`) restricted per-locale via `generateStaticParams`, coexisting with the dynamic post route (static beats dynamic) — see ADR-006 addendum. Tags clickable on posts, footer link, sitemap entries (index paired EN↔IT). Verified in `out/`.
-- 🔜 Remaining 2-B: archive by year (`/en/archive` ↔ `/it/archivio`), related posts (tag overlap), Pagefind search + ⌘K modal.
+- ✅ **Archive by year** (`/en/archive` ↔ `/it/archivio`) — posts grouped by year, static localized folders + `<ArchivePage>`, `archiveSection`/`archivePath`, footer link, sitemap (paired). `getPostsByYear` in `lib/posts.ts`.
+- ✅ **Related posts** — `getRelatedPosts` (shared-tag count, then recency); section on post pages. Renders only when ≥2 same-locale posts share a tag (current seed posts have disjoint tags, so dormant).
+- 🔜 Remaining 2-B: Pagefind search + ⌘K modal.
 
 GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.github.io/blog`** (project site). User-site root (`alesop95.github.io`) intentionally left empty. Coexists independently with `https://alesop95.github.io/skills/` – see section 1 + ADR-004.
 

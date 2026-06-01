@@ -21,7 +21,8 @@
     "sectionMoreWritings": "Altri scritti",
     "tagsLabel": "Tag",
     "publishedOn": "Pubblicato il {date}",
-    "updatedOn": "Aggiornato il {date}"
+    "updatedOn": "Aggiornato il {date}",
+    "related": "Scritti correlati"
   },
   "tags": {
     "title": "Tag",
@@ -30,6 +31,11 @@
     "count": "{count, plural, one {# articolo} other {# articoli}}",
     "all": "Tutti i tag",
     "empty": "Ancora nessun tag."
+  },
+  "archive": {
+    "title": "Archivio",
+    "intro": "Tutti gli scritti, per anno.",
+    "empty": "Ancora nulla in archivio."
   },
   "footer": {
     "copyright": "© {year} Alessio Sopranzi",

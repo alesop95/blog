@@ -16,6 +16,7 @@ import {
   getAdjacentPosts,
   getAllSlugs,
   getPostBySlug,
+  getRelatedPosts,
   getTranslation,
 } from '@/lib/posts'
 import { mdxOptions } from '@/lib/mdx'
@@ -109,6 +110,7 @@ export default async function PostPage({ params }: { params: Params }) {
   const t = await getTranslations()
   const format = await getFormatter()
   const { previous, next } = await getAdjacentPosts(locale, slug)
+  const related = await getRelatedPosts(locale, slug, 3)
   const translation = await getTranslation(post)
   const f = post.frontmatter
 
@@ -212,6 +214,37 @@ export default async function PostPage({ params }: { params: Params }) {
               options={mdxOptions}
             />
           </div>
+
+          {related.length > 0 && (
+            <section className="mt-20">
+              <SectionTitle>{t('post.related')}</SectionTitle>
+              <ul className="mt-2 divide-y divide-ink/10">
+                {related.map((r) => (
+                  <li key={r.slug}>
+                    <Link
+                      href={postPath(locale, r.slug) as Route}
+                      className="group flex flex-col gap-1 py-3.5 transition-colors hover:text-accent sm:flex-row sm:items-baseline sm:gap-5"
+                    >
+                      <time
+                        dateTime={r.frontmatter.date.toISOString()}
+                        className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 sm:w-28"
+                        suppressHydrationWarning
+                      >
+                        {format.dateTime(r.frontmatter.date, {
+                          month: 'short',
+                          day: '2-digit',
+                          year: 'numeric',
+                        })}
+                      </time>
+                      <span className="font-display text-base font-medium leading-snug">
+                        {r.frontmatter.title}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {(previous || next) && (
             <nav className="mt-20" aria-label="Adjacent posts">

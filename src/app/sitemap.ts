@@ -1,6 +1,12 @@
 import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config/site'
-import { postPath, routing, tagPath, tagsIndexPath } from '@/i18n/routing'
+import {
+  archivePath,
+  postPath,
+  routing,
+  tagPath,
+  tagsIndexPath,
+} from '@/i18n/routing'
 import { getAllPosts, getAllTags } from '@/lib/posts'
 
 // Emit a static sitemap.xml at build time (required by `output: export`).
@@ -78,6 +84,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.5,
       alternates: { languages: tagIndexLanguages },
+    })
+  }
+
+  // Archive index per locale, paired across locales (en /archive ↔ it /archivio).
+  const archiveLanguages = Object.fromEntries(
+    routing.locales.map((l) => [l, `${siteConfig.url}${archivePath(l)}`]),
+  )
+  for (const locale of routing.locales) {
+    entries.push({
+      url: `${siteConfig.url}${archivePath(locale)}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.5,
+      alternates: { languages: archiveLanguages },
     })
   }
 

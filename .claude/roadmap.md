@@ -98,8 +98,8 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [ ] `⌘K` search modal
 - [x] Tag pages: `/en/tags/[tag]` + `/it/tag/[tag]` — static localized folders (`tags/`, `tag/`) sharing `<TagPage>`; `tagSection`/`tagPath`/`tagsIndexPath` helpers; tags clickable on posts; footer link; sitemap entries.
 - [x] Tag indexes: `/en/tags` + `/it/tag` — tag cloud with post counts.
-- [ ] Archive by year: `/en/archive` + `/it/archivio`
-- [ ] Related posts (by tag overlap)
+- [x] Archive by year: `/en/archive` + `/it/archivio` — posts grouped by year (static localized folders, `<ArchivePage>`, `archiveSection`/`archivePath`); footer link; sitemap (paired).
+- [x] Related posts (by tag overlap) — `getRelatedPosts` (shared-tag count, then recency); section on post pages. Dormant until ≥2 same-locale posts share a tag (current seed posts have disjoint tags).
 
 ## Phase 3 – Quality gates
 

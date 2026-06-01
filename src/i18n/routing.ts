@@ -71,3 +71,16 @@ export function tagsIndexPath(locale: Locale): string {
 export function tagPath(locale: Locale, tag: string): string {
   return `/${locale}/${tagSection(locale)}/${encodeURIComponent(tag)}`
 }
+
+/**
+ * The localized URL segment for the archive, per locale.
+ * EN → `archive`, IT → `archivio`. Same static-localized-folder pattern as tags.
+ */
+export function archiveSection(locale: Locale): string {
+  return locale === 'it' ? 'archivio' : 'archive'
+}
+
+/** Locale-prefixed path for the archive index. e.g. `/it/archivio`. */
+export function archivePath(locale: Locale): string {
+  return `/${locale}/${archiveSection(locale)}`
+}

@@ -182,6 +182,53 @@ export async function getPostsByTag(
   return all.filter((p) => p.frontmatter.tags.includes(tag))
 }
 
+/** Visible posts grouped by year, newest year first (posts stay date-sorted). */
+export async function getPostsByYear(
+  locale: Locale,
+): Promise<{ year: number; posts: Post[] }[]> {
+  const all = await loadPostsForLocale(locale)
+  const groups = new Map<number, Post[]>()
+  for (const post of all) {
+    const year = post.frontmatter.date.getFullYear()
+    const bucket = groups.get(year) ?? []
+    bucket.push(post)
+    groups.set(year, bucket)
+  }
+  return [...groups.entries()]
+    .sort((a, b) => b[0] - a[0])
+    .map(([year, posts]) => ({ year, posts }))
+}
+
+/**
+ * Posts related to a given one by shared tags, same locale. Ranked by number of
+ * shared tags (desc), then recency. Excludes the post itself. Empty if no tags.
+ */
+export async function getRelatedPosts(
+  locale: Locale,
+  slug: string,
+  limit = 3,
+): Promise<Post[]> {
+  const all = await loadPostsForLocale(locale)
+  const current = all.find((p) => p.slug === slug)
+  if (!current || current.frontmatter.tags.length === 0) return []
+
+  const tags = new Set(current.frontmatter.tags)
+  return all
+    .filter((p) => p.slug !== slug)
+    .map((p) => ({
+      post: p,
+      overlap: p.frontmatter.tags.filter((t) => tags.has(t)).length,
+    }))
+    .filter((x) => x.overlap > 0)
+    .sort(
+      (a, b) =>
+        b.overlap - a.overlap ||
+        b.post.frontmatter.date.getTime() - a.post.frontmatter.date.getTime(),
+    )
+    .slice(0, limit)
+    .map((x) => x.post)
+}
+
 export async function getAdjacentPosts(
   locale: Locale,
   slug: string,

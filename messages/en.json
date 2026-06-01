@@ -21,7 +21,8 @@
     "sectionMoreWritings": "More writings",
     "tagsLabel": "Tags",
     "publishedOn": "Published {date}",
-    "updatedOn": "Updated {date}"
+    "updatedOn": "Updated {date}",
+    "related": "Related writings"
   },
   "tags": {
     "title": "Tags",
@@ -30,6 +31,11 @@
     "count": "{count, plural, one {# post} other {# posts}}",
     "all": "All tags",
     "empty": "No tags yet."
+  },
+  "archive": {
+    "title": "Archive",
+    "intro": "All writings, by year.",
+    "empty": "Nothing archived yet."
   },
   "footer": {
     "copyright": "© {year} Alessio Sopranzi",
