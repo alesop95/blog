@@ -155,11 +155,47 @@ function YouTube({ id, title, caption }: YouTubeProps) {
   )
 }
 
+interface VideoProps {
+  /** Path to a self-hosted file under public/, e.g. `/videos/<slug>/clip.mp4`. */
+  src: string
+  /** Optional poster image shown before playback. */
+  poster?: string
+  /** Optional line under the player (the post body can hold the long description). */
+  caption?: string
+}
+
+/**
+ * Self-hosted video player (your own uploaded file, not a YouTube embed).
+ * Drop the file under `public/videos/<slug>/` and reference it with a
+ * root-relative path; the basePath is resolved automatically. Keep files small
+ * (compress before commit) — GitHub blocks files >100 MB and Pages has limits.
+ */
+function Video({ src, poster, caption }: VideoProps) {
+  return (
+    <figure className="my-8">
+      {/* biome-ignore lint/a11y/useMediaCaption: editorial clip; the description lives below / in the body */}
+      <video
+        className="w-full rounded-md border border-ink/10"
+        controls
+        preload="metadata"
+        src={resolveAsset(src)}
+        poster={poster ? resolveAsset(poster) : undefined}
+      />
+      {caption ? (
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
 export const mdxComponents = {
   Callout,
   Figure,
   Diagram,
   YouTube,
+  Video,
   img: MdxImage,
   pre: CodeBlock,
 }

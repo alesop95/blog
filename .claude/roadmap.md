@@ -112,7 +112,7 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 
 Things that emerge from Alessio's writing needs.
 
-- [~] **Video embeds with a description below** — `<YouTube id caption />` shipped (responsive 16:9, `youtube-nocookie`, lazy). TODO: generic `<Video>` for self-hosted MP4 / Vimeo, and a poster/thumbnail fallback.
+- [x] **Video embeds with a description below** — `<YouTube id caption />` (responsive 16:9, `youtube-nocookie`, lazy) **and** `<Video src poster caption />` for **self-hosted uploads** (files under `public/videos/<slug>/`, basePath-aware, `controls`/`preload`). The post body acts as the description. TODO (later): Vimeo, automatic poster generation.
 - [ ] **"Review / listening" post type** — formalise as a real post *kind* (frontmatter `type: "review"`): dedicated header (artist · track · album · optional rating), a `/reviews` (it `/recensioni`) index, a badge in listings, and the song embed at the top. First real one already published: `content/posts/it/pathosfera-caparezza.mdx` (Caparezza – Pathosfera), currently a normal post tagged `recensioni`.
 - [ ] `<Score />` MDX component (ABC.js or Verovio) for harmony posts
 - [ ] `<EQGraph />` for audio engineering posts
