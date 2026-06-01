@@ -119,10 +119,47 @@ function Diagram({ caption, alt, src, wide = false, ...img }: DiagramProps) {
   )
 }
 
+interface YouTubeProps {
+  /** The video id, e.g. `O0jxbzUqWXw` (the `v=` value from a watch URL). */
+  id: string
+  /** Accessible iframe title. */
+  title?: string
+  /** Short line shown under the player (the post body can carry the long text). */
+  caption?: string
+}
+
+/**
+ * Responsive 16:9 YouTube embed via the privacy-friendly `youtube-nocookie`
+ * domain. Lazy-loaded. Pass only the bare video `id` (strip any `&list=…` /
+ * `&index=…` query). Optional `caption` renders under the player.
+ */
+function YouTube({ id, title, caption }: YouTubeProps) {
+  return (
+    <figure className="my-8">
+      <div className="aspect-video w-full overflow-hidden rounded-md border border-ink/10">
+        <iframe
+          className="h-full w-full"
+          src={`https://www.youtube-nocookie.com/embed/${id}`}
+          title={title ?? 'YouTube video'}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </div>
+      {caption ? (
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
 export const mdxComponents = {
   Callout,
   Figure,
   Diagram,
+  YouTube,
   img: MdxImage,
   pre: CodeBlock,
 }
