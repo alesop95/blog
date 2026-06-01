@@ -1,7 +1,7 @@
 # CLAUDE.md – Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-06-01** · Session #6 – editorial features: justified body text + home bio (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — ADR-005. Fixed localized IT post URLs on static export: route now `[locale]/[section]/[slug]`, `/it/articoli/…` emitted as real files — ADR-006. Dev port → 8642.
+> Last update: **2026-06-01** · Session #6 – editorial features: justified body text + home bio (hyphenated), basePath-aware images (`![]()` + `<Figure>`), KaTeX math (`remark-math` + `rehype-katex`, siunitx macros) — ADR-005. Fixed localized IT post URLs on static export: route now `[locale]/[section]/[slug]`, `/it/articoli/…` emitted as real files — ADR-006. Dev port → 8642. Engineering authoring: `<Diagram>` (SVG on a dark-mode-safe plate, `wide`), KaTeX macros `\dd`/`\abs`/`\norm`, circuitikz→SVG guide (`_notes/AUTHORING-ENGINEERING.md`). Home wordmark is now plain text (no self-link GET). Bio portrait added to the home About section (`public/images/alessio.jpg`, resized 900×1200/118KB, basePath-aware). Acoustics demo now bilingual: EN twin `content/posts/en/wall-reinforcement-6db.mdx` (articleId `wall-loading-6db`).
 
 ---
 
@@ -207,6 +207,13 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 - ✅ Demo draft `content/posts/it/propagazione-acustica-parete.mdx` (acoustics, `draft:true`) = authoring template + pipeline smoke-test (verified: 46 katex spans, MathML, `\SI` rendered).
 
 ✅ **Localized IT post URLs fixed (Session #6 – ADR-006)**: the static export used to emit IT posts at `/it/posts/<slug>/` while links pointed to `/it/articoli/<slug>/` (404 on every IT post — next-intl pathname localization needs middleware, absent on `output:'export'`). Fixed by making the collection segment a real dynamic route param: `app/[locale]/[section]/[slug]/`, with `generateStaticParams` emitting the localized section. `postSection`/`postPath` (`src/i18n/routing.ts`) are the single source of truth; `routing.pathnames` reduced to `{ '/': '/' }`. Verified: `out/it/articoli/…` emitted, old `/it/posts/…` gone, home link + sitemap consistent. Also: home bio now justified; dev port `8642`; KaTeX demo post published.
+
+✅ **Engineering authoring environment (Session #6 – ADR-005)**:
+- ✅ `<Diagram>` MDX component — image/SVG on an always-light "plate" (black-stroke circuitikz/TikZ SVGs stay legible in dark mode), horizontal scroll, optional `wide` breakout. basePath-aware. Alongside `<Figure>` (generic) and the `![]()` image map.
+- ✅ KaTeX engineering macros: `\dd`, `\abs`, `\norm` (plus siunitx `\SI`/`\si`).
+- ✅ Workflow `circuitikz → SVG` (no TeX toolchain in repo, per ADR-005): compile standalone `.tex` locally → SVG → `public/images/<slug>/` → `<Diagram>`. Full recipe in `_notes/AUTHORING-ENGINEERING.md`.
+- ✅ Real sample SVG (image-source method) in the demo post proves the pipeline (verified: `diagram__plate` + SVG ref in built HTML).
+- ✅ Home wordmark (`Logo`) is now plain text, not a `<Link href="/">` — it only renders in the home hero, so linking home→home just fired a redundant self-navigation GET. The "go home" link for other pages remains the header "AS" brand.
 
 GitHub username: **`alesop95`**. Site URL (when deployed): **`https://alesop95.github.io/blog`** (project site). User-site root (`alesop95.github.io`) intentionally left empty. Coexists independently with `https://alesop95.github.io/skills/` – see section 1 + ADR-004.
 

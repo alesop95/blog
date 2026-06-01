@@ -79,7 +79,8 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] Bio della home giustificato (`text-justify` + `hyphens-auto`).
 - [x] Porta dev → `8642` (`next dev -p 8642`).
 - [x] **Fix URL IT localizzati su export statico** (ADR-006): route → `[locale]/[section]/[slug]`, `/it/articoli/…` generati come file reali. `postSection`/`postPath` unica fonte di verità; `routing.pathnames` ridotto a `{ '/': '/' }`. Verificato in `out/`.
-- [ ] Circuiti circuitikz: pre-render a SVG (flusso documentato; nessuna toolchain nel repo). Da usare quando servirà.
+- [x] Ambiente ingegneristico: `<Diagram>` (SVG su lastra dark-safe, `wide`), macro KaTeX `\dd`/`\abs`/`\norm`, ricetta `circuitikz → SVG` (`_notes/AUTHORING-ENGINEERING.md`), SVG d'esempio nel post demo.
+- [x] Home wordmark non più cliccabile (fix GET a vuoto verso sé stessa).
 - [ ] Applicare lo stesso pattern (segmento localizzato + generateStaticParams) a tag/archivio in Phase 2-B, NON `pathnames` next-intl.
 
 ## Phase 2-C – Polish editoriale (Session #4)

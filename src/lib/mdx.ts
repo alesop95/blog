@@ -28,8 +28,13 @@ import remarkSmartypants from 'remark-smartypants'
 const katexOptions = {
   throwOnError: false,
   macros: {
+    // siunitx-style units: \SI{6.02}{dB} → 6.02 dB, \si{dB} → dB
     '\\SI': '#1\\,\\mathrm{#2}',
     '\\si': '\\mathrm{#1}',
+    // handy engineering shorthands
+    '\\dd': '\\mathrm{d}', // differential operator: \int f \dd x
+    '\\abs': '\\left|#1\\right|',
+    '\\norm': '\\left\\lVert#1\\right\\rVert',
   },
 }
 

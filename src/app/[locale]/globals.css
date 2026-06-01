@@ -194,6 +194,30 @@
     text-align: center;
   }
 
+  /* Engineering diagrams (<Diagram>): an always-light "plate" so black-stroke
+     vector exports (circuitikz / TikZ → SVG) stay legible in dark mode too.
+     Scrolls horizontally rather than squashing a wide schematic. */
+  .prose .diagram__plate {
+    background: oklch(0.99 0.004 80);
+    border: 1px solid oklch(from var(--color-ink) l c h / 0.12);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+  .prose .diagram__plate img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+  /* `wide` diagrams break out of the reading column on large screens. */
+  @media (min-width: 1024px) {
+    .prose .diagram--wide {
+      margin-inline: -4rem;
+    }
+  }
+
   .prose ul,
   .prose ol {
     padding-left: 1.4rem;

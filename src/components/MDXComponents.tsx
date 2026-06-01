@@ -90,9 +90,39 @@ function MdxImage({ src, alt, title, ...rest }: ComponentProps<'img'>) {
   return <img {...rest} src={resolved} alt={alt ?? ''} />
 }
 
+interface DiagramProps extends ComponentProps<'img'> {
+  caption?: string
+  /** Break out wider than the prose column on large screens (big schematics). */
+  wide?: boolean
+}
+
+/**
+ * Engineering diagram: a schematic, plot, or `circuitikz`/TikZ figure exported
+ * to SVG (see _notes/AUTHORING-ENGINEERING.md). Unlike <Figure>, it sits on an
+ * always-light "plate" so black-stroke vector diagrams stay legible in dark
+ * mode, and it scrolls horizontally instead of squashing. Use `wide` for large
+ * schematics that need to break out of the reading column.
+ */
+function Diagram({ caption, alt, src, wide = false, ...img }: DiagramProps) {
+  return (
+    <figure className={`diagram my-8${wide ? ' diagram--wide' : ''}`}>
+      <div className="diagram__plate">
+        {/* biome-ignore lint/a11y/useAltText: alt is forwarded from props */}
+        <img {...img} src={resolveAsset(src as string | undefined)} alt={alt ?? ''} />
+      </div>
+      {caption ? (
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
 export const mdxComponents = {
   Callout,
   Figure,
+  Diagram,
   img: MdxImage,
   pre: CodeBlock,
 }

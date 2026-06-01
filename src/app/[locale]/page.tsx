@@ -5,6 +5,7 @@ import { Logo } from '@/components/Logo'
 import { PostsList } from '@/components/PostsList'
 import { SectionTitle } from '@/components/SectionTitle'
 import { bio } from '@/config/bio'
+import { siteConfig } from '@/config/site'
 import { isLocale } from '@/i18n/routing'
 import { getAllPosts } from '@/lib/posts'
 
@@ -33,6 +34,15 @@ export default async function HomePage({ params }: { params: Params }) {
         <section className="mb-20">
           <SectionTitle>{t('home.sectionAbout')}</SectionTitle>
           <div className="space-y-5 text-justify leading-relaxed text-ink/90 hyphens-auto">
+            {/* Portrait near the bio. basePath is prefixed manually because a plain
+                <img> on static export doesn't get it the way next/image/Link do. */}
+            <img
+              src={`${siteConfig.basePath}/images/alessio.jpg`}
+              alt={siteConfig.authorName}
+              width={900}
+              height={1200}
+              className="mx-auto mb-5 block w-44 rounded-lg sm:float-right sm:mx-0 sm:mb-2 sm:ml-6 sm:w-52"
+            />
             {bio[locale].map((para) => (
               <p key={para.id}>{para.text}</p>
             ))}

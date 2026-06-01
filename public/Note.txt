@@ -1,0 +1,1 @@
+è la cartella generata automaticamente da scripts/build-og.ts (satori + sharp). Contiene le immagini Open Graph, le anteprime che appaiono quando condividi un link del blog su social/chat (la card con titolo + tempo di lettura), una per post per lingua, più default.png.

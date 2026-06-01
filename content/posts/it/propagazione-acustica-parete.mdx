@@ -71,14 +71,23 @@ Il rinforzo deriva quindi da:
 Non è un effetto universale su tutto lo spettro: salendo in frequenza i ritardi
 diventano comparabili a $\lambda/4$ e il rinforzo si trasforma in *comb filtering*.
 
-## Inserire un disegno di circuito (o un'immagine)
+## Il modello a sorgente immagine
 
-I disegni `circuitikz` si esportano in SVG una volta (LaTeX locale) e si inseriscono
-come immagini. La sintassi markdown — con didascalia fra virgolette — è:
+La parete rigida equivale a una **sorgente immagine** $S'$ speculare e in fase con la
+sorgente reale $S$: è la costruzione che soddisfa la condizione di Neumann sulla parete.
 
-```md
-![Schema del modello a sorgente immagine](/images/propagazione-acustica-parete/immagine.svg "Sorgente reale + immagine speculare")
+<Diagram
+  src="/images/propagazione-acustica-parete/sorgente-immagine.svg"
+  alt="Sorgente reale S a distanza d dalla parete rigida e sorgente immagine S′ alla stessa distanza dietro la parete, lungo l'asse di simmetria."
+  caption="Metodo delle immagini: S′ è virtuale, in fase, speculare a S rispetto alla parete."
+/>
+
+I diagrammi ingegneristici – schemi, grafici, circuiti `circuitikz` – si esportano una
+volta in **SVG** e si inseriscono con `<Diagram>`, che li posa su una lastra chiara
+leggibile anche in tema scuro. Per uno schema grande basta aggiungere `wide`:
+
+```mdx
+<Diagram src="/images/<slug>/schema.svg" alt="…" caption="…" wide />
 ```
 
-Le immagini vanno committate sotto `public/images/<slug>/` e ridimensionate prima del
-commit (l'export statico non le ottimizza a runtime).
+Le immagini vanno committate sotto `public/images/<slug>/`.

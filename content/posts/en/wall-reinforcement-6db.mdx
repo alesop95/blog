@@ -1,0 +1,92 @@
+---
+title: "Wall reinforcement: the +6 dB explained by waves"
+description: "Why a cabinet facing a rigid wall gains at low frequencies, and where that +6 dB actually comes from — an example post with KaTeX maths."
+date: 2026-05-29
+tags: ["acoustics", "mathematics", "audio"]
+draft: false
+articleId: "wall-loading-6db"
+---
+
+> This is a **test article**: it shows how to write LaTeX-style maths inside an MDX
+> post. Maths goes between `$…$` (inline) and `$$…$$` (display).
+
+What happens if I point a bass amp's speaker straight at a vertical wall? What's the
+mathematical principle by which the low end doubles? Where does the $+6\,\mathrm{dB}$
+figure come from?
+
+At low frequencies, where the cone is small compared to the wavelength, the field is
+spherical and $p(r) = \frac{A}{r}\,e^{-jkr}$, with $k = \frac{2\pi}{\lambda}$.
+
+## Wave equation and linearity
+
+In the linear acoustic regime the pressure $p(\mathbf{x},t)$ in a homogeneous, isotropic,
+lossless medium satisfies the wave equation:
+
+$$
+\nabla^2 p - \frac{1}{c^2}\frac{\partial^2 p}{\partial t^2} = 0
+$$
+
+The associated operator $\mathcal{L}[p] = \nabla^2 p - \frac{1}{c^2}\,\partial_t^2 p$ is
+**linear**: superposition holds, which is the foundation of interference.
+
+### Separation of variables
+
+Looking for a separable solution $p(\mathbf{x},t) = X(\mathbf{x})\,T(t)$ and dividing by
+$XT$ yields two decoupled equations:
+
+$$
+\begin{aligned}
+\ddot{T} + \omega^2 T &= 0 \\
+\nabla^2 X + k^2 X &= 0
+\end{aligned}
+$$
+
+The latter is the **Helmholtz equation**, with $k = \dfrac{\omega}{c} = \dfrac{2\pi}{\lambda}$.
+
+## Where the +6 dB comes from
+
+Near an ideal rigid wall (infinite impedance, zero normal velocity) the problem is
+equivalent to an in-phase **image source**. When the cone-to-wall distance is much smaller
+than $\lambda/4$, the two waves arrive in phase and with equal amplitude. Since the sound
+pressure level is
+
+$$
+\mathrm{SPL} = 20\log_{10}\!\left(\frac{p}{p_0}\right),
+$$
+
+if the pressure doubles:
+
+$$
+\Delta\,\mathrm{SPL} = 20\log_{10}(2) \approx \SI{6.02}{dB}.
+$$
+
+So the reinforcement comes from:
+
+- linearity of the wave equation;
+- the Neumann boundary condition at the wall;
+- selection of outgoing solutions (Sommerfeld);
+- coherent interference with the image source.
+
+It is not a broadband effect: as frequency rises the delays become comparable to
+$\lambda/4$ and the reinforcement turns into *comb filtering*.
+
+## The image-source model
+
+The rigid wall is equivalent to an **image source** $S'$, mirrored and in phase with the
+real source $S$: this is the construction that satisfies the Neumann condition at the wall.
+
+<Diagram
+  src="/images/wall-reinforcement-6db/image-source.svg"
+  alt="Real source S at distance d from the rigid wall and image source S′ at the same distance behind the wall, along the symmetry axis."
+  caption="Method of images: S′ is virtual, in phase, mirrored across the wall."
+/>
+
+Engineering diagrams – schematics, plots, `circuitikz` circuits – are exported once to
+**SVG** and inserted with `<Diagram>`, which sits them on a light plate that stays legible
+in dark mode. For a large schematic just add `wide`:
+
+```mdx
+<Diagram src="/images/<slug>/schema.svg" alt="…" caption="…" wide />
+```
+
+Images go under `public/images/<slug>/`.

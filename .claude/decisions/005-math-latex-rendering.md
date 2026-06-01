@@ -54,5 +54,10 @@ Two sub-problems, very different in nature:
   Markdown.
 - Images are basePath-aware (see the image feature) so `/images/...` resolves to `/blog/...`
   on deploy.
-- A demo draft post `content/posts/it/propagazione-acustica-parete.mdx` doubles as the
-  authoring template and the pipeline smoke-test.
+- A demo post `content/posts/it/propagazione-acustica-parete.mdx` (now published) doubles as
+  the authoring template and the pipeline smoke-test.
+- **Diagrams/circuits** (Session #6): a `<Diagram>` MDX component renders pre-exported SVGs on
+  an always-light plate (so black-stroke `circuitikz`/TikZ exports read in dark mode), with a
+  `wide` breakout option. No TeX toolchain in the repo: author compiles `circuitikz → SVG`
+  locally and commits under `public/images/<slug>/`. KaTeX macros extended with `\dd`/`\abs`/
+  `\norm`. Full engineering authoring workflow: `_notes/AUTHORING-ENGINEERING.md`.
