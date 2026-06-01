@@ -51,3 +51,23 @@ export function postSection(locale: Locale): string {
 export function postPath(locale: Locale, slug: string): string {
   return `/${locale}/${postSection(locale)}/${slug}`
 }
+
+/**
+ * The localized URL segment for the tags collection, per locale.
+ * EN → `tags`, IT → `tag`. Mirrors the post-section pattern (ADR-006): the
+ * tag routes are static localized folders (`app/[locale]/tags`, `.../tag`),
+ * so these helpers keep the localized word in one place.
+ */
+export function tagSection(locale: Locale): string {
+  return locale === 'it' ? 'tag' : 'tags'
+}
+
+/** Locale-prefixed path for the tag index. e.g. `/it/tag`. */
+export function tagsIndexPath(locale: Locale): string {
+  return `/${locale}/${tagSection(locale)}`
+}
+
+/** Locale-prefixed path for a single tag page. e.g. `/en/tags/audio`. */
+export function tagPath(locale: Locale, tag: string): string {
+  return `/${locale}/${tagSection(locale)}/${encodeURIComponent(tag)}`
+}

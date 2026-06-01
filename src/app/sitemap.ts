@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config/site'
-import { postPath, routing } from '@/i18n/routing'
-import { getAllPosts } from '@/lib/posts'
+import { postPath, routing, tagPath, tagsIndexPath } from '@/i18n/routing'
+import { getAllPosts, getAllTags } from '@/lib/posts'
 
 // Emit a static sitemap.xml at build time (required by `output: export`).
 export const dynamic = 'force-static'
@@ -63,6 +63,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'monthly',
         priority: 0.8,
         ...(languages ? { alternates: { languages } } : {}),
+      })
+    }
+  }
+
+  // Tag index per locale, paired across locales (en /tags ↔ it /tag).
+  const tagIndexLanguages = Object.fromEntries(
+    routing.locales.map((l) => [l, `${siteConfig.url}${tagsIndexPath(l)}`]),
+  )
+  for (const locale of routing.locales) {
+    entries.push({
+      url: `${siteConfig.url}${tagsIndexPath(locale)}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.5,
+      alternates: { languages: tagIndexLanguages },
+    })
+  }
+
+  // Single-tag pages (tags differ per locale, so no cross-locale alternates).
+  for (const locale of routing.locales) {
+    const tags = await getAllTags(locale)
+    for (const { tag } of tags) {
+      entries.push({
+        url: `${siteConfig.url}${tagPath(locale, tag)}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.4,
       })
     }
   }

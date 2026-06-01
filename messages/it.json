@@ -23,6 +23,14 @@
     "publishedOn": "Pubblicato il {date}",
     "updatedOn": "Aggiornato il {date}"
   },
+  "tags": {
+    "title": "Tag",
+    "intro": "Sfoglia gli scritti per argomento.",
+    "taggedTitle": "Tag “{tag}”",
+    "count": "{count, plural, one {# articolo} other {# articoli}}",
+    "all": "Tutti i tag",
+    "empty": "Ancora nessun tag."
+  },
   "footer": {
     "copyright": "© {year} Alessio Sopranzi",
     "rss": "RSS",

@@ -51,3 +51,20 @@ a **real dynamic route param** and generate the localized paths directly at buil
   `pathnames`. ADR-003's `pathnames` snippet for tags is superseded accordingly.
 - After renaming a route folder, `.next/types` goes stale → `pnpm typecheck` fails on a
   dangling validator import. Fix: delete `.next` before re-running `pnpm verify`.
+
+## Addendum (Session #6) – tag routes use static localized folders
+
+The post route's `[section]` is a *greedy* dynamic segment: it matches any single segment
+under `[locale]`, so a second dynamic collection (`[locale]/[tagSeg]/[tag]`) as a sibling would
+be a Next.js routing conflict ("different slug names for the same dynamic path"). Two options:
+
+1. **Discriminate inside `[section]`** — one route handles posts AND tags by inspecting the
+   section value. Fewer files, but conflates page types and forces touching the verified post route.
+2. **Static localized folders** — `app/[locale]/tags` + `app/[locale]/tag` (and `[tag]` children),
+   each restricted to its locale via `generateStaticParams`. Static segments take precedence over
+   the dynamic `[section]`, so they coexist cleanly (like `feed.xml`). No post-route changes.
+
+**Chosen: option 2** for tags — single-purpose route files, zero risk to the post route. The
+localized word still lives once in `tagSection()`. Cost: one folder per localized word (`tags`,
+`tag`). Future localized collections (archive `/en/archive` ↔ `/it/archivio`) follow the same
+static-folder approach.

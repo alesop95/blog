@@ -151,6 +151,37 @@ export async function getAllSlugs(locale: Locale): Promise<string[]> {
   return all.map((p) => p.slug)
 }
 
+export interface TagCount {
+  tag: string
+  count: number
+}
+
+/**
+ * All tags used by visible posts in a locale, with how many posts carry each.
+ * Sorted by frequency (desc), then alphabetically. Drives the tag index.
+ */
+export async function getAllTags(locale: Locale): Promise<TagCount[]> {
+  const all = await loadPostsForLocale(locale)
+  const counts = new Map<string, number>()
+  for (const post of all) {
+    for (const tag of post.frontmatter.tags) {
+      counts.set(tag, (counts.get(tag) ?? 0) + 1)
+    }
+  }
+  return [...counts.entries()]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag))
+}
+
+/** Visible posts in a locale carrying the given tag (already date-sorted). */
+export async function getPostsByTag(
+  locale: Locale,
+  tag: string,
+): Promise<Post[]> {
+  const all = await loadPostsForLocale(locale)
+  return all.filter((p) => p.frontmatter.tags.includes(tag))
+}
+
 export async function getAdjacentPosts(
   locale: Locale,
   slug: string,

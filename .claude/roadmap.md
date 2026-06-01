@@ -96,8 +96,8 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 
 - [ ] Pagefind index, multilingual mode
 - [ ] `⌘K` search modal
-- [ ] Tag pages: `/en/tags/[tag]` + `/it/tag/[tag]`
-- [ ] Tag indexes: `/en/tags` + `/it/tag`
+- [x] Tag pages: `/en/tags/[tag]` + `/it/tag/[tag]` — static localized folders (`tags/`, `tag/`) sharing `<TagPage>`; `tagSection`/`tagPath`/`tagsIndexPath` helpers; tags clickable on posts; footer link; sitemap entries.
+- [x] Tag indexes: `/en/tags` + `/it/tag` — tag cloud with post counts.
 - [ ] Archive by year: `/en/archive` + `/it/archivio`
 - [ ] Related posts (by tag overlap)
 

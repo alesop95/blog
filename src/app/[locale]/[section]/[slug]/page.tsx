@@ -11,7 +11,7 @@ import { mdxComponents } from '@/components/MDXComponents'
 import { SectionTitle } from '@/components/SectionTitle'
 import { Toc } from '@/components/Toc'
 import { siteConfig } from '@/config/site'
-import { isLocale, postPath, postSection, routing } from '@/i18n/routing'
+import { isLocale, postPath, postSection, routing, tagPath } from '@/i18n/routing'
 import {
   getAdjacentPosts,
   getAllSlugs,
@@ -180,7 +180,14 @@ export default async function PostPage({ params }: { params: Params }) {
                   <span aria-hidden>·</span>
                   <ul className="flex flex-wrap gap-2">
                     {f.tags.map((tag) => (
-                      <li key={tag}>#{tag}</li>
+                      <li key={tag}>
+                        <Link
+                          href={tagPath(locale, tag) as Route}
+                          className="transition-colors hover:text-accent"
+                        >
+                          #{tag}
+                        </Link>
+                      </li>
                     ))}
                   </ul>
                 </>
