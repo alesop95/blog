@@ -27,6 +27,35 @@ const POSTS_ROOT = join(process.cwd(), 'content', 'posts')
  * two posts with the same `articleId` (one in /en/, one in /it/)
  * are considered translations of each other.
  */
+/**
+ * Optional structured metadata for `type: "review"` posts (Phase 4, ADR-009).
+ * Every field is optional — the review header renders whatever is present, so a
+ * review can be a reflective essay (no rating) or a tagged listing card alike.
+ * `kind` is author-written in the post's own language (e.g. "album", "brano",
+ * "book") and rendered verbatim — no separate i18n needed.
+ */
+const ReviewMetaSchema = z.object({
+  /** Artist or author of the reviewed work. */
+  artist: z.string().min(1).optional(),
+  /** Title of the reviewed work (album, track, book, film…). */
+  work: z.string().min(1).optional(),
+  /** Free-form kind label in the post's language: "album" / "brano" / "libro"… */
+  kind: z.string().min(1).optional(),
+  /** Release year of the reviewed work. */
+  year: z.coerce.number().int().min(0).optional(),
+  /** Score out of 5, in half-star steps (0, 0.5, … 5). */
+  rating: z
+    .number()
+    .min(0)
+    .max(5)
+    .refine((n) => Number.isInteger(n * 2), 'rating must be in 0.5 steps')
+    .optional(),
+  /** Link to the source (YouTube / Spotify / publisher…). */
+  link: z.string().url().optional(),
+})
+
+export type ReviewMeta = z.infer<typeof ReviewMetaSchema>
+
 const PostFrontmatterSchema = z.object({
   title: z.string().min(1, 'title is required'),
   description: z.string().min(1).max(280),
@@ -36,6 +65,10 @@ const PostFrontmatterSchema = z.object({
   draft: z.boolean().default(false),
   /** Opt-in decorative drop-cap on the first paragraph (Phase 2-C). */
   dropCap: z.boolean().default(false),
+  /** Post kind. `review` gets a structured header + the /reviews index (ADR-009). */
+  type: z.enum(['post', 'review']).default('post'),
+  /** Structured review metadata; only meaningful when `type: "review"`. */
+  review: ReviewMetaSchema.optional(),
   cover: z.string().url().optional(),
   /** Stable identifier shared across locale translations of the same article. */
   articleId: z.string().min(1).optional(),
@@ -173,6 +206,12 @@ export async function getAllTags(locale: Locale): Promise<TagCount[]> {
   return [...counts.entries()]
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag))
+}
+
+/** Visible review-type posts in a locale (already date-sorted). Drives /reviews. */
+export async function getReviews(locale: Locale): Promise<Post[]> {
+  const all = await loadPostsForLocale(locale)
+  return all.filter((p) => p.frontmatter.type === 'review')
 }
 
 /** Visible posts in a locale carrying the given tag (already date-sorted). */

@@ -2,7 +2,12 @@ import type { Route } from 'next'
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { siteConfig } from '@/config/site'
-import { type Locale, archivePath, tagsIndexPath } from '@/i18n/routing'
+import {
+  type Locale,
+  archivePath,
+  reviewsPath,
+  tagsIndexPath,
+} from '@/i18n/routing'
 
 export function Footer() {
   const t = useTranslations()
@@ -20,6 +25,14 @@ export function Footer() {
               className="transition-colors hover:text-accent"
             >
               {t('tags.title')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={reviewsPath(locale) as Route}
+              className="transition-colors hover:text-accent"
+            >
+              {t('reviews.title')}
             </Link>
           </li>
           <li>

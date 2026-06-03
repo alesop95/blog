@@ -3,6 +3,7 @@ import { siteConfig } from '@/config/site'
 import {
   archivePath,
   postPath,
+  reviewsPath,
   routing,
   tagPath,
   tagsIndexPath,
@@ -98,6 +99,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.5,
       alternates: { languages: archiveLanguages },
+    })
+  }
+
+  // Reviews index per locale, paired across locales (en /reviews ↔ it /recensioni).
+  const reviewsLanguages = Object.fromEntries(
+    routing.locales.map((l) => [l, `${siteConfig.url}${reviewsPath(l)}`]),
+  )
+  for (const locale of routing.locales) {
+    entries.push({
+      url: `${siteConfig.url}${reviewsPath(locale)}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.5,
+      alternates: { languages: reviewsLanguages },
     })
   }
 

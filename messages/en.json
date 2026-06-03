@@ -37,6 +37,16 @@
     "intro": "All writings, by year.",
     "empty": "Nothing archived yet."
   },
+  "review": {
+    "rating": "{value} out of 5",
+    "source": "Source"
+  },
+  "reviews": {
+    "title": "Reviews",
+    "intro": "Listening notes and reflections — music, books, and more.",
+    "empty": "No reviews yet.",
+    "badge": "Review"
+  },
   "search": {
     "open": "Search",
     "placeholder": "Search the writings…",

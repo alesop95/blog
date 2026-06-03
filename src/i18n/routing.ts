@@ -84,3 +84,18 @@ export function archiveSection(locale: Locale): string {
 export function archivePath(locale: Locale): string {
   return `/${locale}/${archiveSection(locale)}`
 }
+
+/**
+ * The localized URL segment for the reviews index, per locale.
+ * EN → `reviews`, IT → `recensioni`. Same static-localized-folder pattern as
+ * tags/archive (ADR-006 addendum): a static segment beats the dynamic
+ * `[section]` post route, so `/en/reviews` resolves to the index folder.
+ */
+export function reviewsSection(locale: Locale): string {
+  return locale === 'it' ? 'recensioni' : 'reviews'
+}
+
+/** Locale-prefixed path for the reviews index. e.g. `/it/recensioni`. */
+export function reviewsPath(locale: Locale): string {
+  return `/${locale}/${reviewsSection(locale)}`
+}

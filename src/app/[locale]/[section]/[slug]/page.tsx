@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { mdxComponents } from '@/components/MDXComponents'
+import { ReviewHeader } from '@/components/ReviewHeader'
 import { SectionTitle } from '@/components/SectionTitle'
 import { Toc } from '@/components/Toc'
 import { siteConfig } from '@/config/site'
@@ -207,6 +208,10 @@ export default async function PostPage({ params }: { params: Params }) {
               {f.description}
             </p>
           </header>
+
+          {f.type === 'review' && f.review ? (
+            <ReviewHeader review={f.review} locale={locale} />
+          ) : null}
 
           {showToc ? <Toc entries={toc} label={t('post.contents')} /> : null}
 

@@ -113,7 +113,7 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 Things that emerge from Alessio's writing needs.
 
 - [x] **Video embeds with a description below** — `<YouTube id caption />` (responsive 16:9, `youtube-nocookie`, lazy) **and** `<Video src poster caption />` for **self-hosted uploads** (files under `public/videos/<slug>/`, basePath-aware, `controls`/`preload`). The post body acts as the description. TODO (later): Vimeo, automatic poster generation.
-- [ ] **"Review / listening" post type** — formalise as a real post *kind* (frontmatter `type: "review"`): dedicated header (artist · track · album · optional rating), a `/reviews` (it `/recensioni`) index, a badge in listings, and the song embed at the top. First real one already published: `content/posts/it/pathosfera-caparezza.mdx` (Caparezza – Pathosfera), currently a normal post tagged `recensioni`.
+- [x] **"Review / listening" post type** (Session #7, 2026-06-03 — **ADR-009**) — frontmatter `type: "review"` + optional `review` block (artist · work · kind · year · rating 0–5 half-step · source link). `<ReviewHeader>` spec-strip above the prose (half-star rating via layered lucide stars), localized index `/reviews` ↔ `/recensioni` (static folders + `<ReviewsPage>`, `reviewsSection`/`reviewsPath`), "Review/Recensione" badge in `<PostsList>`, footer link + sitemap (paired). Applied to both Caparezza twins (rating `4.5` placeholder — Alessio to confirm). All fields optional; `kind` author-written per language; non-review posts unaffected (`type` defaults to `post`).
 - [ ] `<Score />` MDX component (ABC.js or Verovio) for harmony posts
 - [ ] `<EQGraph />` for audio engineering posts
 - [ ] `<PedalSignalFlow />` for pedal-circuit posts

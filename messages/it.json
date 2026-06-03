@@ -37,6 +37,16 @@
     "intro": "Tutti gli scritti, per anno.",
     "empty": "Ancora nulla in archivio."
   },
+  "review": {
+    "rating": "{value} su 5",
+    "source": "Fonte"
+  },
+  "reviews": {
+    "title": "Recensioni",
+    "intro": "Note d'ascolto e riflessioni – musica, libri e altro.",
+    "empty": "Ancora nessuna recensione.",
+    "badge": "Recensione"
+  },
   "search": {
     "open": "Cerca",
     "placeholder": "Cerca tra gli scritti…",

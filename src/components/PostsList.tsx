@@ -44,6 +44,11 @@ export function PostsList({ posts }: PostsListProps) {
             </time>
 
             <div className="flex-1">
+              {post.frontmatter.type === 'review' ? (
+                <span className="mb-1 inline-block rounded-full border border-accent/30 px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-accent">
+                  {t('reviews.badge')}
+                </span>
+              ) : null}
               <h3 className="font-display text-lg font-medium leading-snug">
                 {post.frontmatter.title}
               </h3>
