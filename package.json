@@ -30,6 +30,7 @@
     "verify": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
   },
   "dependencies": {
+    "abcjs": "^6.6.3",
     "feed": "^4.2.2",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",

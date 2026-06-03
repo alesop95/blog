@@ -56,6 +56,16 @@ const ReviewMetaSchema = z.object({
 
 export type ReviewMeta = z.infer<typeof ReviewMetaSchema>
 
+/** Series membership (Phase 4): groups posts into an ordered arc. */
+const SeriesMetaSchema = z.object({
+  /** Series name, shared verbatim by every post in the series (per locale). */
+  name: z.string().min(1),
+  /** Position within the series (1-based). Posts without it sort last, by date. */
+  order: z.number().int().min(1).optional(),
+})
+
+export type SeriesMeta = z.infer<typeof SeriesMetaSchema>
+
 export const PostFrontmatterSchema = z.object({
   title: z.string().min(1, 'title is required'),
   description: z.string().min(1).max(280),
@@ -69,6 +79,8 @@ export const PostFrontmatterSchema = z.object({
   type: z.enum(['post', 'review']).default('post'),
   /** Structured review metadata; only meaningful when `type: "review"`. */
   review: ReviewMetaSchema.optional(),
+  /** Optional series membership (Phase 4). */
+  series: SeriesMetaSchema.optional(),
   cover: z.string().url().optional(),
   /** Stable identifier shared across locale translations of the same article. */
   articleId: z.string().min(1).optional(),
@@ -212,6 +224,56 @@ export async function getAllTags(locale: Locale): Promise<TagCount[]> {
 export async function getReviews(locale: Locale): Promise<Post[]> {
   const all = await loadPostsForLocale(locale)
   return all.filter((p) => p.frontmatter.type === 'review')
+}
+
+/** URL slug for a series name (lowercase, spaces→dashes, punctuation stripped). */
+export function seriesSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+}
+
+export interface SeriesSummary {
+  name: string
+  slug: string
+  count: number
+}
+
+/** All series in a locale, with post counts. Sorted alphabetically. Drives /series. */
+export async function getAllSeries(locale: Locale): Promise<SeriesSummary[]> {
+  const all = await loadPostsForLocale(locale)
+  const map = new Map<string, SeriesSummary>()
+  for (const post of all) {
+    const s = post.frontmatter.series
+    if (!s) continue
+    const slug = seriesSlug(s.name)
+    const cur = map.get(slug) ?? { name: s.name, slug, count: 0 }
+    cur.count += 1
+    map.set(slug, cur)
+  }
+  return [...map.values()].sort((a, b) => a.name.localeCompare(b.name))
+}
+
+/**
+ * Posts in a series (by slug), in **reading-arc order**: by `series.order` asc
+ * (missing order last), then oldest-first. Note this is the reverse of the
+ * default date-desc collection order — a series reads front to back.
+ */
+export async function getSeriesPosts(
+  locale: Locale,
+  slug: string,
+): Promise<Post[]> {
+  const all = await loadPostsForLocale(locale)
+  return all
+    .filter((p) => p.frontmatter.series && seriesSlug(p.frontmatter.series.name) === slug)
+    .sort((a, b) => {
+      const oa = a.frontmatter.series?.order ?? Number.POSITIVE_INFINITY
+      const ob = b.frontmatter.series?.order ?? Number.POSITIVE_INFINITY
+      if (oa !== ob) return oa - ob
+      return a.frontmatter.date.getTime() - b.frontmatter.date.getTime()
+    })
 }
 
 /** Visible posts in a locale carrying the given tag (already date-sorted). */

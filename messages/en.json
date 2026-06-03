@@ -47,6 +47,21 @@
     "empty": "No reviews yet.",
     "badge": "Review"
   },
+  "series": {
+    "title": "Series",
+    "intro": "Multi-part writings, in reading order.",
+    "empty": "No series yet.",
+    "count": "{count, plural, one {# part} other {# parts}}",
+    "all": "All series",
+    "inSeries": "Part of the series",
+    "position": "{index} of {total}"
+  },
+  "year": {
+    "title": "{year} in review",
+    "intro": "A look back at the writing from {year}.",
+    "summary": "{count, plural, one {# writing} other {# writings}} · {words} words",
+    "topTags": "Recurring topics"
+  },
   "search": {
     "open": "Search",
     "label": "Search the writings",

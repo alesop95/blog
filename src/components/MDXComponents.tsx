@@ -1,6 +1,10 @@
 import type { ComponentProps, ReactNode } from 'react'
 import { siteConfig } from '@/config/site'
 import { CodeBlock } from './CodeBlock'
+import { EQGraph } from './EQGraph'
+import { HarmonyDiagram } from './HarmonyDiagram'
+import { PedalSignalFlow } from './PedalSignalFlow'
+import { Score } from './Score'
 
 /**
  * Custom components mapped into the MDX scope.
@@ -220,6 +224,10 @@ export const mdxComponents = {
   YouTube,
   Video,
   Quote,
+  Score,
+  HarmonyDiagram,
+  EQGraph,
+  PedalSignalFlow,
   img: MdxImage,
   pre: CodeBlock,
 }

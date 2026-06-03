@@ -47,6 +47,21 @@
     "empty": "Ancora nessuna recensione.",
     "badge": "Recensione"
   },
+  "series": {
+    "title": "Serie",
+    "intro": "Scritti in più parti, in ordine di lettura.",
+    "empty": "Ancora nessuna serie.",
+    "count": "{count, plural, one {# parte} other {# parti}}",
+    "all": "Tutte le serie",
+    "inSeries": "Parte della serie",
+    "position": "{index} di {total}"
+  },
+  "year": {
+    "title": "Il {year} in sintesi",
+    "intro": "Uno sguardo agli scritti del {year}.",
+    "summary": "{count, plural, one {# scritto} other {# scritti}} · {words} parole",
+    "topTags": "Argomenti ricorrenti"
+  },
   "search": {
     "open": "Cerca",
     "label": "Cerca tra gli scritti",

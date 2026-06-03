@@ -1,0 +1,40 @@
+---
+title: "Component showcase"
+description: "A draft scratch page exercising every MDX component — not published; used as a living smoke-test of the authoring pipeline."
+date: 2026-06-03
+tags: ["meta"]
+draft: true
+series:
+  name: "Showcase series"
+  order: 1
+articleId: "component-showcase"
+---
+
+A non-published page that uses every custom MDX component, so the build proves they render.
+
+## Harmony
+
+<HarmonyDiagram highlight={["C", "G", "Am"]} caption="I – V – vi in C" />
+
+## EQ curve
+
+<EQGraph
+  curve={[[20, 0], [80, 4], [250, 1], [1000, -3], [4000, 6], [12000, -2], [20000, -9]]}
+  caption="A made-up response"
+/>
+
+## Signal chain
+
+<PedalSignalFlow chain={["Guitar", "Tuner", "Overdrive", "Delay", "Amp"]} caption="A simple rig" />
+
+## Score
+
+<Score abc={`X:1\nM:4/4\nK:C\nC D E F | G A B c |`} caption="C major scale" />
+
+## Pull-quote
+
+<Quote cite="Someone">A highlighted line.</Quote>
+
+Inline math $a^2 + b^2 = c^2$ and a callout:
+
+<Callout kind="info">Everything above should render.</Callout>

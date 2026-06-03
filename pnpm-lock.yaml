@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      abcjs:
+        specifier: ^6.6.3
+        version: 6.6.3
       feed:
         specifier: ^4.2.2
         version: 4.2.2
@@ -1180,6 +1183,9 @@ packages:
 
   '@vitest/utils@4.1.8':
     resolution: {integrity: sha512-uOJamYALNhfJ6iolExyQM40yIQwDqYnkKtQ5VCiSe17E33H0aQ/u+1GlRuz4LZBk6Mm3sg90G9hEbmEt37C1Zg==}
+
+  abcjs@6.6.3:
+    resolution: {integrity: sha512-BerGJCY8+pvJV1+VxZn1Y/VNcuSAk8BysCbBICY0W8fgE5g4W6sA/zB5pKxcgqzY5/gObh8ugl++4ZoaTqUCkw==}
 
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -4209,6 +4215,8 @@ snapshots:
       '@vitest/pretty-format': 4.1.8
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
+
+  abcjs@6.6.3: {}
 
   accepts@1.3.8:
     dependencies:

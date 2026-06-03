@@ -99,3 +99,33 @@ export function reviewsSection(locale: Locale): string {
 export function reviewsPath(locale: Locale): string {
   return `/${locale}/${reviewsSection(locale)}`
 }
+
+/**
+ * The localized URL segment for series, per locale. EN → `series`, IT → `serie`.
+ * Same static-localized-folder pattern as tags/archive/reviews (ADR-006 addendum).
+ */
+export function seriesSection(locale: Locale): string {
+  return locale === 'it' ? 'serie' : 'series'
+}
+
+/**
+ * Locale-prefixed path for the series index. e.g. `/it/serie`. A single series
+ * is a `#<slug>` anchor on this page (no per-series route — keeps the static
+ * export safe when there are zero series).
+ */
+export function seriesIndexPath(locale: Locale): string {
+  return `/${locale}/${seriesSection(locale)}`
+}
+
+/**
+ * The localized URL segment for the year-in-review pages, per locale.
+ * EN → `year`, IT → `anno`.
+ */
+export function yearSection(locale: Locale): string {
+  return locale === 'it' ? 'anno' : 'year'
+}
+
+/** Locale-prefixed path for a year-in-review page. e.g. `/it/anno/2026`. */
+export function yearPath(locale: Locale, year: number): string {
+  return `/${locale}/${yearSection(locale)}/${year}`
+}

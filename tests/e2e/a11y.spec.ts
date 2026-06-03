@@ -20,6 +20,8 @@ const PAGES = [
   '/en/posts/pathosfera-caparezza/',
   '/en/reviews/',
   '/en/archive/',
+  '/en/series/',
+  '/en/year/2026/',
 ]
 
 for (const path of PAGES) {

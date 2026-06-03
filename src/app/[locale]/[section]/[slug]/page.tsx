@@ -12,13 +12,22 @@ import { ReviewHeader } from '@/components/ReviewHeader'
 import { SectionTitle } from '@/components/SectionTitle'
 import { Toc } from '@/components/Toc'
 import { siteConfig } from '@/config/site'
-import { isLocale, postPath, postSection, routing, tagPath } from '@/i18n/routing'
+import {
+  isLocale,
+  postPath,
+  postSection,
+  routing,
+  seriesIndexPath,
+  tagPath,
+} from '@/i18n/routing'
 import {
   getAdjacentPosts,
   getAllSlugs,
   getPostBySlug,
   getRelatedPosts,
+  getSeriesPosts,
   getTranslation,
+  seriesSlug,
 } from '@/lib/posts'
 import { mdxOptions } from '@/lib/mdx'
 import { extractToc } from '@/lib/toc'
@@ -115,6 +124,12 @@ export default async function PostPage({ params }: { params: Params }) {
   const translation = await getTranslation(post)
   const f = post.frontmatter
 
+  // Series banner data (Phase 4): position of this post within its series arc.
+  const seriesPosts = f.series
+    ? await getSeriesPosts(locale, seriesSlug(f.series.name))
+    : []
+  const seriesIndex = seriesPosts.findIndex((p) => p.slug === slug) + 1
+
   const toc = extractToc(post.content)
   const showToc = post.readingTime.words > TOC_MIN_WORDS && toc.length >= 3
 
@@ -207,6 +222,28 @@ export default async function PostPage({ params }: { params: Params }) {
             <p className="mt-4 max-w-prose font-display text-lg italic text-ink/70">
               {f.description}
             </p>
+
+            {f.series ? (
+              <p className="mt-4 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+                <Link
+                  href={
+                    `${seriesIndexPath(locale)}#${seriesSlug(f.series.name)}` as Route
+                  }
+                  className="text-accent transition-colors hover:opacity-75"
+                >
+                  {t('series.inSeries')} {f.series.name}
+                </Link>
+                {seriesPosts.length > 0 ? (
+                  <span className="text-ink/40">
+                    {' · '}
+                    {t('series.position', {
+                      index: seriesIndex,
+                      total: seriesPosts.length,
+                    })}
+                  </span>
+                ) : null}
+              </p>
+            ) : null}
           </header>
 
           {f.type === 'review' && f.review ? (

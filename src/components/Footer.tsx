@@ -6,6 +6,7 @@ import {
   type Locale,
   archivePath,
   reviewsPath,
+  seriesIndexPath,
   tagsIndexPath,
 } from '@/i18n/routing'
 
@@ -33,6 +34,14 @@ export function Footer() {
               className="transition-colors hover:text-accent"
             >
               {t('reviews.title')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={seriesIndexPath(locale) as Route}
+              className="transition-colors hover:text-accent"
+            >
+              {t('series.title')}
             </Link>
           </li>
           <li>

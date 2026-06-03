@@ -2,10 +2,13 @@ import { describe, expect, it } from 'vitest'
 import {
   PostFrontmatterSchema,
   getAllPosts,
+  getAllSeries,
   getAllTags,
   getPostBySlug,
   getReviews,
+  getSeriesPosts,
   getTranslation,
+  seriesSlug,
 } from './posts'
 
 /* -------------------------------------------------------------------------- */
@@ -136,5 +139,37 @@ describe('post collection helpers', () => {
     const twin = en ? await getTranslation(en) : null
     expect(twin?.locale).toBe('it')
     expect(twin?.frontmatter.articleId).toBe(en?.frontmatter.articleId)
+  })
+})
+
+describe('series', () => {
+  it('slugifies names', () => {
+    expect(seriesSlug('My Great Series')).toBe('my-great-series')
+    expect(seriesSlug('  Spaced  Out  ')).toBe('spaced-out')
+    expect(seriesSlug('Punctuation! & Co.')).toBe('punctuation-co')
+  })
+
+  it('getSeriesPosts returns the arc in order and only that series', async () => {
+    // NODE_ENV is "test", so drafts (e.g. the component-showcase series) are visible.
+    const all = await getAllSeries('en')
+    if (all.length === 0) return // no series in content yet — nothing to assert
+    const first = all[0]
+    if (!first) return
+    const posts = await getSeriesPosts('en', first.slug)
+    expect(posts.length).toBe(first.count)
+    expect(
+      posts.every(
+        (p) => p.frontmatter.series && seriesSlug(p.frontmatter.series.name) === first.slug,
+      ),
+    ).toBe(true)
+    // Ordered by series.order asc (missing last), then oldest-first.
+    for (let i = 1; i < posts.length; i++) {
+      const prev = posts[i - 1]
+      const cur = posts[i]
+      if (!prev || !cur) continue
+      const op = prev.frontmatter.series?.order ?? Number.POSITIVE_INFINITY
+      const oc = cur.frontmatter.series?.order ?? Number.POSITIVE_INFINITY
+      expect(op <= oc).toBe(true)
+    }
   })
 })

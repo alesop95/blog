@@ -5,10 +5,12 @@ import {
   postPath,
   reviewsPath,
   routing,
+  seriesIndexPath,
   tagPath,
   tagsIndexPath,
+  yearPath,
 } from '@/i18n/routing'
-import { getAllPosts, getAllTags } from '@/lib/posts'
+import { getAllPosts, getAllTags, getPostsByYear } from '@/lib/posts'
 
 // Emit a static sitemap.xml at build time (required by `output: export`).
 export const dynamic = 'force-static'
@@ -116,6 +118,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
 
+  // Series index per locale, paired across locales (en /series ↔ it /serie).
+  const seriesLanguages = Object.fromEntries(
+    routing.locales.map((l) => [l, `${siteConfig.url}${seriesIndexPath(l)}`]),
+  )
+  for (const locale of routing.locales) {
+    entries.push({
+      url: `${siteConfig.url}${seriesIndexPath(locale)}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.4,
+      alternates: { languages: seriesLanguages },
+    })
+  }
+
   // Single-tag pages (tags differ per locale, so no cross-locale alternates).
   for (const locale of routing.locales) {
     const tags = await getAllTags(locale)
@@ -125,6 +141,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.4,
+      })
+    }
+  }
+
+  // Year-in-review pages, paired across locales (en /year/Y ↔ it /anno/Y).
+  for (const locale of routing.locales) {
+    const years = await getPostsByYear(locale)
+    for (const { year } of years) {
+      const yearLanguages = Object.fromEntries(
+        routing.locales.map((l) => [l, `${siteConfig.url}${yearPath(l, year)}`]),
+      )
+      entries.push({
+        url: `${siteConfig.url}${yearPath(locale, year)}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.3,
+        alternates: { languages: yearLanguages },
       })
     }
   }
