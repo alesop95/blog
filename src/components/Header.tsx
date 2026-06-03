@@ -23,7 +23,12 @@ export function Header({ translationSlug = null }: HeaderProps) {
     .join('')
 
   return (
-    <header className="sticky top-0 z-30 -mx-4 border-b border-ink/8 bg-paper/75 px-4 backdrop-blur-md backdrop-saturate-150 sm:-mx-6 sm:px-6">
+    <header
+      // Anchored during route view transitions so the masthead stays put while
+      // the content crossfades (ADR-008; see ::view-transition-group in globals.css).
+      style={{ viewTransitionName: 'site-header' }}
+      className="sticky top-0 z-30 -mx-4 border-b border-ink/8 bg-paper/75 px-4 backdrop-blur-md backdrop-saturate-150 sm:-mx-6 sm:px-6"
+    >
       <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
         <Link
           href="/"

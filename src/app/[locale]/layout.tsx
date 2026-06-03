@@ -3,7 +3,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { Fraunces, Inter_Tight, JetBrains_Mono } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import type { ReactNode } from 'react'
+import { type ReactNode, ViewTransition } from 'react'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { siteConfig } from '@/config/site'
 import { routing } from '@/i18n/routing'
@@ -129,7 +129,11 @@ export default async function LocaleLayout({
       className={`${fraunces.variable} ${interTight.variable} ${jetbrains.variable} min-h-dvh antialiased`}
     >
       <NextIntlClientProvider messages={messages}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {/* Gentle crossfade on route change (ADR-008). Route navigations are
+              React Transitions, so this activates automatically. */}
+          <ViewTransition>{children}</ViewTransition>
+        </ThemeProvider>
       </NextIntlClientProvider>
     </div>
   )

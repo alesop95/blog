@@ -93,6 +93,11 @@
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-ink);
+    /* Cap the reading measure (Phase 2-C audit): the column was ~85 chars/line,
+       above the 66–75 ideal — and an over-wide measure worsens the inter-word
+       gaps of justified text. ~68ch keeps it comfortable and aligns the body's
+       left edge with the title/description (which already use max-w-prose). */
+    max-width: 68ch;
   }
 
   .prose > * + * {
@@ -416,5 +421,35 @@
     line-height: 0.8;
     font-weight: 600;
     color: var(--color-accent);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Route view transitions (Phase 2-C, ADR-008): a soft full-page crossfade.  */
+/*  React's <ViewTransition> wraps the layout children; navigations are React */
+/*  Transitions, so the `root` snapshot crossfades automatically. We only     */
+/*  tune the timing, anchor the masthead, and respect reduced-motion.         */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: ease;
+  }
+}
+
+/* Keep the sticky header steady while the content underneath crossfades. */
+::view-transition-group(site-header) {
+  animation: none;
+}
+
+/* Motion-sensitive users get the browser default (an instant swap). */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

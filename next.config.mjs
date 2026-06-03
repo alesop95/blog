@@ -40,6 +40,13 @@ const nextConfig = {
   // Requires `babel-plugin-react-compiler` in devDependencies.
   reactCompiler: true,
 
+  experimental: {
+    // Route View Transitions via React's <ViewTransition> (ADR-008). Route
+    // navigations are React Transitions, so the layout wrapper crossfades on
+    // navigation. Degrades to an instant swap where unsupported / reduced-motion.
+    viewTransition: true,
+  },
+
   // Make basePath available to client code that needs it.
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,

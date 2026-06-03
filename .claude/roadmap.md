@@ -83,14 +83,14 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] Home wordmark non più cliccabile (fix GET a vuoto verso sé stessa).
 - [ ] Applicare lo stesso pattern (segmento localizzato + generateStaticParams) a tag/archivio in Phase 2-B, NON `pathnames` next-intl.
 
-## Phase 2-C – Polish editoriale (Session #4)
+## Phase 2-C – Polish editoriale (Session #4 → completata Session #7, 2026-06-03) ✅
 
-- [ ] View Transitions on route change (React 19.2 API; behind feature flag in next.config)
-- [ ] Pull-quote `<Quote>` MDX component
-- [ ] Drop-cap option on long posts
-- [ ] Tabular numerals where they should align
-- [ ] Spacing & line-height audit on prose, measured
-- [ ] Reduced-motion compliance audit
+- [x] View Transitions on route change — React `<ViewTransition>` wraps the locale layout's children; `experimental.viewTransition: true` in `next.config`. Soft ~220ms `root` crossfade, sticky masthead anchored (`view-transition-name: site-header`), reduced-motion guard. **ADR-008**.
+- [x] Pull-quote `<Quote>` MDX component — `<figure class="pullquote">` (centred display-serif, never justified), demoed bilingually in the Caparezza review.
+- [x] Drop-cap option on long posts — opt-in frontmatter `dropCap: true` → `.prose--dropcap` first-letter (committed `b613338`; applied to hello-workshop ↔ ciao-officina).
+- [x] Tabular numerals where they should align — `tabular-nums` on the date columns (home, archive, prev/next) (committed `b613338`).
+- [x] Spacing & line-height audit on prose, measured — measure was ~85 chars/line (over the 66–75 ideal, worsening justified gaps); capped `.prose { max-width: 68ch }`, aligning the body's left edge with title/description. Font-size 17px / line-height 1.7 / block spacing 1.1em kept (all in range).
+- [x] Reduced-motion compliance audit — global guard (zeroes animation/transition/scroll) already present; added the dedicated `::view-transition-*` reduced-motion block (the `*` guard doesn't match those pseudo-elements). No JS-driven motion anywhere; component motion is colour/opacity only. **Compliant.**
 
 ## Phase 2-B – Discoverability (Session #5)
 
