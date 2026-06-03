@@ -34,6 +34,8 @@ const PostFrontmatterSchema = z.object({
   updated: z.coerce.date().optional(),
   tags: z.array(z.string()).default([]),
   draft: z.boolean().default(false),
+  /** Opt-in decorative drop-cap on the first paragraph (Phase 2-C). */
+  dropCap: z.boolean().default(false),
   cover: z.string().url().optional(),
   /** Stable identifier shared across locale translations of the same article. */
   articleId: z.string().min(1).optional(),

@@ -377,3 +377,44 @@
     text-align: center;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Editorial polish (Phase 2-C): pull-quotes + opt-in drop-cap.              */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  /* <Quote> pull-quote: centred display-serif highlight, never justified. */
+  .prose .pullquote p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1.3;
+    font-style: italic;
+    text-align: center;
+    text-wrap: balance;
+    hyphens: none;
+    color: oklch(from var(--color-ink) l c h / 0.9);
+  }
+  .prose .pullquote figcaption {
+    margin-top: 0.8rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: oklch(from var(--color-ink) l c h / 0.55);
+  }
+
+  /* Drop-cap: opt-in per post via frontmatter `dropCap: true` (adds the
+     `.prose--dropcap` class). Styles the first letter of the first paragraph. */
+  .prose--dropcap > p:first-of-type::first-letter {
+    float: left;
+    margin-right: 0.08em;
+    margin-top: 0.02em;
+    font-family: var(--font-display);
+    font-size: 3.4em;
+    line-height: 0.8;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+}

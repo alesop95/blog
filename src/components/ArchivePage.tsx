@@ -44,7 +44,7 @@ export async function ArchivePage({ locale }: { locale: Locale }) {
                       >
                         <time
                           dateTime={post.frontmatter.date.toISOString()}
-                          className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 sm:w-28"
+                          className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 tabular-nums sm:w-28"
                           suppressHydrationWarning
                         >
                           {format.dateTime(post.frontmatter.date, {

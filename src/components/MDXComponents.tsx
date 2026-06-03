@@ -190,12 +190,33 @@ function Video({ src, poster, caption }: VideoProps) {
   )
 }
 
+interface QuoteProps {
+  children: ReactNode
+  /** Optional attribution shown under the quote. */
+  cite?: string
+}
+
+/**
+ * Editorial pull-quote: a centred, display-serif highlight pulled out of the
+ * prose. Rendered as a <figure>/<p> (not <blockquote>) so it doesn't inherit
+ * the left-bordered blockquote styling; see `.pullquote` in globals.css.
+ */
+function Quote({ children, cite }: QuoteProps) {
+  return (
+    <figure className="pullquote my-10">
+      <p>{children}</p>
+      {cite ? <figcaption>– {cite}</figcaption> : null}
+    </figure>
+  )
+}
+
 export const mdxComponents = {
   Callout,
   Figure,
   Diagram,
   YouTube,
   Video,
+  Quote,
   img: MdxImage,
   pre: CodeBlock,
 }

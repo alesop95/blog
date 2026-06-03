@@ -210,7 +210,7 @@ export default async function PostPage({ params }: { params: Params }) {
 
           {showToc ? <Toc entries={toc} label={t('post.contents')} /> : null}
 
-          <div className="prose">
+          <div className={f.dropCap ? 'prose prose--dropcap' : 'prose'}>
             <MDXRemote
               source={post.content}
               components={mdxComponents}
@@ -230,7 +230,7 @@ export default async function PostPage({ params }: { params: Params }) {
                     >
                       <time
                         dateTime={r.frontmatter.date.toISOString()}
-                        className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 sm:w-28"
+                        className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 tabular-nums sm:w-28"
                         suppressHydrationWarning
                       >
                         {format.dateTime(r.frontmatter.date, {
