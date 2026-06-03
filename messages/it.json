@@ -49,9 +49,14 @@
   },
   "search": {
     "open": "Cerca",
+    "label": "Cerca tra gli scritti",
+    "close": "Chiudi la ricerca",
     "placeholder": "Cerca tra gli scritti…",
     "noResults": "Nessun risultato.",
     "unavailable": "La ricerca è attiva sul sito pubblicato (non in sviluppo locale)."
+  },
+  "a11y": {
+    "skipToContent": "Salta al contenuto"
   },
   "footer": {
     "copyright": "© {year} Alessio Sopranzi",

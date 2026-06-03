@@ -56,7 +56,7 @@ const ReviewMetaSchema = z.object({
 
 export type ReviewMeta = z.infer<typeof ReviewMetaSchema>
 
-const PostFrontmatterSchema = z.object({
+export const PostFrontmatterSchema = z.object({
   title: z.string().min(1, 'title is required'),
   description: z.string().min(1).max(280),
   date: z.coerce.date(),

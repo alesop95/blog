@@ -159,7 +159,7 @@ export default async function PostPage({ params }: { params: Params }) {
     <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 sm:px-6">
       <Header translationSlug={translation?.slug ?? null} />
 
-      <main className="flex-1 pb-24 pt-12 sm:pt-20">
+      <main id="main-content" className="flex-1 pb-24 pt-12 sm:pt-20">
         {/* data-pagefind-body marks this as searchable content; only pages that
             have it are indexed (so home/tag/archive are skipped). The lang
             filter lets the ⌘K modal scope results to the current locale. */}

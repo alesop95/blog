@@ -22,7 +22,12 @@
     "format": "biome format --write .",
     "check": "biome check --write .",
     "typecheck": "tsc --noEmit",
-    "verify": "pnpm typecheck && pnpm lint && pnpm build"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots",
+    "lhci": "lhci autorun",
+    "verify": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
   },
   "dependencies": {
     "feed": "^4.2.2",
@@ -51,7 +56,10 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@biomejs/biome": "^2.2.0",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/mdast": "^4.0.4",
     "@types/node": "^22.10.5",
@@ -63,6 +71,7 @@
     "sharp": "^0.34.0",
     "tailwindcss": "^4.1.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^4.1.8"
   }
 }

@@ -28,7 +28,7 @@ export async function TagPage({
   return (
     <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 sm:px-6">
       <Header />
-      <main className="flex-1 pb-24 pt-12 sm:pt-20">
+      <main id="main-content" className="flex-1 pb-24 pt-12 sm:pt-20">
         {tag ? (
           <TaggedPosts locale={locale} tag={tag} t={t} />
         ) : (

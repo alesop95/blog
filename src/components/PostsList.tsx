@@ -6,13 +6,21 @@ import type { Post } from '@/lib/posts'
 
 interface PostsListProps {
   posts: Post[]
+  /**
+   * Heading level for each post title. Default 2 (index pages where the list
+   * sits directly under the page h1). Pass 3 when the list follows a
+   * `<SectionTitle>` (an h2), e.g. the home "Writings" section — so heading
+   * levels never skip (a11y: heading-order).
+   */
+  headingLevel?: 2 | 3
 }
 
 /**
  * The home-page archive list. Tight, typographic, no thumbnails –
  * the title carries the post.
  */
-export function PostsList({ posts }: PostsListProps) {
+export function PostsList({ posts, headingLevel = 2 }: PostsListProps) {
+  const Heading = `h${headingLevel}` as const
   const t = useTranslations()
   const format = useFormatter()
   const locale = useLocale() as Locale
@@ -49,9 +57,9 @@ export function PostsList({ posts }: PostsListProps) {
                   {t('reviews.badge')}
                 </span>
               ) : null}
-              <h3 className="font-display text-lg font-medium leading-snug">
+              <Heading className="font-display text-lg font-medium leading-snug">
                 {post.frontmatter.title}
-              </h3>
+              </Heading>
               <p className="mt-1 text-sm text-ink/70 group-hover:text-ink/85">
                 {post.frontmatter.description}
               </p>

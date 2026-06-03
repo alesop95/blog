@@ -10,6 +10,14 @@ out/
 public/pagefind/
 public/og/
 
+# Test artifacts (Playwright + Lighthouse CI). NOTE: visual baselines under
+# tests/e2e/*-snapshots/ are committed on purpose — only reports/results are ignored.
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/.lighthouseci/
+
 # Misc
 .DS_Store
 *.pem

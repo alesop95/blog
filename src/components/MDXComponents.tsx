@@ -41,11 +41,14 @@ function Callout({ kind = 'info', children }: CalloutProps) {
   }[kind]
 
   return (
-    <aside
+    // role="note", not <aside>: an in-prose callout is not a page-level
+    // complementary landmark (axe: landmark-complementary-is-top-level).
+    <div
+      role="note"
       className={`my-6 rounded-md border-l-2 px-5 py-3 text-[0.95em] ${tone}`}
     >
       {children}
-    </aside>
+    </div>
   )
 }
 

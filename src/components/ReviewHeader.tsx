@@ -27,7 +27,12 @@ export async function ReviewHeader({
   const artist = review.artist
 
   return (
-    <aside className="mb-10 rounded-lg border border-ink/12 bg-ink/[0.02] px-5 py-4">
+    // A <div role="note">, not <aside>: this sits inside <article>/<main>, so a
+    // complementary landmark here is not top-level (axe). It's a note about the work.
+    <div
+      role="note"
+      className="mb-10 rounded-lg border border-ink/12 bg-ink/[0.02] px-5 py-4"
+    >
       {metaLine ? (
         <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-accent">
           {metaLine}
@@ -70,7 +75,7 @@ export async function ReviewHeader({
           ) : null}
         </div>
       )}
-    </aside>
+    </div>
   )
 }
 

@@ -42,6 +42,7 @@ export function Search() {
   const [status, setStatus] = useState<Status>('idle')
   const pagefind = useRef<PagefindApi | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
 
   // Global shortcut: ⌘K / Ctrl+K toggles, Escape closes.
   useEffect(() => {
@@ -51,10 +52,17 @@ export function Search() {
         setOpen((o) => !o)
       } else if (e.key === 'Escape') {
         setOpen(false)
+        triggerRef.current?.focus()
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  // Return focus to the trigger when the modal closes (a11y: don't strand focus).
+  const close = useCallback(() => {
+    setOpen(false)
+    triggerRef.current?.focus()
   }, [])
 
   const loadPagefind = useCallback(async (): Promise<PagefindApi | null> => {
@@ -116,6 +124,7 @@ export function Search() {
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t('open')}
@@ -129,15 +138,15 @@ export function Search() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={t('open')}
+          aria-label={t('label')}
           className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[15vh]"
         >
           {/* Interactive backdrop (a real <button>, so no a11y lint): click to close.
               The panel below is `relative`, so it paints above and swallows its own clicks. */}
           <button
             type="button"
-            aria-label="Close search"
-            onClick={() => setOpen(false)}
+            aria-label={t('close')}
+            onClick={close}
             className="absolute inset-0 cursor-default bg-ink/40 backdrop-blur-sm"
           />
           <div className="relative w-full max-w-xl overflow-hidden rounded-lg border border-ink/10 bg-paper shadow-2xl">
@@ -149,12 +158,13 @@ export function Search() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t('placeholder')}
+                aria-label={t('label')}
                 className="h-12 w-full bg-transparent text-[0.95rem] text-ink outline-none placeholder:text-ink/40"
               />
               <button
                 type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close"
+                onClick={close}
+                aria-label={t('close')}
                 className="shrink-0 rounded p-1 text-ink/50 hover:text-ink"
               >
                 <X className="h-4 w-4" aria-hidden />

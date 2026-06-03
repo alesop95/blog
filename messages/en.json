@@ -49,9 +49,14 @@
   },
   "search": {
     "open": "Search",
+    "label": "Search the writings",
+    "close": "Close search",
     "placeholder": "Search the writings…",
     "noResults": "No results.",
     "unavailable": "Search runs on the published site (not in local dev)."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
   },
   "footer": {
     "copyright": "© {year} Alessio Sopranzi",

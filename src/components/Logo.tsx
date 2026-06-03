@@ -16,13 +16,15 @@ export function Logo() {
   const t = useTranslations()
 
   return (
-    <div className="inline-flex flex-col leading-none">
+    // The wordmark is the home page's h1 (its main heading), so the page has a
+    // proper top-level heading (axe: page-has-heading-one).
+    <h1 className="inline-flex flex-col leading-none">
       <span className="font-display text-3xl font-semibold tracking-tight text-ink">
         {siteConfig.name}
       </span>
       <span className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-ink/60">
         {t('nav.home')}
       </span>
-    </div>
+    </h1>
   )
 }

@@ -101,12 +101,15 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] Archive by year: `/en/archive` + `/it/archivio` — posts grouped by year (static localized folders, `<ArchivePage>`, `archiveSection`/`archivePath`); footer link; sitemap (paired).
 - [x] Related posts (by tag overlap) — `getRelatedPosts` (shared-tag count, then recency); section on post pages. Dormant until ≥2 same-locale posts share a tag (current seed posts have disjoint tags).
 
-## Phase 3 – Quality gates
+## Phase 3 – Quality gates (Session #7 – 2026-06-03) ✅ — see **ADR-010**
 
-- [ ] Lighthouse CI in GitHub Actions with budgets enforced
-- [ ] Visual regression snapshots (Playwright) for home + sample post
-- [ ] Vitest unit tests on `src/lib/posts.ts` (frontmatter edge cases)
-- [ ] Manual a11y audit (axe + keyboard walkthrough)
+- [x] **Vitest unit tests** on `src/lib/posts.ts` — exported `PostFrontmatterSchema`; 13 tests covering frontmatter edge cases (required title, 280-char desc, date coercion, `type` enum, half-step `rating`, URL `link`) + helper invariants (sort, `getReviews` purity, tag order, `articleId` pairing). In `pnpm test` + `verify` + CI.
+- [x] **a11y audit (axe + walkthrough)** — `@axe-core/playwright` on EN+IT pages, zero violations (color-contrast + iframe-contents documented exclusions). Found & fixed: home missing h1 (`Logo`→`<h1>`), `heading-order` on index lists (`PostsList` `headingLevel` prop), `<aside>` landmark nesting (`Callout`/`ReviewHeader`→`<div role="note">`). Added skip-to-content link + `#main-content`; hardened Search modal (input label, localized close, focus return).
+- [x] **Visual regression snapshots (Playwright)** — home + a post (`toHaveScreenshot`, 0.02 tolerance), served from `out/` by `scripts/serve-out.mjs`. Baselines per-OS: `-win32` committed (local Windows); CI runs smoke+a11y only (add `-linux` baselines once to enable visual there).
+- [x] **Lighthouse CI** — `@lhci/cli` (`lighthouserc.cjs`) on 3 URLs; category budgets in `warn` mode (promote to `error` after first run calibrates). Dedicated `lighthouse` CI job.
+- [x] **CI topology** — `ci.yml`: `verify` (typecheck·lint·test·build) + `e2e` (Playwright) + `lighthouse`, none touching `deploy.yml`.
+
+> Open follow-ups: resolve the muted-palette color-contrast, then enable that axe rule + tighten Lighthouse a11y to `error`; optionally generate Linux visual baselines for CI.
 
 ## Phase 4 – Editorial extensions (open-ended)
 
