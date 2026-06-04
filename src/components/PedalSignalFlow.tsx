@@ -18,7 +18,13 @@ interface PedalSignalFlowProps {
 export function PedalSignalFlow({ chain, caption }: PedalSignalFlowProps) {
   return (
     <figure className="my-8">
-      <div className="overflow-x-auto">
+      {/* tabIndex makes the scrollable chain keyboard-scrollable (axe:
+          scrollable-region-focusable). */}
+      <div
+        className="overflow-x-auto"
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable region must be keyboard-focusable
+        tabIndex={0}
+      >
         <ol className="flex min-w-max items-stretch gap-2">
           {chain.map((stage, i) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: stages can legitimately repeat (e.g. two delays), so the index disambiguates

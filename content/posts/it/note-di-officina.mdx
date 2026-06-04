@@ -1,0 +1,79 @@
+---
+title: "Note di officina: un giro nel laboratorio"
+description: "Una passeggiata tra gli strumenti che questo sito mi dà — tipografia, matematica, diagrammi, armonia, curve di EQ, catene di pedali e spartiti — usandoli uno per uno."
+date: 2026-06-03
+tags: ["meta", "audio", "musica"]
+dropCap: true
+series:
+  name: "Note di officina"
+  order: 1
+articleId: "field-notes-workshop"
+---
+
+Questo posto è un'officina più che una rivista. Scrivere qui serve a smontare qualcosa in pubblico — un circuito, un accordo, l'acustica di una stanza — e la pagina deve starci dietro. Quindi, prima di tutto, un giro degli strumenti, usando ognuno nel punto in cui si guadagna il posto.
+
+Ogni articolo nasce come un file di testo con una piccola intestazione in cima:
+
+```yaml
+title: "…"
+description: "…"
+date: 2026-06-03
+tags: ["audio", "musica"]
+dropCap: true
+```
+
+<Callout kind="info">
+Quell'intestazione viene validata in fase di build. Se una data è malformata o la descrizione è troppo lunga, il build si ferma — meglio un build fallito che una pagina rotta.
+</Callout>
+
+## Il corpo del testo
+
+Il corpo è giustificato con sillabazione automatica, su una misura di circa sessantotto caratteri, così l'occhio non deve mai correre troppo. Quando una riga merita di stare da sola, la si tira fuori:
+
+<Quote cite="Un appunto a me stesso">
+Prima costruisci lo strumento, poi lascia che la scrittura ci si appoggi.
+</Quote>
+
+## Quando serve la matematica
+
+Il lavoro sull'audio è pieno di piccole equazioni oneste. In linea, un rapporto di livello è semplicemente $L = 20\log_{10}(p/p_0)$; su una riga a sé ha spazio per respirare:
+
+$$
+\text{SPL} = 20\log_{10}\!\left(\frac{p}{p_0}\right)\,\si{dB}, \qquad p_0 = 20\,\mu\mathrm{Pa}
+$$
+
+La notazione è renderizzata una volta sola, in fase di build — al lettore non arriva nessuno script pesante.
+
+## Diagrammi e circuiti
+
+Per tutto ciò che è schematico disegno un'immagine vettoriale e la appoggio su una lastra chiara fissa, così gli export a tratto nero restano leggibili anche in dark mode:
+
+<Diagram src="/images/field-notes-workshop/pipeline.svg" alt="Da MDX al sito statico" caption="Come un articolo diventa una pagina" />
+
+Le catene del segnale hanno un loro componente, perché una pedaliera è in fondo solo una lista ordinata:
+
+<PedalSignalFlow chain={["Chitarra", "Accordatore", "Compressore", "Overdrive", "Delay", "Ampli"]} caption="Un set essenziale" />
+
+## Armonia
+
+Il lato musicale ha lo stesso trattamento. Il circolo delle quinte, con una piccola progressione accesa:
+
+<HarmonyDiagram highlight={["C", "G", "Am", "F"]} caption="I – V – vi – IV, in Do" />
+
+E quando una frase non basta, qualche battuta di notazione vera:
+
+<Score abc={`X:1\nM:4/4\nL:1/4\nK:C\nC D E F | G A B c |`} caption="Do maggiore, un'ottava" />
+
+## Audio
+
+Un filtro si capisce meglio come curva che come paragrafo, quindi le risposte si tracciano su un asse logaritmico in frequenza:
+
+<EQGraph curve={[[20, 0], [60, 3], [120, 5], [400, 1], [1000, -2], [3500, 4], [9000, -3], [20000, -10]]} caption="Un voicing inventato" />
+
+## Il suono stesso
+
+E a volte l'unica cosa onesta è far partire la registrazione e parlarci sotto:
+
+<YouTube id="O0jxbzUqWXw" title="Una canzone da indicare" caption="Premi play, poi continua a leggere" />
+
+Questo è il kit. Il resto del sito — ricerca, tag, archivio, la serie a cui appartiene questo articolo — è solo l'edificio costruito attorno a questi strumenti. Il colophon non è mai finito: questa è la parte uno.

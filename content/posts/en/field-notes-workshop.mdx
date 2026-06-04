@@ -1,0 +1,79 @@
+---
+title: "Field notes: a tour of the workshop"
+description: "A walk through the tools this site gives me — typography, math, diagrams, harmony, EQ curves, pedal chains and scores — using each one as I go."
+date: 2026-06-03
+tags: ["meta", "audio", "music"]
+dropCap: true
+series:
+  name: "Field notes"
+  order: 1
+articleId: "field-notes-workshop"
+---
+
+This place is a workshop more than a magazine. The point of writing here is to take something apart in public — a circuit, a chord, a room's acoustics — and the page has to keep up with that. So before anything else, a tour of the tools, using each one in the spot where it earns its keep.
+
+Every post starts as a plain text file with a little header on top:
+
+```yaml
+title: "…"
+description: "…"
+date: 2026-06-03
+tags: ["audio", "music"]
+dropCap: true
+```
+
+<Callout kind="info">
+That header is validated when the site is built. If a date is malformed or the description runs too long, the build stops — better a failed build than a broken page.
+</Callout>
+
+## The body
+
+The body is set justified with automatic hyphenation, on a measure of roughly sixty-eight characters so the eye never has to travel too far. When a single line deserves to stand on its own, it gets pulled out:
+
+<Quote cite="A note to myself">
+Build the tool first, then let the writing lean on it.
+</Quote>
+
+## When the page needs math
+
+Audio work is full of small, honest equations. Inline, a level ratio is just $L = 20\log_{10}(p/p_0)$; set on its own line it has room to breathe:
+
+$$
+\text{SPL} = 20\log_{10}\!\left(\frac{p}{p_0}\right)\,\si{dB}, \qquad p_0 = 20\,\mu\mathrm{Pa}
+$$
+
+The notation is rendered once, at build time — no heavy script ships to the reader.
+
+## Diagrams and circuits
+
+For anything schematic I draw a vector image and drop it onto a fixed light plate, so black-stroke exports stay readable even in dark mode:
+
+<Diagram src="/images/field-notes-workshop/pipeline.svg" alt="From MDX to static site" caption="How a post becomes a page" />
+
+Signal paths get their own little component, because a pedalboard is really just an ordered list:
+
+<PedalSignalFlow chain={["Guitar", "Tuner", "Compressor", "Overdrive", "Delay", "Amp"]} caption="A modest rig" />
+
+## Harmony
+
+The music side gets the same treatment. The circle of fifths, with a small progression lit up:
+
+<HarmonyDiagram highlight={["C", "G", "Am", "F"]} caption="I – V – vi – IV, in C" />
+
+And when a sentence isn't enough, a few bars of actual notation:
+
+<Score abc={`X:1\nM:4/4\nL:1/4\nK:C\nC D E F | G A B c |`} caption="C major, one octave" />
+
+## Audio
+
+A filter is easier to feel as a curve than as a paragraph, so response shapes are plotted on a log-frequency axis:
+
+<EQGraph curve={[[20, 0], [60, 3], [120, 5], [400, 1], [1000, -2], [3500, 4], [9000, -3], [20000, -10]]} caption="A made-up voicing" />
+
+## Sound itself
+
+And sometimes the only honest thing is to play the recording and talk underneath it:
+
+<YouTube id="O0jxbzUqWXw" title="A song worth pointing at" caption="Press play, then read on" />
+
+That's the kit. The rest of the site — search, tags, the archive, the series this post belongs to — is just the building wrapped around these tools. If you want to see how it all fits together, the colophon is never finished; this is part one.

@@ -113,7 +113,13 @@ interface DiagramProps extends ComponentProps<'img'> {
 function Diagram({ caption, alt, src, wide = false, ...img }: DiagramProps) {
   return (
     <figure className={`diagram my-8${wide ? ' diagram--wide' : ''}`}>
-      <div className="diagram__plate">
+      {/* tabIndex makes a wide schematic keyboard-scrollable (axe:
+          scrollable-region-focusable). */}
+      <div
+        className="diagram__plate"
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable region must be keyboard-focusable
+        tabIndex={0}
+      >
         {/* biome-ignore lint/a11y/useAltText: alt is forwarded from props */}
         <img {...img} src={resolveAsset(src as string | undefined)} alt={alt ?? ''} />
       </div>
