@@ -28,7 +28,7 @@ That header is validated when the site is built. If a date is malformed or the d
 
 ## The body
 
-The body is set justified with automatic hyphenation, on a measure of roughly sixty-eight characters so the eye never has to travel too far. When a single line deserves to stand on its own, it gets pulled out:
+The body is set justified with automatic hyphenation, on a measure of roughly sixty-eight characters<Sidenote>The measure is the line length. Sixty-odd characters is the classic sweet spot - long enough to read in rhythm, short enough that the eye finds the next line.</Sidenote> so the eye never has to travel too far. When a single line deserves to stand on its own, it gets pulled out:
 
 <Quote cite="A note to myself">
 Build the tool first, then let the writing lean on it.
@@ -69,6 +69,10 @@ And when a sentence isn't enough, a few bars of actual notation:
 A filter is easier to feel as a curve than as a paragraph, so response shapes are plotted on a log-frequency axis:
 
 <EQGraph curve={[[20, 0], [60, 3], [120, 5], [400, 1], [1000, -2], [3500, 4], [9000, -3], [20000, -10]]} caption="A made-up voicing" />
+
+And when a static picture isn't enough, shape a filter and hear it on pink noise:
+
+<EQPlayground caption="Drag the controls, then press play" />
 
 ## Sound itself
 

@@ -3,10 +3,10 @@
  * the dependency-free `scripts/serve-out.mjs`. Wired into `.github/workflows/ci.yml`
  * (the `lighthouse` job), after `pnpm build`.
  *
- * Accessibility is a **blocking** budget (`error`): the color-contrast debt is
- * resolved (palette darkened, axe color-contrast passes on every tested page).
- * Performance/SEO/best-practices stay `warn` for now (perf varies on CI runners);
- * promote them to `error` once the first run establishes stable numbers.
+ * All four categories are **blocking** (`error`). Accessibility/SEO/best-practices
+ * hold a 0.95 floor (deterministic for a clean static site); performance keeps a
+ * lower 0.85 floor to catch real regressions without flaking on noisy CI runners.
+ * The first CI run validates the real numbers - nudge a floor if one proves tight.
  */
 module.exports = {
   ci: {
@@ -22,10 +22,10 @@ module.exports = {
     },
     assert: {
       assertions: {
-        'categories:performance': ['warn', { minScore: 0.9 }],
+        'categories:performance': ['error', { minScore: 0.85 }],
         'categories:accessibility': ['error', { minScore: 0.95 }],
-        'categories:best-practices': ['warn', { minScore: 0.95 }],
-        'categories:seo': ['warn', { minScore: 0.95 }],
+        'categories:best-practices': ['error', { minScore: 0.95 }],
+        'categories:seo': ['error', { minScore: 0.95 }],
       },
     },
     upload: {

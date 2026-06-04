@@ -18,6 +18,22 @@ test('reviews index lists a review with a badge', async ({ page }) => {
   await expect(page.getByText('Review', { exact: true }).first()).toBeVisible()
 })
 
+test('a score exposes a playback control', async ({ page }) => {
+  await page.goto('/en/posts/field-notes-workshop/')
+  // The <Score> play button appears once abcjs loads and reports audio support.
+  await expect(page.getByRole('button', { name: 'Play' }).first()).toBeVisible()
+})
+
+test('the circle of fifths keys are playable buttons', async ({ page }) => {
+  await page.goto('/en/posts/field-notes-workshop/')
+  await expect(page.getByRole('button', { name: 'Play the C chord' })).toBeVisible()
+})
+
+test('the EQ playground exposes its controls', async ({ page }) => {
+  await page.goto('/en/posts/field-notes-workshop/')
+  await expect(page.getByRole('button', { name: 'Play pink noise' })).toBeVisible()
+})
+
 test('skip-to-content link targets the main landmark', async ({ page }) => {
   await page.goto('/en/')
   const skip = page.getByRole('link', { name: 'Skip to content' })

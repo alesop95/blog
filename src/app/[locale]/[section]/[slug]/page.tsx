@@ -5,9 +5,12 @@ import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/serve
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { ViewTransition } from 'react'
+import { Comments } from '@/components/Comments'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { mdxComponents } from '@/components/MDXComponents'
+import { ReadingProgress } from '@/components/ReadingProgress'
 import { ReviewHeader } from '@/components/ReviewHeader'
 import { SectionTitle } from '@/components/SectionTitle'
 import { Toc } from '@/components/Toc'
@@ -172,6 +175,7 @@ export default async function PostPage({ params }: { params: Params }) {
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 sm:px-6">
+      <ReadingProgress />
       <Header translationSlug={translation?.slug ?? null} />
 
       <main id="main-content" className="flex-1 pb-24 pt-12 sm:pt-20">
@@ -215,9 +219,12 @@ export default async function PostPage({ params }: { params: Params }) {
               ) : null}
             </div>
 
-            <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-              {f.title}
-            </h1>
+            {/* Shared name with the listing title: morphs from list to hero. */}
+            <ViewTransition name={`post-title-${slug}`}>
+              <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+                {f.title}
+              </h1>
+            </ViewTransition>
 
             <p className="mt-4 max-w-prose font-display text-lg italic text-ink/70">
               {f.description}
@@ -318,6 +325,8 @@ export default async function PostPage({ params }: { params: Params }) {
             </nav>
           )}
         </article>
+
+        <Comments />
       </main>
 
       <Footer />

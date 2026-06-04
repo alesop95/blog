@@ -1,6 +1,7 @@
 import type { Route } from 'next'
 import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { ViewTransition } from 'react'
 import { type Locale, postPath } from '@/i18n/routing'
 import type { Post } from '@/lib/posts'
 
@@ -57,9 +58,13 @@ export function PostsList({ posts, headingLevel = 2 }: PostsListProps) {
                   {t('reviews.badge')}
                 </span>
               ) : null}
-              <Heading className="font-display text-lg font-medium leading-snug">
-                {post.frontmatter.title}
-              </Heading>
+              {/* Shared name with the post's <h1>: the title morphs from list
+                  to hero on navigation (View Transitions - ADR-008). */}
+              <ViewTransition name={`post-title-${post.slug}`}>
+                <Heading className="font-display text-lg font-medium leading-snug">
+                  {post.frontmatter.title}
+                </Heading>
+              </ViewTransition>
               <p className="mt-1 text-sm text-ink/70 group-hover:text-ink/85">
                 {post.frontmatter.description}
               </p>

@@ -47,6 +47,23 @@ export const siteConfig = {
   // for the site's home page. Per-post OGs are generated alongside.
   ogImage: '/og/default.png',
 
+  // Comments via giscus (GitHub Discussions). Fill these from https://giscus.app
+  // (enable Discussions on the repo first). All four required fields empty =
+  // comments stay hidden. `mapping: pathname` ties a thread to each post URL.
+  comments: {
+    repo: '', // e.g. 'alesop95/blog'
+    repoId: '',
+    category: 'General',
+    categoryId: '',
+    mapping: 'pathname',
+  },
+
+  // Newsletter via Buttondown (https://buttondown.com). Set your username to
+  // show a subscribe box on the home page; empty = hidden.
+  newsletter: {
+    buttondownUser: '', // e.g. 'alesop95'
+  },
+
   // Optional public profile links. Empty strings = hidden in UI.
   social: {
     github: githubUsername ? `https://github.com/${githubUsername}` : '',

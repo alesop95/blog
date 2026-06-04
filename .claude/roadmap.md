@@ -132,6 +132,25 @@ Things that emerge from Alessio's writing needs.
 
 > All Phase 4 items shipped. Viz components + Series are **dormant** until content uses them (wired, tested, documented in `_notes/AUTHORING.md`). Demo: draft `content/posts/en/component-showcase.mdx`.
 
+## "Nice extras" program (Session #8 - 2026-06-04) ✅ - ADR-013, ADR-014
+
+12 features, one at a time, all verified (Vitest 15 · Playwright 22 · build green):
+
+- [x] **Playable `<Score>`** - abcjs synth, play/stop, lazy AudioContext (ADR-013).
+- [x] **Interactive circle of fifths** - clickable keys → triad via Web Audio (`src/lib/audio.ts`).
+- [x] **`<EQPlayground>`** - pink noise through a live biquad, real `getFrequencyResponse` curve.
+- [x] **Sidenotes** (`<Sidenote>`) - Tufte margin notes, CSS-counter numbering (ADR-014).
+- [x] **Reading progress bar** + **TOC scroll-spy** (IntersectionObserver).
+- [x] **Shared-element transition** - post title morphs list → hero (extends ADR-008).
+- [x] **/uses** (`/strumenti`) + **/now** (`/ora`) - localized pages, editable configs.
+- [x] **Comments** (giscus) - config-gated, theme-synced, hidden until configured.
+- [x] **Newsletter** (Buttondown) - config-gated no-JS form, hidden until configured.
+- [x] **Print stylesheet** - forced-light tokens, chrome hidden, clean essay copy.
+- [x] **Dark-mode contrast** verified (axe) + **Lighthouse budgets all → `error`**.
+
+To activate the dormant integrations: fill `siteConfig.comments` (giscus.app) and
+`siteConfig.newsletter.buttondownUser`. Edit `src/config/uses.ts` / `now.ts` for real content.
+
 ## Wishlist / not yet committed
 
 - Giscus comments (GitHub Discussions backend)

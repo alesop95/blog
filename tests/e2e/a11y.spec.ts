@@ -22,6 +22,8 @@ const PAGES = [
   '/en/archive/',
   '/en/series/',
   '/en/year/2026/',
+  '/en/uses/',
+  '/en/now/',
 ]
 
 for (const path of PAGES) {
@@ -33,3 +35,18 @@ for (const path of PAGES) {
     expect(results.violations).toEqual([])
   })
 }
+
+// Dark mode (next-themes follows the system scheme): re-check contrast there too.
+test.describe('dark mode', () => {
+  test.use({ colorScheme: 'dark' })
+  for (const path of ['/en/', '/en/posts/field-notes-workshop/']) {
+    test(`no axe violations (dark): ${path}`, async ({ page }) => {
+      await page.goto(path)
+      await page.waitForFunction(() =>
+        document.documentElement.classList.contains('dark'),
+      )
+      const results = await new AxeBuilder({ page }).exclude('iframe').analyze()
+      expect(results.violations).toEqual([])
+    })
+  }
+})

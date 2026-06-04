@@ -5,9 +5,11 @@ import { siteConfig } from '@/config/site'
 import {
   type Locale,
   archivePath,
+  nowPath,
   reviewsPath,
   seriesIndexPath,
   tagsIndexPath,
+  usesPath,
 } from '@/i18n/routing'
 
 export function Footer() {
@@ -50,6 +52,22 @@ export function Footer() {
               className="transition-colors hover:text-accent"
             >
               {t('archive.title')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={usesPath(locale) as Route}
+              className="transition-colors hover:text-accent"
+            >
+              {t('uses.title')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={nowPath(locale) as Route}
+              className="transition-colors hover:text-accent"
+            >
+              {t('now.title')}
             </Link>
           </li>
           <li>

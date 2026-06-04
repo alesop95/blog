@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Logo } from '@/components/Logo'
+import { Newsletter } from '@/components/Newsletter'
 import { PostsList } from '@/components/PostsList'
 import { SectionTitle } from '@/components/SectionTitle'
 import { bio } from '@/config/bio'
@@ -56,6 +57,8 @@ export default async function HomePage({ params }: { params: Params }) {
           <SectionTitle>{t('home.sectionWritings')}</SectionTitle>
           <PostsList posts={posts} headingLevel={3} />
         </section>
+
+        <Newsletter />
       </main>
 
       <Footer />

@@ -62,6 +62,21 @@
     "summary": "{count, plural, one {# scritto} other {# scritti}} · {words} parole",
     "topTags": "Argomenti ricorrenti"
   },
+  "uses": {
+    "title": "Strumenti",
+    "intro": "L'attrezzatura e il software dietro la musica e la scrittura - una lista viva, cambia come cambia il banco di lavoro."
+  },
+  "now": {
+    "title": "Ora",
+    "intro": "Su cosa sono concentrato in questo periodo - un'istantanea, non una cronologia.",
+    "updated": "Aggiornato il {date}"
+  },
+  "newsletter": {
+    "title": "La lettera saltuaria",
+    "description": "Ogni tanto, due righe quando esce qualcosa di nuovo - niente rumore, ci si disiscrive in un attimo.",
+    "placeholder": "tu@email.com",
+    "subscribe": "Iscriviti"
+  },
   "search": {
     "open": "Cerca",
     "label": "Cerca tra gli scritti",

@@ -93,6 +93,7 @@
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-ink);
+    counter-reset: sidenote;
     /* Cap the reading measure (Phase 2-C audit): the column was ~85 chars/line,
        above the 66-75 ideal - and an over-wide measure worsens the inter-word
        gaps of justified text. ~68ch keeps it comfortable and aligns the body's
@@ -425,6 +426,67 @@
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Interactive circle of fifths (<HarmonyDiagram>): each key is a button that  */
+/*  plays its chord. Hover/focus lights the key's ring in the accent colour.    */
+/* -------------------------------------------------------------------------- */
+
+.cof-key {
+  cursor: pointer;
+  outline: none;
+}
+.cof-key circle {
+  transition: stroke-opacity 120ms ease;
+}
+.cof-key:hover circle,
+.cof-key:focus-visible circle {
+  stroke: var(--color-accent);
+  stroke-opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Tufte-style sidenotes (<Sidenote>): an auto-numbered inline marker + a     */
+/*  note in the right margin on wide screens, an inset block in flow on small. */
+/* -------------------------------------------------------------------------- */
+
+.prose .sidenote-ref::before {
+  counter-increment: sidenote;
+  content: counter(sidenote);
+  vertical-align: super;
+  font-size: 0.65em;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  margin-left: 1px;
+}
+.prose .sidenote {
+  display: block;
+  margin: 0.7rem 0 0.9rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid oklch(from var(--color-accent) l c h / 0.45);
+  font-size: 0.85em;
+  line-height: 1.5;
+  text-align: left;
+  hyphens: none;
+  color: oklch(from var(--color-ink) l c h / 0.8);
+}
+.prose .sidenote-num::before {
+  content: counter(sidenote);
+  margin-right: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--color-accent);
+}
+@media (min-width: 1024px) {
+  .prose .sidenote {
+    float: right;
+    clear: right;
+    width: 42%;
+    margin: 0.25rem 0 0.6rem 1.4rem;
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Route view transitions (Phase 2-C, ADR-008): a soft full-page crossfade.  */
 /*  React's <ViewTransition> wraps the layout children; navigations are React */
 /*  Transitions, so the `root` snapshot crossfades automatically. We only     */
@@ -451,5 +513,44 @@
   ::view-transition-group(*) {
     animation-duration: 0s !important;
     animation-delay: 0s !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Print: a clean reading copy of an essay. Force the light palette (even in  */
+/*  dark mode), drop the site chrome and anything ignored by search, and let   */
+/*  the prose use the full page. Marked-up chrome carries `print:hidden`.      */
+/* -------------------------------------------------------------------------- */
+
+@media print {
+  :root,
+  :root.dark {
+    --color-paper: #fff;
+    --color-ink: #111;
+    --color-accent: #222;
+  }
+  header,
+  footer,
+  [data-pagefind-ignore] {
+    display: none !important;
+  }
+  .prose {
+    max-width: none;
+  }
+  /* Sidenotes fall back inline in print (no margins to float into). */
+  .prose .sidenote {
+    float: none;
+    width: auto;
+  }
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    break-after: avoid;
+  }
+  .prose figure,
+  .prose pre,
+  .prose blockquote,
+  .prose .diagram__plate {
+    break-inside: avoid;
   }
 }

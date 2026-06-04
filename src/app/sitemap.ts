@@ -2,12 +2,14 @@ import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config/site'
 import {
   archivePath,
+  nowPath,
   postPath,
   reviewsPath,
   routing,
   seriesIndexPath,
   tagPath,
   tagsIndexPath,
+  usesPath,
   yearPath,
 } from '@/i18n/routing'
 import { getAllPosts, getAllTags, getPostsByYear } from '@/lib/posts'
@@ -141,6 +143,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.4,
+      })
+    }
+  }
+
+  // Static localized pages, paired across locales (uses, now).
+  for (const pathFor of [usesPath, nowPath]) {
+    const languages = Object.fromEntries(
+      routing.locales.map((l) => [l, `${siteConfig.url}${pathFor(l)}`]),
+    )
+    for (const locale of routing.locales) {
+      entries.push({
+        url: `${siteConfig.url}${pathFor(locale)}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.4,
+        alternates: { languages },
       })
     }
   }

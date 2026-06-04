@@ -129,3 +129,23 @@ export function yearSection(locale: Locale): string {
 export function yearPath(locale: Locale, year: number): string {
   return `/${locale}/${yearSection(locale)}/${year}`
 }
+
+/** The localized URL segment for the "uses" page. EN → `uses`, IT → `strumenti`. */
+export function usesSection(locale: Locale): string {
+  return locale === 'it' ? 'strumenti' : 'uses'
+}
+
+/** Locale-prefixed path for the uses page. e.g. `/it/strumenti`. */
+export function usesPath(locale: Locale): string {
+  return `/${locale}/${usesSection(locale)}`
+}
+
+/** The localized URL segment for the "now" page. EN → `now`, IT → `ora`. */
+export function nowSection(locale: Locale): string {
+  return locale === 'it' ? 'ora' : 'now'
+}
+
+/** Locale-prefixed path for the now page. e.g. `/it/ora`. */
+export function nowPath(locale: Locale): string {
+  return `/${locale}/${nowSection(locale)}`
+}

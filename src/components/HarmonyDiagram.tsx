@@ -1,3 +1,7 @@
+'use client'
+
+import { playChord, triadFromLabel } from '@/lib/audio'
+
 interface HarmonyDiagramProps {
   /** Key/chord labels to highlight, e.g. ["C", "G", "Am"]. Matched verbatim. */
   highlight?: string[]
@@ -18,8 +22,9 @@ function polar(cx: number, cy: number, r: number, i: number) {
 }
 
 /**
- * The circle of fifths as a dark-mode-safe SVG (strokes/labels use the ink
- * colour token; highlighted keys use the accent). For harmony posts.
+ * Interactive circle of fifths (dark-mode-safe SVG). Every key is a button:
+ * click (or Enter/Space) to *hear* its triad via Web Audio. `highlight` keeps a
+ * set of keys visually lit. For harmony posts.
  *
  *   <HarmonyDiagram highlight={["C", "G", "Am"]} caption="I-V-vi in C" />
  */
@@ -29,12 +34,30 @@ export function HarmonyDiagram({ highlight = [], caption }: HarmonyDiagramProps)
   const rMaj = 128
   const rMin = 92
 
+  function play(label: string) {
+    const triad = triadFromLabel(label)
+    if (triad) playChord(triad)
+  }
+
   const ring = (labels: string[], r: number, fontSize: number) =>
     labels.map((label, i) => {
       const { x, y } = polar(C, C, r, i)
       const on = hi.has(label)
       return (
-        <g key={label}>
+        <g
+          key={label}
+          className="cof-key"
+          role="button"
+          tabIndex={0}
+          aria-label={`Play the ${label} chord`}
+          onClick={() => play(label)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              play(label)
+            }
+          }}
+        >
           <circle
             cx={x}
             cy={y}
@@ -64,10 +87,8 @@ export function HarmonyDiagram({ highlight = [], caption }: HarmonyDiagramProps)
       <svg
         viewBox="0 0 320 320"
         className="mx-auto block w-full max-w-[20rem]"
-        role="img"
-        aria-label={
-          caption ?? `Circle of fifths${highlight.length ? `, highlighting ${highlight.join(', ')}` : ''}`
-        }
+        role="group"
+        aria-label={`Circle of fifths - click a key to hear its chord${highlight.length ? `; highlighting ${highlight.join(', ')}` : ''}`}
       >
         <circle
           cx={C}

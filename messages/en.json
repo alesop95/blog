@@ -62,6 +62,21 @@
     "summary": "{count, plural, one {# writing} other {# writings}} · {words} words",
     "topTags": "Recurring topics"
   },
+  "uses": {
+    "title": "Uses",
+    "intro": "The gear and software behind the music and the writing - a living list that changes as the bench does."
+  },
+  "now": {
+    "title": "Now",
+    "intro": "What I'm focused on at the moment - a snapshot, not a timeline.",
+    "updated": "Updated {date}"
+  },
+  "newsletter": {
+    "title": "The occasional letter",
+    "description": "Now and then, a note when something new goes up - no noise, easy to leave.",
+    "placeholder": "you@email.com",
+    "subscribe": "Subscribe"
+  },
   "search": {
     "open": "Search",
     "label": "Search the writings",
