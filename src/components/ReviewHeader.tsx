@@ -5,8 +5,8 @@ import type { ReviewMeta } from '@/lib/posts'
 
 /**
  * Structured "spec strip" for `type: "review"` posts (ADR-009). Renders above
- * the prose, below the title. Every field is optional — it shows whatever the
- * frontmatter `review` block provides (kind · year, artist — work, a half-step
+ * the prose, below the title. Every field is optional - it shows whatever the
+ * frontmatter `review` block provides (kind · year, artist - work, a half-step
  * star rating, a source link). Async server component: pulls its labels from
  * the `review` i18n namespace.
  */
@@ -44,7 +44,7 @@ export async function ReviewHeader({
           {artist && work ? (
             <>
               <span>{artist}</span>
-              <span className="mx-2 text-ink/35">–</span>
+              <span className="mx-2 text-ink/35">-</span>
               <span className="italic">{work}</span>
             </>
           ) : (
@@ -81,7 +81,7 @@ export async function ReviewHeader({
 
 /**
  * Five-star rating with half-step precision. Two layered rows: a muted outline
- * row and an accent-filled row clipped to `rating/5` width — so 4.5 shows four
+ * row and an accent-filled row clipped to `rating/5` width - so 4.5 shows four
  * and a half filled stars exactly.
  */
 function Stars({ rating, label }: { rating: number; label: string }) {

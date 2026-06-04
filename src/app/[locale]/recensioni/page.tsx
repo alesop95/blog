@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { ReviewsPage } from '@/components/ReviewsPage'
 import { isLocale } from '@/i18n/routing'
 
-/* IT reviews — `/it/recensioni`. The localized EN counterpart lives in `../reviews`. */
+/* IT reviews - `/it/recensioni`. The localized EN counterpart lives in `../reviews`. */
 const LOCALE = 'it' as const
 
 export function generateStaticParams() {

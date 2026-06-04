@@ -9,9 +9,10 @@ out/
 # Production / generated
 public/pagefind/
 public/og/
+public/icons/
 
 # Test artifacts (Playwright + Lighthouse CI). NOTE: visual baselines under
-# tests/e2e/*-snapshots/ are committed on purpose — only reports/results are ignored.
+# tests/e2e/*-snapshots/ are committed on purpose - only reports/results are ignored.
 /test-results/
 /playwright-report/
 /blob-report/

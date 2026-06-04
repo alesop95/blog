@@ -4,7 +4,7 @@
 
 ---
 
-## Phase 1 – Foundation ✅ (Session #1 – 2026-05-27)
+## Phase 1 - Foundation ✅ (Session #1 - 2026-05-27)
 
 The minimum viable site: scaffolding, layout, one post, deploy-ready.
 
@@ -24,7 +24,7 @@ The minimum viable site: scaffolding, layout, one post, deploy-ready.
 - [x] README with setup, dev, content authoring, deploy instructions
 - [x] `.gitignore`, `.env.example`
 
-## Phase R1 – Re-platform: GitHub Pages + bilingual ✅ (Session #2 – 2026-05-27)
+## Phase R1 - Re-platform: GitHub Pages + bilingual ✅ (Session #2 - 2026-05-27)
 
 Pivot from Vercel/EN to GitHub Pages/bilingual after owner decision against any recurring cost (custom domain priced too high) and request for native EN+IT from day one.
 
@@ -45,30 +45,30 @@ Pivot from Vercel/EN to GitHub Pages/bilingual after owner decision against any 
 - [x] GitHub Actions deploy workflow (`.github/workflows/deploy.yml`)
 - [x] Updated README with GitHub Pages user-site instructions
 
-## Phase 2-A – Reading experience (Sessions #3–#4 – 2026-05-27) ✅
+## Phase 2-A - Reading experience (Sessions #3-#4 - 2026-05-27) ✅
 
 Make the act of reading a delight.
 
 - [x] Syntax-highlighted code via `rehype-pretty-code` + Shiki (light + dark themes, CSS-variable swap)
 - [x] Copy-button on code blocks (hover-visible, Clipboard API, graceful fallback if unsupported)
-- [x] Inline anchor links on headings – visual polish (explicit `#` span, hover-reveal)
-- [x] Auto-generated Table of Contents for long posts (>1500 words, ≥3 h2/h3) – inline collapsible `<details>`, slugs via `github-slugger` matching `rehype-slug` (`src/lib/toc.ts`, `Toc.tsx`)
+- [x] Inline anchor links on headings - visual polish (explicit `#` span, hover-reveal)
+- [x] Auto-generated Table of Contents for long posts (>1500 words, ≥3 h2/h3) - inline collapsible `<details>`, slugs via `github-slugger` matching `rehype-slug` (`src/lib/toc.ts`, `Toc.tsx`)
 - [x] OG card v2: Fraunces title in satori, reading-time badge, first-tag badge (`scripts/build-og.ts`)
 - [x] JSON-LD audit: `BlogPosting` with `inLanguage`, `translationOfWork` (via `articleId`), image, publisher, wordCount, keywords[], mainEntityOfPage
 - [x] Prev / Next post navigation polish (lucide chevrons, title-aware aria-labels)
 - [~] Typographic polish: drop caps option, pull-quote MDX component → **moved to Phase 2-C**
 
-> Session #4 also migrated hosting to **project-site `/blog`** – see **ADR-004** (`.claude/decisions/004-project-site-blog.md`).
+> Session #4 also migrated hosting to **project-site `/blog`** - see **ADR-004** (`.claude/decisions/004-project-site-blog.md`).
 
-## Housekeeping (Session #5 – 2026-05-29)
+## Housekeeping (Session #5 - 2026-05-29)
 
 Piccoli interventi trasversali, fuori fase. Dettaglio granulare in `_notes/DIARIO.md`.
 
-- [x] Em dash `—` → spaced en dash ` – ` repo-wide (216 swaps, 39 files). Convenzione tipografica di progetto stabilita.
+- [x] Em dash `-` → spaced en dash ` - ` repo-wide (216 swaps, 39 files). Convenzione tipografica di progetto stabilita.
 - [x] Footer copy: `Hand-built with…` → `Built with…` (EN) / `Costruito con…` (IT).
 - [x] Diario tecnico privato `_notes/` (gitignored): README + DIARIO + STACK.
 
-## Editorial features (Session #6 – 2026-05-29)
+## Editorial features (Session #6 - 2026-05-29)
 
 Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 
@@ -83,46 +83,52 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] Home wordmark non più cliccabile (fix GET a vuoto verso sé stessa).
 - [ ] Applicare lo stesso pattern (segmento localizzato + generateStaticParams) a tag/archivio in Phase 2-B, NON `pathnames` next-intl.
 
-## Phase 2-C – Polish editoriale (Session #4 → completata Session #7, 2026-06-03) ✅
+## Phase 2-C - Polish editoriale (Session #4 → completata Session #7, 2026-06-03) ✅
 
-- [x] View Transitions on route change — React `<ViewTransition>` wraps the locale layout's children; `experimental.viewTransition: true` in `next.config`. Soft ~220ms `root` crossfade, sticky masthead anchored (`view-transition-name: site-header`), reduced-motion guard. **ADR-008**.
-- [x] Pull-quote `<Quote>` MDX component — `<figure class="pullquote">` (centred display-serif, never justified), demoed bilingually in the Caparezza review.
-- [x] Drop-cap option on long posts — opt-in frontmatter `dropCap: true` → `.prose--dropcap` first-letter (committed `b613338`; applied to hello-workshop ↔ ciao-officina).
-- [x] Tabular numerals where they should align — `tabular-nums` on the date columns (home, archive, prev/next) (committed `b613338`).
-- [x] Spacing & line-height audit on prose, measured — measure was ~85 chars/line (over the 66–75 ideal, worsening justified gaps); capped `.prose { max-width: 68ch }`, aligning the body's left edge with title/description. Font-size 17px / line-height 1.7 / block spacing 1.1em kept (all in range).
-- [x] Reduced-motion compliance audit — global guard (zeroes animation/transition/scroll) already present; added the dedicated `::view-transition-*` reduced-motion block (the `*` guard doesn't match those pseudo-elements). No JS-driven motion anywhere; component motion is colour/opacity only. **Compliant.**
+- [x] View Transitions on route change - React `<ViewTransition>` wraps the locale layout's children; `experimental.viewTransition: true` in `next.config`. Soft ~220ms `root` crossfade, sticky masthead anchored (`view-transition-name: site-header`), reduced-motion guard. **ADR-008**.
+- [x] Pull-quote `<Quote>` MDX component - `<figure class="pullquote">` (centred display-serif, never justified), demoed bilingually in the Caparezza review.
+- [x] Drop-cap option on long posts - opt-in frontmatter `dropCap: true` → `.prose--dropcap` first-letter (committed `b613338`; applied to hello-workshop ↔ ciao-officina).
+- [x] Tabular numerals where they should align - `tabular-nums` on the date columns (home, archive, prev/next) (committed `b613338`).
+- [x] Spacing & line-height audit on prose, measured - measure was ~85 chars/line (over the 66-75 ideal, worsening justified gaps); capped `.prose { max-width: 68ch }`, aligning the body's left edge with title/description. Font-size 17px / line-height 1.7 / block spacing 1.1em kept (all in range).
+- [x] Reduced-motion compliance audit - global guard (zeroes animation/transition/scroll) already present; added the dedicated `::view-transition-*` reduced-motion block (the `*` guard doesn't match those pseudo-elements). No JS-driven motion anywhere; component motion is colour/opacity only. **Compliant.**
 
-## Phase 2-B – Discoverability (Session #5)
+## Phase 2-B - Discoverability (Session #5)
 
-- [x] Pagefind index — built at `pnpm build` (`pagefind --site out`), indexes only post `<article>` (`data-pagefind-body`); one English index scoped per-locale via a `lang` filter (ADR-007).
-- [x] `⌘K` search modal — `src/components/Search.tsx` in the header (Cmd/Ctrl+K, lazy pagefind load, locale-filtered, highlighted excerpts). Dev shows an "unavailable" message (index only exists in the production build).
-- [x] Tag pages: `/en/tags/[tag]` + `/it/tag/[tag]` — static localized folders (`tags/`, `tag/`) sharing `<TagPage>`; `tagSection`/`tagPath`/`tagsIndexPath` helpers; tags clickable on posts; footer link; sitemap entries.
-- [x] Tag indexes: `/en/tags` + `/it/tag` — tag cloud with post counts.
-- [x] Archive by year: `/en/archive` + `/it/archivio` — posts grouped by year (static localized folders, `<ArchivePage>`, `archiveSection`/`archivePath`); footer link; sitemap (paired).
-- [x] Related posts (by tag overlap) — `getRelatedPosts` (shared-tag count, then recency); section on post pages. Dormant until ≥2 same-locale posts share a tag (current seed posts have disjoint tags).
+- [x] Pagefind index - built at `pnpm build` (`pagefind --site out`), indexes only post `<article>` (`data-pagefind-body`); one English index scoped per-locale via a `lang` filter (ADR-007).
+- [x] `⌘K` search modal - `src/components/Search.tsx` in the header (Cmd/Ctrl+K, lazy pagefind load, locale-filtered, highlighted excerpts). Dev shows an "unavailable" message (index only exists in the production build).
+- [x] Tag pages: `/en/tags/[tag]` + `/it/tag/[tag]` - static localized folders (`tags/`, `tag/`) sharing `<TagPage>`; `tagSection`/`tagPath`/`tagsIndexPath` helpers; tags clickable on posts; footer link; sitemap entries.
+- [x] Tag indexes: `/en/tags` + `/it/tag` - tag cloud with post counts.
+- [x] Archive by year: `/en/archive` + `/it/archivio` - posts grouped by year (static localized folders, `<ArchivePage>`, `archiveSection`/`archivePath`); footer link; sitemap (paired).
+- [x] Related posts (by tag overlap) - `getRelatedPosts` (shared-tag count, then recency); section on post pages. Dormant until ≥2 same-locale posts share a tag (current seed posts have disjoint tags).
 
-## Phase 3 – Quality gates (Session #7 – 2026-06-03) ✅ — see **ADR-010**
+## Phase 3 - Quality gates (Session #7 - 2026-06-03) ✅ - see **ADR-010**
 
-- [x] **Vitest unit tests** on `src/lib/posts.ts` — exported `PostFrontmatterSchema`; 13 tests covering frontmatter edge cases (required title, 280-char desc, date coercion, `type` enum, half-step `rating`, URL `link`) + helper invariants (sort, `getReviews` purity, tag order, `articleId` pairing). In `pnpm test` + `verify` + CI.
-- [x] **a11y audit (axe + walkthrough)** — `@axe-core/playwright` on EN+IT pages, zero violations (color-contrast + iframe-contents documented exclusions). Found & fixed: home missing h1 (`Logo`→`<h1>`), `heading-order` on index lists (`PostsList` `headingLevel` prop), `<aside>` landmark nesting (`Callout`/`ReviewHeader`→`<div role="note">`). Added skip-to-content link + `#main-content`; hardened Search modal (input label, localized close, focus return).
-- [x] **Visual regression snapshots (Playwright)** — home + a post (`toHaveScreenshot`, 0.02 tolerance), served from `out/` by `scripts/serve-out.mjs`. Baselines per-OS: `-win32` committed (local Windows); CI runs smoke+a11y only (add `-linux` baselines once to enable visual there).
-- [x] **Lighthouse CI** — `@lhci/cli` (`lighthouserc.cjs`) on 3 URLs; category budgets in `warn` mode (promote to `error` after first run calibrates). Dedicated `lighthouse` CI job.
-- [x] **CI topology** — `ci.yml`: `verify` (typecheck·lint·test·build) + `e2e` (Playwright) + `lighthouse`, none touching `deploy.yml`.
+- [x] **Vitest unit tests** on `src/lib/posts.ts` - exported `PostFrontmatterSchema`; 13 tests covering frontmatter edge cases (required title, 280-char desc, date coercion, `type` enum, half-step `rating`, URL `link`) + helper invariants (sort, `getReviews` purity, tag order, `articleId` pairing). In `pnpm test` + `verify` + CI.
+- [x] **a11y audit (axe + walkthrough)** - `@axe-core/playwright` on EN+IT pages, zero violations (color-contrast + iframe-contents documented exclusions). Found & fixed: home missing h1 (`Logo`→`<h1>`), `heading-order` on index lists (`PostsList` `headingLevel` prop), `<aside>` landmark nesting (`Callout`/`ReviewHeader`→`<div role="note">`). Added skip-to-content link + `#main-content`; hardened Search modal (input label, localized close, focus return).
+- [x] **Visual regression snapshots (Playwright)** - home + a post (`toHaveScreenshot`, 0.02 tolerance), served from `out/` by `scripts/serve-out.mjs`. Baselines per-OS: `-win32` committed (local Windows); CI runs smoke+a11y only (add `-linux` baselines once to enable visual there).
+- [x] **Lighthouse CI** - `@lhci/cli` (`lighthouserc.cjs`) on 3 URLs; category budgets in `warn` mode (promote to `error` after first run calibrates). Dedicated `lighthouse` CI job.
+- [x] **CI topology** - `ci.yml`: `verify` (typecheck·lint·test·build) + `e2e` (Playwright) + `lighthouse`, none touching `deploy.yml`.
 
-> Open follow-ups: resolve the muted-palette color-contrast, then enable that axe rule + tighten Lighthouse a11y to `error`; optionally generate Linux visual baselines for CI.
+> ✅ **Color-contrast debt resolved (Session #7, ADR-012)**: muted palette darkened (`text-ink/{55,45,40}`→`/70`, accent `oklch(0.52)`), axe `color-contrast` re-enabled (0 violations), Lighthouse a11y budget → `error`. Open: dark-mode contrast pass (axe tests light only); Linux visual baselines for CI; promote perf/seo/best-practices budgets to `error`.
 
-## Phase 4 – Editorial extensions (open-ended)
+## Finishing touches (Session #7 - 2026-06-04) - ADR-012
+
+- [x] **Favicon / app icons / web manifest** - "AS" monogram → `scripts/build-icons.ts` (sharp) → `public/icons/` (gitignored); root-layout `icons`+`manifest` metadata (basePath-aware); `feed.ts` favicon fixed. Closes the missing-favicon gap.
+- [x] **Typography convention reversed** - plain hyphen `-` everywhere (never en/em dash); repo-wide swap + `remark-smartypants` `dashes:false`.
+- [x] **Demo article** `field-notes-workshop` / `note-di-officina` (5 EN + 5 IT) exercising every feature; makes the Series index non-dormant.
+
+## Phase 4 - Editorial extensions (open-ended)
 
 Things that emerge from Alessio's writing needs.
 
-- [x] **Video embeds with a description below** — `<YouTube id caption />` (responsive 16:9, `youtube-nocookie`, lazy) **and** `<Video src poster caption />` for **self-hosted uploads** (files under `public/videos/<slug>/`, basePath-aware, `controls`/`preload`). The post body acts as the description. TODO (later): Vimeo, automatic poster generation.
-- [x] **"Review / listening" post type** (Session #7, 2026-06-03 — **ADR-009**) — frontmatter `type: "review"` + optional `review` block (artist · work · kind · year · rating 0–5 half-step · source link). `<ReviewHeader>` spec-strip above the prose (half-star rating via layered lucide stars), localized index `/reviews` ↔ `/recensioni` (static folders + `<ReviewsPage>`, `reviewsSection`/`reviewsPath`), "Review/Recensione" badge in `<PostsList>`, footer link + sitemap (paired). Applied to both Caparezza twins (rating `4.5` placeholder — Alessio to confirm). All fields optional; `kind` author-written per language; non-review posts unaffected (`type` defaults to `post`).
-- [x] `<Score />` MDX component (Session #7 — **ABC.js**, lazy client import, on the dark-safe plate) for harmony posts. ADR-011.
-- [x] `<EQGraph />` (Session #7 — dependency-free SVG, log-frequency response curve) for audio posts. ADR-011.
-- [x] `<PedalSignalFlow />` (Session #7 — responsive HTML chain with arrows) for pedal/routing posts. ADR-011.
-- [x] `<HarmonyDiagram />` (Session #7 — circle of fifths SVG, optional `highlight`). ADR-011.
-- [x] Series feature (Session #7) — frontmatter `series: { name, order }`; **index-only** page (`/en/series` ↔ `/it/serie`) rendering each series' arc as an anchored section (no per-series dynamic route — keeps `output:export` safe at zero series); post banner linking to `/series#<slug>`. ADR-011.
-- [x] Year-in-review auto-generated page (Session #7) — `/en/year/[year]` ↔ `/it/anno/[year]`, summary (count + words) + recurring tags + posts. ADR-011.
+- [x] **Video embeds with a description below** - `<YouTube id caption />` (responsive 16:9, `youtube-nocookie`, lazy) **and** `<Video src poster caption />` for **self-hosted uploads** (files under `public/videos/<slug>/`, basePath-aware, `controls`/`preload`). The post body acts as the description. TODO (later): Vimeo, automatic poster generation.
+- [x] **"Review / listening" post type** (Session #7, 2026-06-03 - **ADR-009**) - frontmatter `type: "review"` + optional `review` block (artist · work · kind · year · rating 0-5 half-step · source link). `<ReviewHeader>` spec-strip above the prose (half-star rating via layered lucide stars), localized index `/reviews` ↔ `/recensioni` (static folders + `<ReviewsPage>`, `reviewsSection`/`reviewsPath`), "Review/Recensione" badge in `<PostsList>`, footer link + sitemap (paired). Applied to both Caparezza twins (rating `4.5` placeholder - Alessio to confirm). All fields optional; `kind` author-written per language; non-review posts unaffected (`type` defaults to `post`).
+- [x] `<Score />` MDX component (Session #7 - **ABC.js**, lazy client import, on the dark-safe plate) for harmony posts. ADR-011.
+- [x] `<EQGraph />` (Session #7 - dependency-free SVG, log-frequency response curve) for audio posts. ADR-011.
+- [x] `<PedalSignalFlow />` (Session #7 - responsive HTML chain with arrows) for pedal/routing posts. ADR-011.
+- [x] `<HarmonyDiagram />` (Session #7 - circle of fifths SVG, optional `highlight`). ADR-011.
+- [x] Series feature (Session #7) - frontmatter `series: { name, order }`; **index-only** page (`/en/series` ↔ `/it/serie`) rendering each series' arc as an anchored section (no per-series dynamic route - keeps `output:export` safe at zero series); post banner linking to `/series#<slug>`. ADR-011.
+- [x] Year-in-review auto-generated page (Session #7) - `/en/year/[year]` ↔ `/it/anno/[year]`, summary (count + words) + recurring tags + posts. ADR-011.
 
 > All Phase 4 items shipped. Viz components + Series are **dormant** until content uses them (wired, tested, documented in `_notes/AUTHORING.md`). Demo: draft `content/posts/en/component-showcase.mdx`.
 
@@ -133,4 +139,4 @@ Things that emerge from Alessio's writing needs.
 - "Uses" page (`/uses`)
 - Newsletter bridge (Buttondown)
 - Spotify "currently listening" embed
-- Custom domain (if owner reconsiders – Porkbun/Cloudflare Registrar ~€8/year, 30-min migration)
+- Custom domain (if owner reconsiders - Porkbun/Cloudflare Registrar ~€8/year, 30-min migration)

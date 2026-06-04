@@ -3,7 +3,7 @@ import type { TocEntry } from '@/lib/toc'
 /**
  * Inline, collapsible table of contents for long posts.
  *
- * Native `<details>` – open by default, keyboard-accessible, zero JS. Links are
+ * Native `<details>` - open by default, keyboard-accessible, zero JS. Links are
  * fragment-only (`#id`), so they need no basePath. The post page decides when to
  * render this (word count + heading count gate).
  */
@@ -13,7 +13,7 @@ export function Toc({ entries, label }: { entries: TocEntry[]; label: string }) 
       open
       className="my-8 rounded-md border border-ink/12 bg-ink/[0.02] px-5 py-3"
     >
-      <summary className="cursor-pointer select-none font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 transition-colors hover:text-accent">
+      <summary className="cursor-pointer select-none font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70 transition-colors hover:text-accent">
         {label}
       </summary>
       <nav aria-label={label} className="mt-3">

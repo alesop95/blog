@@ -21,7 +21,7 @@ function polar(cx: number, cy: number, r: number, i: number) {
  * The circle of fifths as a dark-mode-safe SVG (strokes/labels use the ink
  * colour token; highlighted keys use the accent). For harmony posts.
  *
- *   <HarmonyDiagram highlight={["C", "G", "Am"]} caption="I–V–vi in C" />
+ *   <HarmonyDiagram highlight={["C", "G", "Am"]} caption="I-V-vi in C" />
  */
 export function HarmonyDiagram({ highlight = [], caption }: HarmonyDiagramProps) {
   const hi = new Set(highlight)
@@ -89,7 +89,7 @@ export function HarmonyDiagram({ highlight = [], caption }: HarmonyDiagramProps)
         {ring(MINORS, rMin, 11)}
       </svg>
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}

@@ -116,7 +116,7 @@ export function EQGraph({ curve, caption }: EQGraphProps) {
         />
       </svg>
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}

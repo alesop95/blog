@@ -1,4 +1,4 @@
-# ADR-005 – Math & LaTeX rendering: MDX + KaTeX, circuits pre-rendered to SVG
+# ADR-005 - Math & LaTeX rendering: MDX + KaTeX, circuits pre-rendered to SVG
 
 **Status**: Accepted · **Date**: 2026-05-29 · **Session**: #6
 
@@ -18,15 +18,15 @@ Two sub-problems, very different in nature:
 
 ## Options considered
 
-- **A. MDX + KaTeX** — math written as `$inline$` / `$$display$$` in MDX, rendered to
+- **A. MDX + KaTeX** - math written as `$inline$` / `$$display$$` in MDX, rendered to
   HTML+MathML at **build time** via `remark-math` + `rehype-katex`. Only `katex.min.css`
   (~23 KB) ships, scoped to the post route. Document structure stays in Markdown.
 - **B. Full `.tex` → HTML at build** (LaTeXML / Pandoc / tex4ht). Ingests near-verbatim
   `.tex`, but is a heavy, fragile toolchain, breaks integration with the existing MDX
   pipeline (ToC, Shiki, smartypants), and still cannot draw `circuitikz` without a real
   TeX engine.
-- **C. TikZJax in-browser** — client-side WASM TeX rendering TikZ/circuitikz. Convenient
-  but ships several MB per page that uses it — against the perf budgets.
+- **C. TikZJax in-browser** - client-side WASM TeX rendering TikZ/circuitikz. Convenient
+  but ships several MB per page that uses it - against the perf budgets.
 
 ## Decision
 
@@ -49,8 +49,8 @@ Two sub-problems, very different in nature:
 - `throwOnError: false`: a malformed expression renders as red source text instead of
   failing the whole build.
 - Authoring contract: math in `$…$`/`$$…$$`; **don't** wrap an `equation` environment inside
-  `$$` (double display) — put the equation body directly, or use `\begin{aligned}` for
-  multi-line. Full `\documentclass`/`\usepackage` scaffolding is NOT supported — structure is
+  `$$` (double display) - put the equation body directly, or use `\begin{aligned}` for
+  multi-line. Full `\documentclass`/`\usepackage` scaffolding is NOT supported - structure is
   Markdown.
 - Images are basePath-aware (see the image feature) so `/images/...` resolves to `/blog/...`
   on deploy.

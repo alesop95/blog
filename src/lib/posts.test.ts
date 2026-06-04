@@ -12,7 +12,7 @@ import {
 } from './posts'
 
 /* -------------------------------------------------------------------------- */
-/*  Frontmatter schema — the contract that fails the build on bad input.      */
+/*  Frontmatter schema - the contract that fails the build on bad input.      */
 /* -------------------------------------------------------------------------- */
 
 describe('PostFrontmatterSchema', () => {
@@ -152,7 +152,7 @@ describe('series', () => {
   it('getSeriesPosts returns the arc in order and only that series', async () => {
     // NODE_ENV is "test", so drafts (e.g. the component-showcase series) are visible.
     const all = await getAllSeries('en')
-    if (all.length === 0) return // no series in content yet — nothing to assert
+    if (all.length === 0) return // no series in content yet - nothing to assert
     const first = all[0]
     if (!first) return
     const posts = await getSeriesPosts('en', first.slug)

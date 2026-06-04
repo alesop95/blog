@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl'
 import { siteConfig } from '@/config/site'
 
 /**
- * Wordmark, not an icon. Set in Fraunces – the site's display serif –
+ * Wordmark, not an icon. Set in Fraunces - the site's display serif -
  * with a tight letterspacing for a print-editorial feel.
  *
  * Rendered ONLY in the home hero (the one place the full name shows), so it is

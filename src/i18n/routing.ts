@@ -4,13 +4,13 @@ import { defineRouting } from 'next-intl/routing'
  * The shape of our i18n routing.
  *
  * `localePrefix: 'always'` means every real route has either `/en/...` or
- * `/it/...` – never a bare URL. The bare root `/` is handled by a separate
+ * `/it/...` - never a bare URL. The bare root `/` is handled by a separate
  * splash page (`src/app/page.tsx`) that redirects browser-side.
  *
  * NOTE on localized post paths: the post collection uses a *localized URL
  * segment* (`/en/posts/...` ↔ `/it/articoli/...`). We do NOT express that via
  * next-intl `pathnames`, because next-intl's pathname localization relies on
- * the middleware to rewrite localized URLs to internal ones at request time –
+ * the middleware to rewrite localized URLs to internal ones at request time -
  * and there is no middleware on a static export (GitHub Pages). Instead the
  * route segment is a real dynamic param (`[locale]/[section]/[slug]`) and we
  * generate the localized paths directly at build time. `postSection` /
@@ -35,7 +35,7 @@ export function isLocale(value: string): value is Locale {
 
 /**
  * The localized URL segment for the posts collection, per locale.
- * EN → `posts`, IT → `articoli`. Single source of truth — used by the route's
+ * EN → `posts`, IT → `articoli`. Single source of truth - used by the route's
  * `generateStaticParams`, every post link, the sitemap, and the feeds.
  */
 export function postSection(locale: Locale): string {
@@ -110,7 +110,7 @@ export function seriesSection(locale: Locale): string {
 
 /**
  * Locale-prefixed path for the series index. e.g. `/it/serie`. A single series
- * is a `#<slug>` anchor on this page (no per-series route — keeps the static
+ * is a `#<slug>` anchor on this page (no per-series route - keeps the static
  * export safe when there are zero series).
  */
 export function seriesIndexPath(locale: Locale): string {

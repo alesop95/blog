@@ -3,11 +3,10 @@
  * the dependency-free `scripts/serve-out.mjs`. Wired into `.github/workflows/ci.yml`
  * (the `lighthouse` job), after `pnpm build`.
  *
- * Budgets are intentionally **warn-only** for now: the muted `text-ink/…` palette
- * is a known open color-contrast question, and performance scores vary on CI
- * runners. Once the first run establishes real numbers, promote the stable
- * categories (seo, best-practices) — and accessibility once contrast is settled —
- * to `"error"` to make the budget blocking.
+ * Accessibility is a **blocking** budget (`error`): the color-contrast debt is
+ * resolved (palette darkened, axe color-contrast passes on every tested page).
+ * Performance/SEO/best-practices stay `warn` for now (perf varies on CI runners);
+ * promote them to `error` once the first run establishes stable numbers.
  */
 module.exports = {
   ci: {
@@ -24,7 +23,7 @@ module.exports = {
     assert: {
       assertions: {
         'categories:performance': ['warn', { minScore: 0.9 }],
-        'categories:accessibility': ['warn', { minScore: 0.95 }],
+        'categories:accessibility': ['error', { minScore: 0.95 }],
         'categories:best-practices': ['warn', { minScore: 0.95 }],
         'categories:seo': ['warn', { minScore: 0.95 }],
       },

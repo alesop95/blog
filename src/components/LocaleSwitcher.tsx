@@ -45,7 +45,7 @@ export function LocaleSwitcher({ translationSlug }: LocaleSwitcherProps) {
     try {
       localStorage.setItem(STORAGE_KEY, otherLocale)
     } catch {
-      // localStorage can throw in private/embedded modes – non-fatal.
+      // localStorage can throw in private/embedded modes - non-fatal.
     }
 
     const target = translationSlug

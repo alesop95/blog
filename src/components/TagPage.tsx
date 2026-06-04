@@ -63,7 +63,7 @@ async function TagIndex({ locale, t }: { locale: Locale; t: T }) {
                 className="inline-flex items-baseline gap-2 rounded-full border border-ink/12 px-4 py-1.5 transition-colors hover:border-accent/40 hover:text-accent"
               >
                 <span>{tag}</span>
-                <span className="font-mono text-[0.7rem] tabular-nums text-ink/45">
+                <span className="font-mono text-[0.7rem] tabular-nums text-ink/70">
                   {count}
                 </span>
               </Link>
@@ -91,14 +91,14 @@ async function TaggedPosts({
       <header className="mb-10">
         <Link
           href={tagsIndexPath(locale) as Route}
-          className="inline-block font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 transition-colors hover:text-accent"
+          className="inline-block font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70 transition-colors hover:text-accent"
         >
           ← {t('tags.all')}
         </Link>
         <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight">
           {t('tags.taggedTitle', { tag })}
         </h1>
-        <p className="mt-2 font-mono text-[0.8rem] text-ink/55">
+        <p className="mt-2 font-mono text-[0.8rem] text-ink/70">
           {t('tags.count', { count: posts.length })}
         </p>
       </header>

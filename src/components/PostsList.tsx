@@ -9,14 +9,14 @@ interface PostsListProps {
   /**
    * Heading level for each post title. Default 2 (index pages where the list
    * sits directly under the page h1). Pass 3 when the list follows a
-   * `<SectionTitle>` (an h2), e.g. the home "Writings" section — so heading
+   * `<SectionTitle>` (an h2), e.g. the home "Writings" section - so heading
    * levels never skip (a11y: heading-order).
    */
   headingLevel?: 2 | 3
 }
 
 /**
- * The home-page archive list. Tight, typographic, no thumbnails –
+ * The home-page archive list. Tight, typographic, no thumbnails -
  * the title carries the post.
  */
 export function PostsList({ posts, headingLevel = 2 }: PostsListProps) {
@@ -41,7 +41,7 @@ export function PostsList({ posts, headingLevel = 2 }: PostsListProps) {
           >
             <time
               dateTime={post.frontmatter.date.toISOString()}
-              className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 tabular-nums sm:w-24"
+              className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70 tabular-nums sm:w-24"
               suppressHydrationWarning
             >
               {format.dateTime(post.frontmatter.date, {
@@ -65,7 +65,7 @@ export function PostsList({ posts, headingLevel = 2 }: PostsListProps) {
               </p>
             </div>
 
-            <span className="shrink-0 font-mono text-[0.7rem] tabular-nums text-ink/45">
+            <span className="shrink-0 font-mono text-[0.7rem] tabular-nums text-ink/70">
               <span className="sr-only">
                 {t('post.minRead', { minutes: post.readingTime.minutes })}
               </span>

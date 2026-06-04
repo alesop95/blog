@@ -7,7 +7,7 @@ import { PostsList } from './PostsList'
 
 /**
  * The series index (en `/series`, it `/serie`): every series rendered as its own
- * section — heading + the posts in reading-arc order. A single static page (no
+ * section - heading + the posts in reading-arc order. A single static page (no
  * per-series dynamic route), so it stays export-safe even when there are zero
  * series (output:export can't pre-render an empty dynamic route). Each section
  * has an `id` so post banners can deep-link to it (`/series#<slug>`).
@@ -41,7 +41,7 @@ export async function SeriesPage({ locale }: { locale: Locale }) {
                   <h2 className="font-display text-2xl font-semibold tracking-tight">
                     {s.name}
                   </h2>
-                  <span className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/45">
+                  <span className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
                     {t('series.count', { count: s.count })}
                   </span>
                 </div>

@@ -40,7 +40,7 @@ const TOC_MIN_WORDS = 1500
 /*                                                                            */
 /*  The `[section]` segment is the LOCALIZED collection slug (en: posts,       */
 /*  it: articoli). We emit it as a real param so the localized URLs exist as   */
-/*  static files — next-intl's pathname rewriting needs middleware, which a    */
+/*  static files - next-intl's pathname rewriting needs middleware, which a    */
 /*  static export on GitHub Pages doesn't have. See ADR-006.                   */
 /* -------------------------------------------------------------------------- */
 
@@ -133,7 +133,7 @@ export default async function PostPage({ params }: { params: Params }) {
   const toc = extractToc(post.content)
   const showToc = post.readingTime.words > TOC_MIN_WORDS && toc.length >= 3
 
-  // Absolute URLs (include basePath via siteConfig.url) – see ADR-004.
+  // Absolute URLs (include basePath via siteConfig.url) - see ADR-004.
   const postUrl = `${siteConfig.url}${postPath(locale, slug)}`
   const ogImage = `${siteConfig.url}/og/${locale}/${slug}.png`
   const person = {
@@ -186,7 +186,7 @@ export default async function PostPage({ params }: { params: Params }) {
           />
 
           <header className="mb-10">
-            <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+            <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
               <time dateTime={f.date.toISOString()} suppressHydrationWarning>
                 {format.dateTime(f.date, {
                   year: 'numeric',
@@ -224,7 +224,7 @@ export default async function PostPage({ params }: { params: Params }) {
             </p>
 
             {f.series ? (
-              <p className="mt-4 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+              <p className="mt-4 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
                 <Link
                   href={
                     `${seriesIndexPath(locale)}#${seriesSlug(f.series.name)}` as Route
@@ -234,7 +234,7 @@ export default async function PostPage({ params }: { params: Params }) {
                   {t('series.inSeries')} {f.series.name}
                 </Link>
                 {seriesPosts.length > 0 ? (
-                  <span className="text-ink/40">
+                  <span className="text-ink/70">
                     {' · '}
                     {t('series.position', {
                       index: seriesIndex,
@@ -272,7 +272,7 @@ export default async function PostPage({ params }: { params: Params }) {
                     >
                       <time
                         dateTime={r.frontmatter.date.toISOString()}
-                        className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 tabular-nums sm:w-28"
+                        className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70 tabular-nums sm:w-28"
                         suppressHydrationWarning
                       >
                         {format.dateTime(r.frontmatter.date, {
@@ -350,7 +350,7 @@ function AdjacentLink({
       }`}
     >
       <span
-        className={`flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-ink/55 ${
+        className={`flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-ink/70 ${
           isRight ? 'sm:justify-end' : ''
         }`}
       >

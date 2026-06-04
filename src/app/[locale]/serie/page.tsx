@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { SeriesPage } from '@/components/SeriesPage'
 import { isLocale } from '@/i18n/routing'
 
-/* IT series index — `/it/serie`. Localized EN counterpart in `../series`. */
+/* IT series index - `/it/serie`. Localized EN counterpart in `../series`. */
 const LOCALE = 'it' as const
 
 export function generateStaticParams() {

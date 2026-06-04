@@ -32,7 +32,7 @@ export async function ArchivePage({ locale }: { locale: Locale }) {
           <div className="mt-10 space-y-12">
             {groups.map(({ year, posts }) => (
               <section key={year}>
-                <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-ink/45">
+                <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-ink/70">
                   {year}
                 </h2>
                 <ul className="mt-3 divide-y divide-ink/10">
@@ -44,7 +44,7 @@ export async function ArchivePage({ locale }: { locale: Locale }) {
                       >
                         <time
                           dateTime={post.frontmatter.date.toISOString()}
-                          className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55 tabular-nums sm:w-28"
+                          className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70 tabular-nums sm:w-28"
                           suppressHydrationWarning
                         >
                           {format.dateTime(post.frontmatter.date, {

@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config'
 
 /**
  * Vitest config. Tests run in a Node environment (the code under test reads the
- * filesystem and validates frontmatter — no DOM needed). The `@/` alias mirrors
+ * filesystem and validates frontmatter - no DOM needed). The `@/` alias mirrors
  * tsconfig so imports resolve the same way as in the app.
  */
 export default defineConfig({

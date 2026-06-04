@@ -52,7 +52,7 @@ export async function YearReviewPage({
           {t('year.title', { year })}
         </h1>
         <p className="mt-3 text-ink/70">{t('year.intro', { year })}</p>
-        <p className="mt-4 font-mono text-[0.8rem] uppercase tracking-[0.18em] text-ink/55">
+        <p className="mt-4 font-mono text-[0.8rem] uppercase tracking-[0.18em] text-ink/70">
           {t('year.summary', { count: posts.length, words: format.number(words) })}
         </p>
 

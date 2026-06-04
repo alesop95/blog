@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { TagPage } from '@/components/TagPage'
 import { isLocale } from '@/i18n/routing'
 
-/* IT tag index — `/it/tag`. The localized EN counterpart lives in `../tags`. */
+/* IT tag index - `/it/tag`. The localized EN counterpart lives in `../tags`. */
 const LOCALE = 'it' as const
 
 export function generateStaticParams() {

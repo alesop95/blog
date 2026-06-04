@@ -7,12 +7,12 @@ import { expect, test } from '@playwright/test'
  * animations during screenshots, so the route view-transition crossfade won't
  * cause flakiness here.
  */
-test('home page — visual', async ({ page }) => {
+test('home page - visual', async ({ page }) => {
   await page.goto('/en/')
   await expect(page).toHaveScreenshot('home-en.png', { fullPage: true })
 })
 
-test('post page — visual', async ({ page }) => {
+test('post page - visual', async ({ page }) => {
   await page.goto('/en/posts/hello-workshop/')
   await expect(page).toHaveScreenshot('post-en.png', { fullPage: true })
 })

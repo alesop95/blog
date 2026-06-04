@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 
 /**
- * "Skip to content" link — the first focusable element on every page (rendered
+ * "Skip to content" link - the first focusable element on every page (rendered
  * in the locale layout before the header). Visually hidden until focused, so
  * keyboard users can jump past the masthead straight to `#main-content`.
  */

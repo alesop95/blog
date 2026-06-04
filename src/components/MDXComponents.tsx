@@ -22,7 +22,7 @@ import { Score } from './Score'
  * next/image and next/link do, so a root-relative `/images/x.png` would 404
  * on the project-site deploy. Resolve it here. Absolute URLs and already-
  * prefixed paths are left untouched. Authors store images under public/images/
- * and reference them as `/images/<slug>/<file>` — see ADR-005 / _notes.
+ * and reference them as `/images/<slug>/<file>` - see ADR-005 / _notes.
  */
 function resolveAsset(src?: string): string | undefined {
   if (!src) return src
@@ -66,7 +66,7 @@ function Figure({ caption, alt, src, ...img }: FigureProps) {
       {/* biome-ignore lint/a11y/useAltText: alt is forwarded from props */}
       <img {...img} src={resolveAsset(src as string | undefined)} alt={alt ?? ''} className="rounded-md" />
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}
@@ -76,7 +76,7 @@ function Figure({ caption, alt, src, ...img }: FigureProps) {
 
 /**
  * Maps the native markdown image syntax `![alt](/images/x.png "caption")`.
- * Resolves the basePath, renders responsively, and — when a `title` is given —
+ * Resolves the basePath, renders responsively, and - when a `title` is given -
  * wraps it in a <figure> with the title as caption. Without a title it stays a
  * bare <img> so inline images don't force block layout.
  */
@@ -87,7 +87,7 @@ function MdxImage({ src, alt, title, ...rest }: ComponentProps<'img'>) {
       <figure className="my-8">
         {/* biome-ignore lint/a11y/useAltText: alt is forwarded from markdown */}
         <img {...rest} src={resolved} alt={alt ?? ''} />
-        <figcaption className="font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {title}
         </figcaption>
       </figure>
@@ -124,7 +124,7 @@ function Diagram({ caption, alt, src, wide = false, ...img }: DiagramProps) {
         <img {...img} src={resolveAsset(src as string | undefined)} alt={alt ?? ''} />
       </div>
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}
@@ -160,7 +160,7 @@ function YouTube({ id, title, caption }: YouTubeProps) {
         />
       </div>
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}
@@ -181,7 +181,7 @@ interface VideoProps {
  * Self-hosted video player (your own uploaded file, not a YouTube embed).
  * Drop the file under `public/videos/<slug>/` and reference it with a
  * root-relative path; the basePath is resolved automatically. Keep files small
- * (compress before commit) — GitHub blocks files >100 MB and Pages has limits.
+ * (compress before commit) - GitHub blocks files >100 MB and Pages has limits.
  */
 function Video({ src, poster, caption }: VideoProps) {
   return (
@@ -195,7 +195,7 @@ function Video({ src, poster, caption }: VideoProps) {
         poster={poster ? resolveAsset(poster) : undefined}
       />
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}
@@ -218,7 +218,7 @@ function Quote({ children, cite }: QuoteProps) {
   return (
     <figure className="pullquote my-10">
       <p>{children}</p>
-      {cite ? <figcaption>– {cite}</figcaption> : null}
+      {cite ? <figcaption>- {cite}</figcaption> : null}
     </figure>
   )
 }

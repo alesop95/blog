@@ -5,7 +5,7 @@ import { TagPage } from '@/components/TagPage'
 import { isLocale } from '@/i18n/routing'
 import { getAllTags } from '@/lib/posts'
 
-/* EN single-tag page — `/en/tags/<tag>`. IT counterpart in `../../tag/[tag]`. */
+/* EN single-tag page - `/en/tags/<tag>`. IT counterpart in `../../tag/[tag]`. */
 const LOCALE = 'en' as const
 
 export async function generateStaticParams() {

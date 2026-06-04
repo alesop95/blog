@@ -2,7 +2,7 @@
  * The blog's bilingual post collection.
  *
  * Posts live as `.mdx` files in `content/posts/{en,it}/`. Each has YAML
- * frontmatter validated by a Zod schema – invalid frontmatter fails the
+ * frontmatter validated by a Zod schema - invalid frontmatter fails the
  * build, on purpose.
  *
  * This module is *the* source of truth. Every route that needs posts
@@ -29,10 +29,10 @@ const POSTS_ROOT = join(process.cwd(), 'content', 'posts')
  */
 /**
  * Optional structured metadata for `type: "review"` posts (Phase 4, ADR-009).
- * Every field is optional — the review header renders whatever is present, so a
+ * Every field is optional - the review header renders whatever is present, so a
  * review can be a reflective essay (no rating) or a tagged listing card alike.
  * `kind` is author-written in the post's own language (e.g. "album", "brano",
- * "book") and rendered verbatim — no separate i18n needed.
+ * "book") and rendered verbatim - no separate i18n needed.
  */
 const ReviewMetaSchema = z.object({
   /** Artist or author of the reviewed work. */
@@ -259,7 +259,7 @@ export async function getAllSeries(locale: Locale): Promise<SeriesSummary[]> {
 /**
  * Posts in a series (by slug), in **reading-arc order**: by `series.order` asc
  * (missing order last), then oldest-first. Note this is the reverse of the
- * default date-desc collection order — a series reads front to back.
+ * default date-desc collection order - a series reads front to back.
  */
 export async function getSeriesPosts(
   locale: Locale,

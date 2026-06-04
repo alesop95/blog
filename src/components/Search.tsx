@@ -29,7 +29,7 @@ type Status = 'idle' | 'ready' | 'unavailable'
  * ⌘K / Ctrl+K full-text search backed by Pagefind (see ADR / _notes).
  *
  * Pagefind's index is generated at build into `out/pagefind/` and loaded lazily
- * in the browser — so this does nothing useful in `pnpm dev` (no index yet); it
+ * in the browser - so this does nothing useful in `pnpm dev` (no index yet); it
  * degrades to an "unavailable" message. Results are scoped to the current
  * locale via the `lang` filter baked into each post at index time.
  */
@@ -159,7 +159,7 @@ export function Search() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t('placeholder')}
                 aria-label={t('label')}
-                className="h-12 w-full bg-transparent text-[0.95rem] text-ink outline-none placeholder:text-ink/40"
+                className="h-12 w-full bg-transparent text-[0.95rem] text-ink outline-none placeholder:text-ink/70"
               />
               <button
                 type="button"
@@ -173,9 +173,9 @@ export function Search() {
 
             <div className="max-h-[55vh] overflow-y-auto">
               {status === 'unavailable' ? (
-                <p className="px-4 py-6 text-sm text-ink/55">{t('unavailable')}</p>
+                <p className="px-4 py-6 text-sm text-ink/70">{t('unavailable')}</p>
               ) : query.trim() && hits.length === 0 ? (
-                <p className="px-4 py-6 text-sm text-ink/55">{t('noResults')}</p>
+                <p className="px-4 py-6 text-sm text-ink/70">{t('noResults')}</p>
               ) : (
                 <ul className="divide-y divide-ink/8">
                   {hits.map((hit) => (

@@ -5,7 +5,7 @@ import { YearReviewPage } from '@/components/YearReviewPage'
 import { isLocale } from '@/i18n/routing'
 import { getPostsByYear } from '@/lib/posts'
 
-/* IT year-in-review — `/it/anno/[year]`. Localized EN counterpart in `../../year`. */
+/* IT year-in-review - `/it/anno/[year]`. Localized EN counterpart in `../../year`. */
 const LOCALE = 'it' as const
 
 export const dynamicParams = false

@@ -25,8 +25,8 @@ export async function buildFeed(locale: Locale): Promise<Feed> {
   // a circular import on next-intl server helpers in this leaf module).
   const title =
     locale === 'it'
-      ? 'Alessio Sopranzi – scritti'
-      : 'Alessio Sopranzi – writings'
+      ? 'Alessio Sopranzi - scritti'
+      : 'Alessio Sopranzi - writings'
   const description =
     locale === 'it'
       ? "Scritti personali di Alessio Sopranzi all'incrocio fra ingegneria, musica, audio e la filosofia di come le cose funzionano davvero."
@@ -39,7 +39,7 @@ export async function buildFeed(locale: Locale): Promise<Feed> {
     link: homeUrl,
     language,
     image: `${siteConfig.url}/og/default.png`,
-    favicon: `${siteConfig.url}/favicon.ico`,
+    favicon: `${siteConfig.url}/icons/favicon.svg`,
     copyright: `© ${new Date().getFullYear()} ${siteConfig.authorName}`,
     updated: posts[0]?.frontmatter.date ?? new Date(),
     generator: 'Next.js + feed package',

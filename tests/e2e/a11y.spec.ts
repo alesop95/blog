@@ -4,11 +4,10 @@ import { expect, test } from '@playwright/test'
 /**
  * Automated accessibility scan (axe-core) on representative pages, both locales.
  *
- * `color-contrast` is deliberately excluded: the muted `text-ink/55…/40` tones
- * are a known open item pending a deliberate design pass (tracked in the Phase 3
- * notes), not a structural bug. Every other rule must pass with zero violations.
+ * Zero violations across the board, color-contrast included (the muted palette
+ * was darkened to clear AA - see ADR-012).
  *
- * Iframe contents are excluded too: the only iframes are third-party embeds
+ * Iframe contents are excluded: the only iframes are third-party embeds
  * (YouTube), whose internal DOM we can't fix. Our own iframe element still
  * carries a `title` (checked outside this exclusion).
  */
@@ -30,7 +29,6 @@ for (const path of PAGES) {
     await page.goto(path)
     const results = await new AxeBuilder({ page })
       .exclude('iframe')
-      .disableRules(['color-contrast'])
       .analyze()
     expect(results.violations).toEqual([])
   })

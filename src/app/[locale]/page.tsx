@@ -31,7 +31,7 @@ export default async function HomePage({ params }: { params: Params }) {
               {t('site.tagline')}
             </p>
           </div>
-          {/* Portrait beside the tagline — plain rounded image (as before).
+          {/* Portrait beside the tagline - plain rounded image (as before).
               basePath is prefixed manually because a plain <img> on static
               export doesn't get it the way next/image/Link do. */}
           <img

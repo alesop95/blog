@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArchivePage } from '@/components/ArchivePage'
 import { isLocale } from '@/i18n/routing'
 
-/* EN archive — `/en/archive`. The localized IT counterpart lives in `../archivio`. */
+/* EN archive - `/en/archive`. The localized IT counterpart lives in `../archivio`. */
 const LOCALE = 'en' as const
 
 export function generateStaticParams() {

@@ -31,7 +31,7 @@ export function Score({ abc, caption }: ScoreProps) {
         })
       })
       .catch(() => {
-        // abcjs failed to load — leave the ABC source as a readable fallback.
+        // abcjs failed to load - leave the ABC source as a readable fallback.
         if (ref.current) ref.current.textContent = abc
       })
     return () => {
@@ -46,7 +46,7 @@ export function Score({ abc, caption }: ScoreProps) {
         <div ref={ref} role="img" aria-label="Musical score" />
       </div>
       {caption ? (
-        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/55">
+        <figcaption className="mt-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {caption}
         </figcaption>
       ) : null}

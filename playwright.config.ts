@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * Playwright runs against the built static export (`out/`), served by the tiny
  * dependency-free server in `scripts/serve-out.mjs`. Run `pnpm build` first
- * (CI does this in a prior step); `pnpm test:e2e` then builds nothing — it just
+ * (CI does this in a prior step); `pnpm test:e2e` then builds nothing - it just
  * serves and drives a browser.
  *
  * Visual snapshots are inherently platform-sensitive (font hinting differs across
