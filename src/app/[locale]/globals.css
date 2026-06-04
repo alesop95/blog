@@ -425,6 +425,20 @@
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Home hero portrait: a circular "slot" whose edge feathers into the page    */
+/*  background (radial mask), with a drop-shadow that follows the soft shape    */
+/*  for quiet relief. object-cover + a high object-position keep the face.      */
+/* -------------------------------------------------------------------------- */
+
+.hero-portrait {
+  object-fit: cover;
+  object-position: center 18%;
+  -webkit-mask-image: radial-gradient(circle at center, #000 72%, transparent 100%);
+  mask-image: radial-gradient(circle at center, #000 72%, transparent 100%);
+  filter: drop-shadow(0 10px 22px oklch(from var(--color-ink) l c h / 0.3));
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Route view transitions (Phase 2-C, ADR-008): a soft full-page crossfade.  */
 /*  React's <ViewTransition> wraps the layout children; navigations are React */
 /*  Transitions, so the `root` snapshot crossfades automatically. We only     */

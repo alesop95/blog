@@ -128,10 +128,10 @@ export function Search() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t('open')}
-        className="inline-flex h-9 items-center gap-1.5 rounded-full px-2.5 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink/70 transition-colors hover:bg-ink/5 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        title={t('open')}
+        className="inline-flex h-9 w-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/5 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <SearchIcon className="h-4 w-4" aria-hidden />
-        <kbd className="hidden font-sans not-italic sm:inline">⌘K</kbd>
       </button>
 
       {open && (

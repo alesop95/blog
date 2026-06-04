@@ -24,25 +24,30 @@ export default async function HomePage({ params }: { params: Params }) {
       <Header />
 
       <main id="main-content" className="flex-1 pb-24 pt-12 sm:pt-20">
-        <section className="mb-16">
-          <Logo />
-          <p className="mt-6 max-w-prose font-display text-lg italic text-ink/75">
-            {t('site.tagline')}
-          </p>
+        <section className="mb-16 flex flex-col-reverse items-center gap-7 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+          <div className="text-center sm:text-left">
+            <Logo />
+            <p className="mt-6 max-w-prose font-display text-lg italic text-ink/75">
+              {t('site.tagline')}
+            </p>
+          </div>
+          {/* Portrait beside the tagline. Circular feathered "slot": object-cover
+              keeps the face, a radial mask melts the edge into the background, and
+              a drop-shadow (which follows the masked shape) gives quiet relief.
+              basePath is prefixed manually — a plain <img> on static export
+              doesn't get it the way next/image/Link do. */}
+          <img
+            src={`${siteConfig.basePath}/images/alessio.jpg`}
+            alt={siteConfig.authorName}
+            width={900}
+            height={1200}
+            className="hero-portrait size-36 shrink-0 sm:size-44"
+          />
         </section>
 
         <section className="mb-20">
           <SectionTitle>{t('home.sectionAbout')}</SectionTitle>
           <div className="space-y-5 text-justify leading-relaxed text-ink/90 hyphens-auto">
-            {/* Portrait near the bio. basePath is prefixed manually because a plain
-                <img> on static export doesn't get it the way next/image/Link do. */}
-            <img
-              src={`${siteConfig.basePath}/images/alessio.jpg`}
-              alt={siteConfig.authorName}
-              width={900}
-              height={1200}
-              className="mx-auto mb-5 block w-44 rounded-lg sm:float-right sm:mx-0 sm:mb-2 sm:ml-6 sm:w-52"
-            />
             {bio[locale].map((para) => (
               <p key={para.id}>{para.text}</p>
             ))}
