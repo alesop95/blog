@@ -31,17 +31,15 @@ export default async function HomePage({ params }: { params: Params }) {
               {t('site.tagline')}
             </p>
           </div>
-          {/* Portrait beside the tagline. Circular feathered "slot": object-cover
-              keeps the face, a radial mask melts the edge into the background, and
-              a drop-shadow (which follows the masked shape) gives quiet relief.
-              basePath is prefixed manually — a plain <img> on static export
-              doesn't get it the way next/image/Link do. */}
+          {/* Portrait beside the tagline — plain rounded image (as before).
+              basePath is prefixed manually because a plain <img> on static
+              export doesn't get it the way next/image/Link do. */}
           <img
             src={`${siteConfig.basePath}/images/alessio.jpg`}
             alt={siteConfig.authorName}
             width={900}
             height={1200}
-            className="hero-portrait size-36 shrink-0 sm:size-44"
+            className="w-40 shrink-0 rounded-lg sm:w-48"
           />
         </section>
 
