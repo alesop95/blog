@@ -41,24 +41,33 @@ const MIDDLE_C = 261.63 // C4 in Hz
 export function playChord(semitones: number[], durationMs = 900): void {
   const audio = getAudioContext()
   if (!audio) return
-  void audio.resume()
 
-  const now = audio.currentTime
-  const end = now + durationMs / 1000
-  const master = audio.createGain()
-  master.connect(audio.destination)
-  // Soft pluck envelope (exponential ramps must stay > 0).
-  master.gain.setValueAtTime(0.0001, now)
-  master.gain.exponentialRampToValueAtTime(0.16, now + 0.02)
-  master.gain.exponentialRampToValueAtTime(0.0001, end)
+  const schedule = () => {
+    const now = audio.currentTime
+    const end = now + durationMs / 1000
+    const master = audio.createGain()
+    master.connect(audio.destination)
+    // Soft pluck envelope (exponential ramps must stay > 0).
+    master.gain.setValueAtTime(0.0001, now)
+    master.gain.exponentialRampToValueAtTime(0.18, now + 0.02)
+    master.gain.exponentialRampToValueAtTime(0.0001, end)
 
-  for (const semi of semitones) {
-    const osc = audio.createOscillator()
-    osc.type = 'triangle'
-    osc.frequency.value = MIDDLE_C * 2 ** (semi / 12)
-    osc.connect(master)
-    osc.start(now)
-    osc.stop(end + 0.05)
+    for (const semi of semitones) {
+      const osc = audio.createOscillator()
+      osc.type = 'triangle'
+      osc.frequency.value = MIDDLE_C * 2 ** (semi / 12)
+      osc.connect(master)
+      osc.start(now)
+      osc.stop(end + 0.05)
+    }
+  }
+
+  // First gesture: the context is suspended - resume, THEN schedule at the
+  // (now-running) clock, so the first chord isn't clipped or silent.
+  if (audio.state === 'suspended') {
+    audio.resume().then(schedule).catch(() => {})
+  } else {
+    schedule()
   }
 }
 

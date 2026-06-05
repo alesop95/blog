@@ -93,7 +93,6 @@
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-ink);
-    counter-reset: sidenote;
     /* Cap the reading measure (Phase 2-C audit): the column was ~85 chars/line,
        above the 66-75 ideal - and an over-wide measure worsens the inter-word
        gaps of justified text. ~68ch keeps it comfortable and aligns the body's
@@ -205,6 +204,9 @@
      Scrolls horizontally rather than squashing a wide schematic. */
   .prose .diagram__plate {
     background: oklch(0.99 0.004 80);
+    /* Force dark ink on the always-light plate so `currentColor`-based vector
+       art (e.g. abcjs score notation) stays readable in dark mode too. */
+    color: #1d1c1a;
     border: 1px solid oklch(from var(--color-ink) l c h / 0.12);
     border-radius: var(--radius-md);
     padding: 1.25rem;
@@ -444,46 +446,34 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Tufte-style sidenotes (<Sidenote>): an auto-numbered inline marker + a     */
-/*  note in the right margin on wide screens, an inset block in flow on small. */
+/*  Footnotes (native GitHub-flavoured-markdown `[^1]`): a numbered list at the */
+/*  foot of the article, set smaller and muted, with a hairline divider above.  */
 /* -------------------------------------------------------------------------- */
 
-.prose .sidenote-ref::before {
-  counter-increment: sidenote;
-  content: counter(sidenote);
-  vertical-align: super;
-  font-size: 0.65em;
-  font-family: var(--font-mono);
-  color: var(--color-accent);
-  margin-left: 1px;
+.prose .footnotes {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid oklch(from var(--color-ink) l c h / 0.15);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: oklch(from var(--color-ink) l c h / 0.75);
 }
-.prose .sidenote {
-  display: block;
-  margin: 0.7rem 0 0.9rem;
-  padding-left: 0.9rem;
-  border-left: 2px solid oklch(from var(--color-accent) l c h / 0.45);
-  font-size: 0.85em;
-  line-height: 1.5;
+.prose .footnotes ol {
+  padding-left: 1.1rem;
+}
+.prose .footnotes li {
   text-align: left;
   hyphens: none;
-  color: oklch(from var(--color-ink) l c h / 0.8);
 }
-.prose .sidenote-num::before {
-  content: counter(sidenote);
-  margin-right: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.85em;
+.prose .footnotes li + li {
+  margin-top: 0.4rem;
+}
+/* The inline reference marker (superscript number) and the back-arrow. */
+.prose [data-footnote-ref],
+.prose [data-footnote-backref] {
   color: var(--color-accent);
-}
-@media (min-width: 1024px) {
-  .prose .sidenote {
-    float: right;
-    clear: right;
-    width: 42%;
-    margin: 0.25rem 0 0.6rem 1.4rem;
-    padding-left: 0;
-    border-left: none;
-  }
+  text-decoration: none;
+  font-weight: 600;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -536,11 +526,6 @@
   }
   .prose {
     max-width: none;
-  }
-  /* Sidenotes fall back inline in print (no margins to float into). */
-  .prose .sidenote {
-    float: none;
-    width: auto;
   }
   .prose h2,
   .prose h3,

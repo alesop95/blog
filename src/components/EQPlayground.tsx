@@ -234,7 +234,7 @@ export function EQPlayground({ caption }: EQPlaygroundProps) {
               onChange={(e) => setFreq(Math.round(10 ** Number(e.target.value)))}
               className="flex-1 accent-accent"
             />
-            <span className="w-14 shrink-0 text-right tabular-nums normal-case">
+            <span className="w-20 shrink-0 whitespace-nowrap text-right tabular-nums normal-case">
               {freq >= 1000 ? `${(freq / 1000).toFixed(1)}k` : freq} Hz
             </span>
           </label>
@@ -250,7 +250,7 @@ export function EQPlayground({ caption }: EQPlaygroundProps) {
               onChange={(e) => setQ(Number(e.target.value))}
               className="flex-1 accent-accent"
             />
-            <span className="w-14 shrink-0 text-right tabular-nums normal-case">
+            <span className="w-20 shrink-0 whitespace-nowrap text-right tabular-nums normal-case">
               {q.toFixed(1)}
             </span>
           </label>
@@ -266,7 +266,7 @@ export function EQPlayground({ caption }: EQPlaygroundProps) {
               onChange={(e) => setGain(Number(e.target.value))}
               className="flex-1 accent-accent"
             />
-            <span className="w-14 shrink-0 text-right tabular-nums normal-case">
+            <span className="w-20 shrink-0 whitespace-nowrap text-right tabular-nums normal-case">
               {gain > 0 ? `+${gain}` : gain} dB
             </span>
           </label>

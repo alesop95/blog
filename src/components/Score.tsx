@@ -2,6 +2,7 @@
 
 import { Pause, Play } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { playChord } from '@/lib/audio'
 
 interface ScoreProps {
   /** ABC notation source (https://abcnotation.com/). */
@@ -51,8 +52,15 @@ export function Score({ abc, caption }: ScoreProps) {
         if (cancelled || !ref.current) return
         abcjsRef.current = abcjs
         const visual = abcjs.renderAbc(ref.current, abc, {
-          responsive: 'resize',
           add_classes: true,
+          // Fixed engraving width (not stretched to the container) so a short
+          // tune stays compact instead of filling the box.
+          staffwidth: 520,
+          // Click a note/chord to hear it (same triangle synth as the rest).
+          clickListener: (abcElem: { midiPitches?: { pitch: number }[] }) => {
+            const pitches = abcElem.midiPitches
+            if (pitches?.length) playChord(pitches.map((p) => p.pitch - 60), 700)
+          },
         })
         visualRef.current = (visual?.[0] as VisualTune) ?? null
         if (abcjs.synth.supportsAudio()) setCanPlay(true)

@@ -47,6 +47,12 @@ const TOC_MIN_WORDS = 1500
 /*  static export on GitHub Pages doesn't have. See ADR-006.                   */
 /* -------------------------------------------------------------------------- */
 
+// Only the params listed below exist; any other 3-segment URL (a typo, or
+// Chrome DevTools probing /.well-known/appspecific/com.chrome.devtools.json)
+// returns a clean 404 instead of erroring in dev. Required posture for
+// output: export anyway - there is no on-demand rendering.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const params: { locale: string; section: string; slug: string }[] = []
   for (const locale of routing.locales) {

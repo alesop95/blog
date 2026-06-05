@@ -224,27 +224,6 @@ function Quote({ children, cite }: QuoteProps) {
   )
 }
 
-/**
- * Tufte-style sidenote: an auto-numbered marker inline in the text, with the
- * note itself in the right margin on wide screens and an inset block in flow on
- * narrow ones. Numbering is pure CSS (a `sidenote` counter on `.prose`), so no
- * state is threaded through. Both pieces are phrasing content, valid inside a
- * paragraph. See `.sidenote*` in globals.css.
- *
- *   Some claim.<Sidenote>The caveat lives in the margin.</Sidenote>
- */
-function Sidenote({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <sup className="sidenote-ref" aria-hidden />
-      <small className="sidenote">
-        <span className="sidenote-num" aria-hidden />
-        {children}
-      </small>
-    </>
-  )
-}
-
 export const mdxComponents = {
   Callout,
   Figure,
@@ -252,7 +231,6 @@ export const mdxComponents = {
   YouTube,
   Video,
   Quote,
-  Sidenote,
   Score,
   HarmonyDiagram,
   EQGraph,
