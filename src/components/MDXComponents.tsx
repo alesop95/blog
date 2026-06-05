@@ -212,13 +212,18 @@ interface QuoteProps {
 
 /**
  * Editorial pull-quote: a centred, display-serif highlight pulled out of the
- * prose. Rendered as a <figure>/<p> (not <blockquote>) so it doesn't inherit
- * the left-bordered blockquote styling; see `.pullquote` in globals.css.
+ * prose. Rendered as a <figure> (not <blockquote>) so it doesn't inherit the
+ * left-bordered blockquote styling; see `.pullquote` in globals.css.
+ *
+ * NOTE: we do NOT wrap `children` in our own <p>. In MDX the block content
+ * between the tags is already wrapped in a <p>, so a second <p> here would nest
+ * <p> inside <p> (invalid HTML → hydration error). `.pullquote p` styles the
+ * MDX-provided paragraph.
  */
 function Quote({ children, cite }: QuoteProps) {
   return (
     <figure className="pullquote my-10">
-      <p>{children}</p>
+      {children}
       {cite ? <figcaption>- {cite}</figcaption> : null}
     </figure>
   )
