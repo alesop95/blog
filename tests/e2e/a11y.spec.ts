@@ -18,6 +18,7 @@ const PAGES = [
   '/it/articoli/ciao-officina/',
   '/en/posts/pathosfera-caparezza/',
   '/en/posts/field-notes-workshop/',
+  '/en/posts/what-a-string-does/',
   '/en/reviews/',
   '/en/archive/',
   '/en/series/',

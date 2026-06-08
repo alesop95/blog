@@ -1,0 +1,34 @@
+---
+title: "Cosa fa davvero una corda"
+description: "Una corda di chitarra è un piccolo laboratorio di fisica: tensione, lunghezza e massa fissano l'intonazione. Uno sguardo alla formula dietro la nota - e perché accordare è sempre un compromesso."
+date: 2026-06-05
+tags: ["acustica", "musica", "audio"]
+dropCap: true
+articleId: "what-a-string-does"
+---
+
+Premi un tasto e accorci la corda; giri una meccanica e la tendi. Entrambe le cose cambiano lo stesso numero - l'intonazione - e il motivo è un'unica equazione ordinata, nascosta in piena vista su ogni chitarra che abbia mai avuto.
+
+## La formula
+
+La frequenza fondamentale di una corda che vibra dipende solo da tre cose: la sua lunghezza $L$, la sua tensione $T$ e la sua massa per unità di lunghezza $\mu$[^mu].
+
+$$
+f = \frac{1}{2L}\sqrt{\frac{T}{\mu}}
+$$
+
+Leggila piano e lo strumento ha senso. Dimezza la lunghezza (il dodicesimo tasto) e la frequenza raddoppia - un'ottava sopra. Aumenta la tensione e anche la nota sale, ma solo con la radice quadrata: ecco perché in cima al manico un quarto di giro di meccanica è così delicato.
+
+<Callout kind="info">
+Le corde basse non sono solo *più molli* - sono più pesanti. Un $\mu$ più grande tiene una corda grave a una tensione suonabile invece di farla sbattere. È a questo che serve l'avvolgimento.
+</Callout>
+
+## Accordatura standard
+
+Sei corde a vuoto, dal grave all'acuto - il punto di partenza rispetto a cui si misura ogni altra forma:
+
+<Score abc={`X:1\nL:1/4\nK:C\nE,, A,, D, G, B, E |`} caption="Mi La Re Sol Si Mi (clicca una nota per sentirla)" />
+
+Accordare, allora, non ha mai una sola risposta giusta: aggiusti un intervallo e ne pieghi un altro. La corda non si cura dei nomi che diamo alle note - risolve solo quell'equazione, di continuo, sessanta volte al secondo.
+
+[^mu]: $\mu$ (mu) è la *densità lineare di massa* - massa per unità di lunghezza, in kg/m. È il motivo per cui una corda spessa e avvolta e una sottile e liscia possono stare alla stessa tensione e suonare a un'ottava di distanza.

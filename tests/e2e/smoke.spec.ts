@@ -34,6 +34,18 @@ test('the EQ playground exposes its controls', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Play pink noise' })).toBeVisible()
 })
 
+// Guards against the <Quote>/MDX regression where a component wrapped block
+// children in its own <p>, producing <p><p> (invalid HTML -> hydration error).
+for (const path of [
+  '/en/posts/field-notes-workshop/',
+  '/en/posts/what-a-string-does/',
+]) {
+  test(`no nested <p> in the article: ${path}`, async ({ page }) => {
+    await page.goto(path)
+    await expect(page.locator('article p p')).toHaveCount(0)
+  })
+}
+
 test('skip-to-content link targets the main landmark', async ({ page }) => {
   await page.goto('/en/')
   const skip = page.getByRole('link', { name: 'Skip to content' })

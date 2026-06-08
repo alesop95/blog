@@ -47,5 +47,9 @@ next-env.d.ts
 !.vscode/settings.json
 !.vscode/extensions.json
 
+# Original media sources (only the optimized WebP variants under public/images/
+# and the generated manifest are committed - see scripts/build-media.ts).
+_media/
+
 # Altri file e cartelle da ignorare
 _notes/
