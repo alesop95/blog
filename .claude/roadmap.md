@@ -157,7 +157,8 @@ Hybrid, zero recurring cost:
 - [x] **Photos** - responsive pipeline: originals in `_media/<slug>/` (gitignored) → `pnpm build:media` (sharp) → WebP 480/960/1440 in `public/images/<slug>/` + `src/generated/image-manifest.json`; `<MdxImage>` emits `srcset`/`sizes` (+ plain `<img>` fallback).
 - [x] **Short clips** - `<Video>` self-hosted + **20 MB build guard** (`scripts/check-media.mjs`).
 - [x] **Heavy video** - `<YouTube>` + new `<Vimeo id hash>` embed (bytes never touch Git/Pages).
-- Open/optional: ffmpeg auto-compress for clips; AVIF variants; apply `srcset` to `<Figure>` too.
+- [x] **AVIF variants** + shared `<ResponsiveImage>` (`<picture>` AVIF→WebP), applied to `<MdxImage>` **and** `<Figure>`.
+- [x] **`pnpm build:video`** - optional ffmpeg clip compressor (→ MP4 + poster); not in `build`.
 
 ## Wishlist / not yet committed
 

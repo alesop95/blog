@@ -62,6 +62,28 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
 ### Ricerca ⌘K [build]/[live] (NON in dev)
 - [ ] `pnpm build` + servi `out/` (o live): ⌘K/Ctrl+K, query -> risultati filtrati per lingua. In dev mostra "non disponibile".
 
+## 2bis. Media - inserire e testare foto/video (manuale)
+
+**Come si usa (ADR-015):**
+- **Foto**: metti l'originale in `_media/<slug>/foto.jpg`, lancia `pnpm build:media`, scrivi
+  `![alt](/images/<slug>/foto.jpg)` -> responsive automatico (WebP/AVIF + `srcset`).
+- **Video tuo pesante**: caricalo su YouTube/Vimeo (anche "non in elenco") ->
+  `<YouTube id="…" />` oppure `<Vimeo id="…" hash="…" />`.
+- **Clip breve (<20 MB)**: `public/videos/<slug>/clip.mp4` -> `<Video src="/videos/<slug>/clip.mp4" />`
+  (opzionale: `pnpm build:video` comprime gli originali da `_media/<slug>/` con ffmpeg).
+
+**Test manuale:**
+- [ ] **Foto responsive**: crea `_media/test/foto.jpg`, `pnpm build:media`, mettila in un post con
+  `![…](/images/test/foto.jpg)`, `pnpm dev` -> l'immagine si vede; in DevTools (Network/Elements)
+  l'`<img>` ha `srcset` e il browser scarica la variante giusta per la larghezza/zoom (e l'`<picture>`
+  serve AVIF dove supportato). [dev]
+- [ ] **Guard video**: copia un file >20 MB in `public/videos/test/` e lancia `pnpm build` ->
+  **la build fallisce** con il messaggio del guard. Rimuovilo e ritorna verde. [build]
+- [ ] **Vimeo**: in un post `<Vimeo id="76979871" />` -> player 16:9 responsive; con `hash` per i
+  "non in elenco". [dev]
+- [ ] **Clip self-host**: `<Video src="/videos/<slug>/clip.mp4" poster="…" />` -> player con
+  controlli; in stampa (Ctrl+P) sparisce. [dev]
+
 ## 3. Integrazioni opzionali (solo se le vuoi)
 - [ ] Giscus: Discussions sul repo + 4 valori giscus.app in `siteConfig.comments` -> box commenti a fondo articolo.
 - [ ] Newsletter: username Buttondown in `siteConfig.newsletter.buttondownUser` -> box in fondo home.

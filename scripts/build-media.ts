@@ -22,8 +22,9 @@ const TARGETS = [480, 960, 1440]
 const SRC_EXT = new Set(['.jpg', '.jpeg', '.png'])
 
 interface Entry {
-  src: string
-  srcset: string
+  src: string // fallback <img> (a WebP - widely supported)
+  webp: string // srcset of WebP variants
+  avif: string // srcset of AVIF variants (better compression, <picture> first choice)
   width: number
   height: number
 }
@@ -63,16 +64,20 @@ async function main() {
       if (!widths.includes(cap)) widths.push(cap)
       widths = [...new Set(widths)].sort((a, b) => a - b)
 
-      const parts: string[] = []
+      const webpParts: string[] = []
+      const avifParts: string[] = []
       for (const w of widths) {
-        const outName = `${name}-${w}.webp`
-        await sharp(input).resize({ width: w }).webp({ quality: 80 }).toFile(join(outDir, outName))
-        parts.push(`/images/${slug}/${outName} ${w}w`)
+        const resized = sharp(input).resize({ width: w })
+        await resized.clone().webp({ quality: 80 }).toFile(join(outDir, `${name}-${w}.webp`))
+        await resized.clone().avif({ quality: 55 }).toFile(join(outDir, `${name}-${w}.avif`))
+        webpParts.push(`/images/${slug}/${name}-${w}.webp ${w}w`)
+        avifParts.push(`/images/${slug}/${name}-${w}.avif ${w}w`)
       }
       const largest = widths[widths.length - 1] ?? cap
       manifest[`/images/${slug}/${name}${ext}`] = {
         src: `/images/${slug}/${name}-${largest}.webp`,
-        srcset: parts.join(', '),
+        webp: webpParts.join(', '),
+        avif: avifParts.join(', '),
         width: largest,
         height: Math.round((largest / srcW) * srcH),
       }

@@ -60,3 +60,14 @@ src/components/MDXComponents.tsx . <MdxImage> srcset; <Vimeo>; <Video>; <YouTube
 - No new dependencies (sharp already present for OG/icons).
 - Authoring (see `_notes/AUTHORING.md`): photos → `_media/` + `build:media` + `![](/images/…)`;
   short clip → `<Video>` (<20 MB); heavy video → `<YouTube>`/`<Vimeo>`.
+
+## Addendum (same session) - the optional items, now shipped
+
+- **AVIF + `<picture>`**: `build:media` also emits AVIF variants; the manifest stores `webp` *and*
+  `avif` srcsets; a shared `<ResponsiveImage>` renders `<picture><source type="image/avif"><source
+  type="image/webp"><img></picture>` (AVIF preferred, WebP fallback, `<img>` last). `<MdxImage>` and
+  `<Figure>` both use it - so `<Figure>` is responsive too.
+- **`pnpm build:video`** (`scripts/build-video.mjs`, optional, **not** in `build`): if `ffmpeg` is on
+  PATH, transcodes `_media/<slug>/*.{mov,mp4,m4v,webm}` → compressed H.264 MP4 (scaled to ≤1280 w,
+  CRF 28, `+faststart`) + a poster frame, into `public/videos/<slug>/`. No source → no-op; no ffmpeg
+  → clear guidance and exit 1. The 20 MB guard still applies to the output.
