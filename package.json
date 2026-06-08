@@ -12,6 +12,8 @@
   },
   "packageManager": "pnpm@9.15.0",
   "scripts": {
+    "prepare": "git config core.hooksPath .githooks || exit 0",
+    "gitignore:prune": "node scripts/prune-gitignored.mjs",
     "dev": "next dev -p 8642",
     "build": "node scripts/check-media.mjs && tsx scripts/build-icons.ts && tsx scripts/build-og.ts && next build && pagefind --site out",
     "build:next": "next build",

@@ -69,7 +69,8 @@
   "now": {
     "title": "Now",
     "intro": "What I'm focused on at the moment - a snapshot, not a timeline.",
-    "updated": "Updated {date}"
+    "updated": "Updated {date}",
+    "listening": "On repeat"
   },
   "newsletter": {
     "title": "The occasional letter",

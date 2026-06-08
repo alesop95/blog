@@ -69,7 +69,8 @@
   "now": {
     "title": "Ora",
     "intro": "Su cosa sono concentrato in questo periodo - un'istantanea, non una cronologia.",
-    "updated": "Aggiornato il {date}"
+    "updated": "Aggiornato il {date}",
+    "listening": "In loop"
   },
   "newsletter": {
     "title": "La lettera saltuaria",

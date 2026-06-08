@@ -7,6 +7,7 @@ import { EQPlayground } from './EQPlayground'
 import { HarmonyDiagram } from './HarmonyDiagram'
 import { PedalSignalFlow } from './PedalSignalFlow'
 import { Score } from './Score'
+import { Spotify } from './Spotify'
 
 /**
  * Custom components mapped into the MDX scope.
@@ -329,6 +330,7 @@ export const mdxComponents = {
   YouTube,
   Vimeo,
   Video,
+  Spotify,
   Quote,
   Score,
   HarmonyDiagram,

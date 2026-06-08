@@ -1,0 +1,7 @@
+#!/bin/sh
+# Project hook (installed via `core.hooksPath = .githooks`, set by the package
+# `prepare` script). On every commit it untracks any file that is still in the
+# index but now matches .gitignore - so editing .gitignore actually removes the
+# now-ignored files from versioning. Removals are staged into this commit.
+# The files are kept on disk. See scripts/prune-gitignored.mjs.
+node scripts/prune-gitignored.mjs

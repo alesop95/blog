@@ -83,10 +83,20 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
   "non in elenco". [dev]
 - [ ] **Clip self-host**: `<Video src="/videos/<slug>/clip.mp4" poster="…" />` -> player con
   controlli; in stampa (Ctrl+P) sparisce. [dev]
+- [ ] **Spotify**: in un post `<Spotify url="https://open.spotify.com/track/…" />` -> player; per
+  /now imposta `siteConfig.spotify.nowPlaying` -> sezione "On repeat" in fondo a /now. [dev]
+- [ ] **Niente falsi elenchi**: un inciso ` - testo - ` a inizio riga NON deve diventare un pallino
+  (vedi fix pathosfera IT). [dev]
 
 ## 3. Integrazioni opzionali (solo se le vuoi)
 - [ ] Giscus: Discussions sul repo + 4 valori giscus.app in `siteConfig.comments` -> box commenti a fondo articolo.
 - [ ] Newsletter: username Buttondown in `siteConfig.newsletter.buttondownUser` -> box in fondo home.
+
+## 3bis. Igiene repo (git)
+- [ ] Aggiungi un pattern a `.gitignore` per un file gia' tracciato, poi committa -> il pre-commit
+  hook lo **de-indicizza** (lo vedi nel log) tenendolo su disco. O manuale: `pnpm gitignore:prune`.
+  *(Setup hook: `pnpm install` imposta `core.hooksPath=.githooks`; su Unix eventualmente
+  `chmod +x .githooks/pre-commit`.)*
 
 ## 4. Produzione / deploy [live]
 - [ ] `git push` su `main` -> Actions verde.

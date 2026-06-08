@@ -1,8 +1,10 @@
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server'
 import { now } from '@/config/now'
+import { siteConfig } from '@/config/site'
 import type { Locale } from '@/i18n/routing'
 import { Footer } from './Footer'
 import { Header } from './Header'
+import { Spotify } from './Spotify'
 
 /**
  * Shared renderer for the "now" page (en `/now`, it `/ora`). A snapshot of
@@ -32,6 +34,15 @@ export async function NowPage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ul>
+
+        {siteConfig.spotify.nowPlaying ? (
+          <section className="mt-12 max-w-prose">
+            <h2 className="font-mono text-xs uppercase tracking-[0.24em] text-ink/70">
+              {t('now.listening')}
+            </h2>
+            <Spotify url={siteConfig.spotify.nowPlaying} compact title={t('now.listening')} />
+          </section>
+        ) : null}
 
         <p className="mt-10 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-ink/70">
           {t('now.updated', {

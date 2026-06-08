@@ -160,11 +160,14 @@ Hybrid, zero recurring cost:
 - [x] **AVIF variants** + shared `<ResponsiveImage>` (`<picture>` AVIF→WebP), applied to `<MdxImage>` **and** `<Figure>`.
 - [x] **`pnpm build:video`** - optional ffmpeg clip compressor (→ MP4 + poster); not in `build`.
 
-## Wishlist / not yet committed
+## Wishlist
 
-- Giscus comments (GitHub Discussions backend)
-- "Now" page (`/now`)
-- "Uses" page (`/uses`)
-- Newsletter bridge (Buttondown)
-- Spotify "currently listening" embed
-- Custom domain (if owner reconsiders - Porkbun/Cloudflare Registrar ~€8/year, 30-min migration)
+- [x] Giscus comments (config-gated, ADR-014)
+- [x] "Now" page (`/now` ↔ `/ora`)
+- [x] "Uses" page (`/uses` ↔ `/strumenti`)
+- [x] Newsletter bridge (Buttondown, config-gated, ADR-014)
+- [x] Spotify "currently listening" embed (`<Spotify>` + `/now` "on repeat", config-gated, ADR-017)
+- [ ] Custom domain (declined - Porkbun/Cloudflare Registrar ~€8/year, 30-min migration if reconsidered)
+
+> Wishlist effectively done. The blog is feature-complete across phases 1-4 + extras + media +
+> integrations; the only remaining item (custom domain) is a deliberate no.

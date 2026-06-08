@@ -64,6 +64,12 @@ export const siteConfig = {
     buttondownUser: '', // e.g. 'alesop95'
   },
 
+  // "On repeat" on the /now page: paste a Spotify share URL (track/album/playlist).
+  // Empty = hidden. It's a manual embed (static site, no live Spotify session).
+  spotify: {
+    nowPlaying: '', // e.g. 'https://open.spotify.com/track/…'
+  },
+
   // Optional public profile links. Empty strings = hidden in UI.
   social: {
     github: githubUsername ? `https://github.com/${githubUsername}` : '',
