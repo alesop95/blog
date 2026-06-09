@@ -36,6 +36,16 @@ Consequences:
 - All pages are Server Components rendered at build time.
 - No `revalidate`, no on-demand revalidation. To update content, rebuild and
   redeploy (1-2 minutes via GitHub Actions).
+- After a deploy, an already-visited HTML page can keep showing the previous
+  version for up to 10 minutes: GitHub Pages serves pages with
+  `Cache-Control: max-age=600` (not configurable on a static host), cached by
+  both the browser and the Fastly edge. Hashed assets under `_next/static/`
+  carry the same header but are content-addressed, so a new build references new
+  filenames and never serves stale JS/CSS. The symptom (a change missing on a
+  page you'd opened before, present on one you hadn't, "reappearing" after a
+  client-side navigation that re-renders from the fresh RSC payload) is a cache
+  artifact, not a code bug. Remedy: hard refresh or wait out the TTL. See
+  ADR-002 "HTML caching after deploy".
 - `next/image` runs unoptimised - resize source images before commit.
 - Dynamic OG images are pre-generated at build time (`scripts/build-og.ts`).
 - The root locale redirect is browser-side JavaScript (no server to read

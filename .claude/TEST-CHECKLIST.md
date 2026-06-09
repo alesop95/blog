@@ -102,6 +102,16 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
   `chmod +x .githooks/pre-commit`.)*
 
 ## 4. Produzione / deploy [live]
+
+> **Cache di GitHub Pages (non un bug).** Le pagine HTML sono servite con
+> `Cache-Control: max-age=600` (10 min), valore imposto da GitHub Pages e non
+> modificabile su sito statico. Dopo un deploy, una pagina **già visitata** può
+> mostrare la versione precedente fino a 10 min (cache del browser e dell'edge CDN);
+> una pagina mai visitata si carica subito aggiornata. Sintomo tipico: una novità
+> manca su `/en/` (in cache) ma c'è su `/it/` (fresca), e "ricompare" navigando da
+> IT a EN perché il routing client rirenderizza dal codice nuovo. Rimedio: hard
+> refresh (Ctrl+F5) o attendere la scadenza. In verifica live, hard-refresh sempre.
+
 - [ ] `git push` su `main` -> Actions verde.
 - [ ] Favicon "AS" nella scheda; `/manifest.webmanifest` raggiungibile.
 - [ ] OG: condividi un post o apri `/og/en/<slug>.png`.

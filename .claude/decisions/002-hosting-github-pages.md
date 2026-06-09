@@ -54,6 +54,35 @@ We do **not** purchase a custom domain at this stage. Reasoning:
 - **Build timeout**: 10 minutes. Our builds: 1-2 minutes.
 - **Build rate**: 10 / hour - does NOT apply when using a custom GitHub Actions workflow (which we do).
 
+### HTML caching after deploy (10-minute window)
+
+GitHub Pages serves every file with `Cache-Control: max-age=600` (10 minutes),
+applied by GitHub and **not configurable on a static host** (no server to set
+headers). This caches HTML pages in both the visitor's browser and the Fastly
+edge CDN.
+
+Consequence at deploy time: a page that was **already visited** within the
+window can keep serving the previous version for up to 10 minutes, while a page
+not yet visited loads the fresh version immediately. This produces a
+locale-asymmetric symptom - e.g. a change is missing on `/en/` (cached from
+before the deploy) but present on `/it/` (never visited, fetched fresh). The
+change then "reappears" on `/en/` after switching locale and back, because the
+in-app `LocaleSwitcher` is a client-side navigation: Next re-renders the page
+from the current RSC payload instead of re-fetching the cached HTML, masking the
+stale document.
+
+This is inherent to the host and affects **every** deploy and any changed page,
+not any single feature. Hashed assets under `_next/static/` (JS, CSS) carry the
+same header but are content-addressed, so each build emits new filenames and
+stale JS/CSS is never served - only the entry HTML can lag.
+
+There is **no code fix and no header workaround** on GitHub Pages. To verify a
+fresh deploy: hard refresh (Ctrl+F5), use a private window, or wait out the TTL.
+First diagnosed Session #9 (2026-06-09) when the home disclosures looked absent
+on a previously-opened `/en/`; verified the served HTML and CSS were already
+correct (4 `<details>`, `.disclosure` rules present) and only the cache lagged.
+Also noted in `.claude/TEST-CHECKLIST.md` §4 and `architecture.md`.
+
 ### Repo naming requirement
 
 For user-site mode with a clean root URL:
