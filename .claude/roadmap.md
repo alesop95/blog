@@ -160,6 +160,15 @@ Hybrid, zero recurring cost:
 - [x] **AVIF variants** + shared `<ResponsiveImage>` (`<picture>` AVIF→WebP), applied to `<MdxImage>` **and** `<Figure>`.
 - [x] **`pnpm build:video`** - optional ffmpeg clip compressor (→ MP4 + poster); not in `build`.
 
+## Home UX - collapsible disclosures (Session #9 - 2026-06-09) ✅
+
+Richiesta di Alessio: la home non deve mostrare tutto srotolato. Dettaglio in `_notes/DIARIO.md`.
+
+- [x] **Bio a scomparsa** - la sezione "Chi sono" è avvolta in un `<details>` nativo (no JS client), chiusa all'ingresso; il titolo di sezione è anche la maniglia (chevron rotante).
+- [x] **Albero scritti anno → mese → articoli** - nuovo `src/components/PostsArchiveTree.tsx`: raggruppa i post (già date-desc) in `Map` anno/mese preservando l'ordine più-recente-prima; le foglie riusano `<PostsList>` (riga identica, badge recensione, morph del titolo). Default: aperto solo l'anno più recente e, dentro, il mese più recente.
+- [x] **Stile disclosure** - `.disclosure`/`.disclosure__chev` in `globals.css` (marker nativo nascosto, chevron lucide che ruota su `[open]`); neutralizzato dalla guardia globale reduced-motion. Conteggi via `tags.count` (nessuna nuova stringa i18n). Nessuna nuova ADR (riusa il pattern `<details>` già adottato dal `Toc`).
+- [x] Verificato: typecheck + lint puliti (baseline ~30 warning invariata), `next build` verde, HTML della home con i `<details>` annidati.
+
 ## Wishlist
 
 - [x] Giscus comments (config-gated, ADR-014)

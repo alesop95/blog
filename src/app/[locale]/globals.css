@@ -539,3 +539,24 @@
     break-inside: avoid;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Disclosures: the home "About" bio and the year -> month -> posts browser.  */
+/*  Native <details>/<summary> (no client JS). We drop the default triangle    */
+/*  marker and rotate a lucide chevron via the parent's [open] state. The       */
+/*  global reduced-motion guard above neutralises this transition.             */
+/* -------------------------------------------------------------------------- */
+
+.disclosure > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.disclosure__chev {
+  transition: transform 0.18s ease;
+}
+.disclosure[open] > summary .disclosure__chev {
+  transform: rotate(90deg);
+}

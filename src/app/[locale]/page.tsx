@@ -1,9 +1,10 @@
+import { ChevronRight } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Logo } from '@/components/Logo'
 import { Newsletter } from '@/components/Newsletter'
-import { PostsList } from '@/components/PostsList'
+import { PostsArchiveTree } from '@/components/PostsArchiveTree'
 import { SectionTitle } from '@/components/SectionTitle'
 import { bio } from '@/config/bio'
 import { siteConfig } from '@/config/site'
@@ -45,17 +46,30 @@ export default async function HomePage({ params }: { params: Params }) {
         </section>
 
         <section className="mb-20">
-          <SectionTitle>{t('home.sectionAbout')}</SectionTitle>
-          <div className="space-y-5 text-justify leading-relaxed text-ink/90 hyphens-auto">
-            {bio[locale].map((para) => (
-              <p key={para.id}>{para.text}</p>
-            ))}
-          </div>
+          {/* The bio is wrapped in a native <details> (no client JS): collapsed
+              on arrival, the section heading doubles as the toggle. */}
+          <details className="disclosure">
+            <summary className="mb-6 flex items-center gap-3">
+              <ChevronRight
+                className="disclosure__chev h-4 w-4 shrink-0 text-ink/50"
+                aria-hidden
+              />
+              <h2 className="font-mono text-xs uppercase tracking-[0.24em] text-ink/60">
+                {t('home.sectionAbout')}
+              </h2>
+              <span aria-hidden className="h-px flex-1 bg-ink/15" />
+            </summary>
+            <div className="space-y-5 text-justify leading-relaxed text-ink/90 hyphens-auto">
+              {bio[locale].map((para) => (
+                <p key={para.id}>{para.text}</p>
+              ))}
+            </div>
+          </details>
         </section>
 
         <section>
           <SectionTitle>{t('home.sectionWritings')}</SectionTitle>
-          <PostsList posts={posts} headingLevel={3} />
+          <PostsArchiveTree posts={posts} />
         </section>
 
         <Newsletter />

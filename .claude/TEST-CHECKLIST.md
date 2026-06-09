@@ -27,6 +27,9 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
 
 ### Home `/en` e `/it` [dev]
 - [ ] Wordmark = titolo; foto `rounded-lg` accanto alla tagline.
+- [ ] Bio "Chi sono" a scomparsa: chiusa all'ingresso, clic sul titolo (chevron ruota) la apre/chiude.
+- [ ] Scritti ad albero: anno (chevron) → apre i mesi → mese apre la lista articoli di quel mese.
+      All'ingresso è aperto solo l'anno più recente e, dentro, il mese più recente.
 - [ ] Lista articoli con date incolonnate; badge Review su Pathosfera.
 - [ ] Toggle tema -> dark mode. Switch lingua EN<->IT resta sulla stessa pagina.
 - [ ] Shared-element: clic su un titolo -> morfa dalla lista all'hero (Chromium).
