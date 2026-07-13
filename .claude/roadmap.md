@@ -169,6 +169,30 @@ Richiesta di Alessio: la home non deve mostrare tutto srotolato. Dettaglio in `_
 - [x] **Stile disclosure** - `.disclosure`/`.disclosure__chev` in `globals.css` (marker nativo nascosto, chevron lucide che ruota su `[open]`); neutralizzato dalla guardia globale reduced-motion. Conteggi via `tags.count` (nessuna nuova stringa i18n). Nessuna nuova ADR (riusa il pattern `<details>` già adottato dal `Toc`).
 - [x] Verificato: typecheck + lint puliti (baseline ~30 warning invariata), `next build` verde, HTML della home con i `<details>` annidati.
 
+## Topic pages: interest coverage beyond music (Session #10 - 2026-07-13) ✅ - ADR-018
+
+Richiesta di Alessio, arrivata dalla sessione sul CV (`my-cv`, repo separato): il CV elenca 16
+interessi personali come bullet compattati a una riga, e il testo lungo originale era stato
+archiviato lì, non pubblicato. Idea: il blog diventa il posto dove quegli interessi vengono
+davvero raccontati, e il CV rimanda qui invece di portarsi dietro la prosa estesa.
+
+- [x] **`src/config/topics.ts`** - 16 topic (id + tag EN/IT), 2 dei quali riusano tag già
+  esistenti (`music`/`musica`, `songwriting`/`songwriting`) invece di crearne di paralleli.
+- [x] **`messages/{en,it}.json`** - nuovo namespace `topics.<id>.{title,description}` (16 voci
+  per lingua) + `tags.noPosts` per lo stato vuoto di un topic senza articoli.
+- [x] **`generateStaticParams`** di `tags/[tag]` (EN) e `tag/[tag]` (IT) - unione tra i tag reali
+  (da `getAllTags`) e `topicTags(locale)`: un topic ha una pagina statica anche a zero post.
+- [x] **`TagPage.tsx`** - `TagIndex` mostra i topic anche a conteggio 0; `TaggedPosts` mostra la
+  descrizione del topic (se presente) sotto l'`h1` esistente, senza toccare la struttura dei
+  titoli (a11y heading-order invariato); stato vuoto dedicato (`tags.noPosts`) invece del
+  fallback generico di `<PostsList>`.
+- [x] Verificato: `pnpm typecheck` e `pnpm lint` puliti sui file toccati (baseline warning altrove
+  invariata), `pnpm build:next` genera `/en/tags/<topic>` e `/it/tag/<topic>` con descrizione e
+  stato vuoto presenti nell'HTML statico (controllato `audiophile`/`audiofilia`).
+- [ ] Non fatto in questa sessione: scrivere post reali per i 14 topic ancora a zero articoli;
+  cambiare la favicon "AS" (richiesto da Alessio insieme al resto, ma senza indicare il nuovo
+  design - resta in sospeso finché non lo specifica).
+
 ## Wishlist
 
 - [x] Giscus comments (config-gated, ADR-014)

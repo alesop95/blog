@@ -30,7 +30,74 @@
     "taggedTitle": "Tagged “{tag}”",
     "count": "{count, plural, one {# post} other {# posts}}",
     "all": "All tags",
-    "empty": "No tags yet."
+    "empty": "No tags yet.",
+    "noPosts": "Nothing written here yet - the topic is real, the writing is coming."
+  },
+  "topics": {
+    "musicTheory": {
+      "title": "Music theory & guitar",
+      "description": "Lead guitarist since 2008, with private lessons and both live and studio recording experience. Drawn to technically demanding pieces and acoustic fingerstyle. A solid grounding in professional music production and analog audio electronics. Also a self-taught bassist, and for a while a self-taught drummer, mostly for the personal challenge and the fun of it. Working toward a book offering an original take on Western harmony through an analytical study of secondary dominants, written with a reproducible LaTeX/LilyPond toolchain (harmony-book)."
+    },
+    "audiophile": {
+      "title": "Audiophile listening",
+      "description": "Into optimizing the whole audio chain for high-fidelity listening: professional-grade hardware, external DACs, high-quality digital masters. Dedicated to critical listening and fine-tuning."
+    },
+    "personalFinance": {
+      "title": "Personal finance",
+      "description": "Deeply interested in personal finance and how financial instruments actually work under the hood, applying sound principles independently to my own investment portfolio. Studying quantitative finance through mathematics, programming, and custom tools."
+    },
+    "gaming": {
+      "title": "Gaming",
+      "description": "Particularly attached to the Pokémon franchise since 1999 - a lasting childhood impression that sharpened my cognitive skills and English vocabulary. I also enjoy platformers and action RPGs, drawn in by narrative, strategy, and the collector's challenge of exploration and attention to detail."
+    },
+    "collecting": {
+      "title": "Card collecting",
+      "description": "Collector of vintage Pokémon cards, including complete WOTC and EX era sets. Built a local tool to track the collection and keep its market value updated. Active participant in verified auction sessions alongside other collectors."
+    },
+    "tutoring": {
+      "title": "Tutoring",
+      "description": "One-on-one tutoring in Calculus, Electronics, Computer Science, Telecommunications, and Physics - breaking down complex ideas clearly and intuitively to help students actually improve."
+    },
+    "psychology": {
+      "title": "Psychology",
+      "description": "I place great weight on mental health, including emotional regulation. Interested in understanding neurodiversity, with a focus on ASD, through reading and watching content on the subject. Attentive to how disability affects social inclusion and personal development across every stage of life. An active participant in a couples-therapy path grounded in Emotionally Focused Therapy (EFT), which reshaped my emotional awareness, regulation, and relational skills in a deep and positive way."
+    },
+    "homeOptimization": {
+      "title": "Home optimization",
+      "description": "Experience with car insurance, with a solid grasp of policy structures, pricing, and claims dynamics. Able to analyze and optimize electricity and gas bills, spotting savings opportunities. Comfortable with basic home maintenance, small repairs, and practical low-tech home-automation fixes. Capable of organizing and managing household paperwork efficiently. Detail-oriented, with a problem-solving approach to everyday operational tasks."
+    },
+    "linux": {
+      "title": "Linux",
+      "description": "Enjoy configuring different Linux distributions for different personal use cases. Focused on understanding Ubuntu in depth and tailoring the OS to specific needs. I keep up with the latest developments."
+    },
+    "digitalEcosystem": {
+      "title": "Digital ecosystem",
+      "description": "Experience configuring and optimizing Samsung devices and Microsoft cloud services for productive personal workflows. Comfortable setting up calendars, contacts, and cross-device sync with an eye on functional efficiency and data organization. Strong focus on privacy optimization, including account separation and permission management, while keeping usability smooth across services and devices."
+    },
+    "android": {
+      "title": "Android customization",
+      "description": "An understanding of how Android works under the hood, from a developer's perspective. Experience customizing a device with custom ROMs and fastboot. Also attentive to high-quality digital camera specs and settings."
+    },
+    "threeDPrinting": {
+      "title": "3D printing",
+      "description": "Decorative prototypes in PLA filament, with print optimization, support removal, post-processing, and surface finishing using rotary tools. Acrylic painting applied directly on PLA, with optional plastic primers, followed by a protective clear coat."
+    },
+    "dataAnalysis": {
+      "title": "Data analysis",
+      "description": "Experience building Excel-based models for descriptive statistics and time-based tracking of personal datasets. Focused on analyzing usage patterns through time logging and extracting insight from real behavioral data. Applied diagnostic methods to monitor lifecycle trends and performance degradation of e-scooter batteries, using self-collected data to assess efficiency, charging behavior, and long-term capacity changes."
+    },
+    "puzzles": {
+      "title": "Puzzles",
+      "description": "A long-standing personal interest (typically 1500-piece puzzles) as a leisure activity for cognitive reset. Subjects ranging from illustrations and animated themes to classic paintings and panoramic landscapes."
+    },
+    "educationTheory": {
+      "title": "Education theory",
+      "description": "Studying education sciences out of personal interest, covering psychology, pedagogy, didactics, learning theories, and creativity. A contribution to my broader professional and intellectual grounding in teaching and learning processes."
+    },
+    "songwriting": {
+      "title": "Songwriting",
+      "description": "Writing songs independently, focused on lyric composition and building melody over raw acoustic guitar harmonies. A creative process shaped by personal emotional expression and my rock and singer-songwriter influences."
+    }
   },
   "archive": {
     "title": "Archive",

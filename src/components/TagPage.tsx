@@ -1,6 +1,7 @@
 import type { Route } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
+import { getTopicByTag, topics } from '@/config/topics'
 import { type Locale, tagPath, tagsIndexPath } from '@/i18n/routing'
 import { getAllTags, getPostsByTag } from '@/lib/posts'
 import { Footer } from './Footer'
@@ -43,7 +44,16 @@ export async function TagPage({
 type T = Awaited<ReturnType<typeof getTranslations>>
 
 async function TagIndex({ locale, t }: { locale: Locale; t: T }) {
-  const tags = await getAllTags(locale)
+  const postTags = await getAllTags(locale)
+  const counts = new Map(postTags.map(({ tag, count }) => [tag, count]))
+  // Union with configured topics (ADR-018): a topic is browsable at 0 posts too.
+  for (const topic of topics) {
+    const tag = topic.tags[locale]
+    if (!counts.has(tag)) counts.set(tag, 0)
+  }
+  const tags = [...counts.entries()]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag))
 
   return (
     <section>
@@ -85,6 +95,10 @@ async function TaggedPosts({
   t: T
 }) {
   const posts = await getPostsByTag(locale, tag)
+  // Curated interest areas (ADR-018) get an editorial abstract above the list,
+  // sourced from messages/{en,it}.json under `topics.<id>` - independent of
+  // whether a post carries this tag yet.
+  const topic = getTopicByTag(locale, tag)
 
   return (
     <>
@@ -98,11 +112,20 @@ async function TaggedPosts({
         <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight">
           {t('tags.taggedTitle', { tag })}
         </h1>
+        {topic && (
+          <p className="mt-4 max-w-2xl text-ink/80">
+            {t(`topics.${topic.id}.description`)}
+          </p>
+        )}
         <p className="mt-2 font-mono text-[0.8rem] text-ink/70">
           {t('tags.count', { count: posts.length })}
         </p>
       </header>
-      <PostsList posts={posts} />
+      {posts.length === 0 ? (
+        <p className="font-mono text-sm text-ink/60">{t('tags.noPosts')}</p>
+      ) : (
+        <PostsList posts={posts} />
+      )}
     </>
   )
 }

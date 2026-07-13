@@ -30,7 +30,74 @@
     "taggedTitle": "Tag “{tag}”",
     "count": "{count, plural, one {# articolo} other {# articoli}}",
     "all": "Tutti i tag",
-    "empty": "Ancora nessun tag."
+    "empty": "Ancora nessun tag.",
+    "noPosts": "Non ho ancora scritto niente qui - l'argomento è reale, il testo arriva."
+  },
+  "topics": {
+    "musicTheory": {
+      "title": "Teoria musicale e chitarra",
+      "description": "Chitarrista solista dal 2008, con lezioni private ed esperienza live e in studio di registrazione. Appassionato nell'apprendimento di brani tecnicamente impegnativi e di fingerstyle acustico. Solida base nella produzione musicale professionale e nell'elettronica audio analogica. Anche bassista autodidatta e in passato batterista autodidatta per sfida personale e divertimento. In cerca di pubblicare un libro che offra una prospettiva originale sull'analisi dell'armonia occidentale attraverso uno studio analitico delle dominanti secondarie, scritto con una toolchain riproducibile LaTeX/LilyPond (harmony-book)."
+    },
+    "audiophile": {
+      "title": "Audiofilia",
+      "description": "Appassionato di ottimizzazione dell'intera catena audio per un ascolto ad alta fedeltà tramite hardware di livello professionale, DAC esterni e master digitali di alta qualità. Dedito all'ascolto critico e alla messa a punto fine."
+    },
+    "personalFinance": {
+      "title": "Finanza personale",
+      "description": "Profondamente interessato alla finanza personale e al funzionamento tecnico degli strumenti finanziari, con principi finanziari applicati in autonomia al proprio portfolio di investimenti personali. Studio della finanza quantitativa attraverso matematica, programmazione e strumenti personalizzati."
+    },
+    "gaming": {
+      "title": "Videogiochi",
+      "description": "Particolarmente affezionato al franchise Pokémon fin dal 1999, un'impressione duratura fin dall'infanzia che ha rafforzato le mie capacità cognitive e il vocabolario inglese. Apprezzo anche i platform e i GdR d'azione, guidato da narrazione, strategia e sfide di collezionismo che coinvolgono esplorazione e attenzione ai dettagli."
+    },
+    "collecting": {
+      "title": "Collezionismo di carte",
+      "description": "Collezionista di carte Pokémon vintage, inclusi set completi delle serie WOTC ed EX. Sviluppo di uno strumento locale per tracciare la collezione e aggiornarne il valore di mercato. Partecipazione attiva a sessioni di asta verificate insieme ad altri appassionati."
+    },
+    "tutoring": {
+      "title": "Ripetizioni private",
+      "description": "Ripetizioni individuali di Analisi Matematica, Elettronica, Informatica, Telecomunicazioni e Fisica, per trasmettere idee complesse in modo chiaro e intuitivo e aiutare gli studenti a migliorare il rendimento scolastico."
+    },
+    "psychology": {
+      "title": "Psicologia",
+      "description": "Attribuisco grande importanza alla salute mentale, inclusa la regolazione emotiva. Mi interesso alla comprensione della neurodiversità, con un focus sull'ASD, leggendo e guardando contenuti su questi temi. Attento all'impatto delle disabilità sull'inclusione sociale e sullo sviluppo personale in tutte le fasi della vita. Partecipante attivo a un percorso di terapia di coppia basato sulla Emotionally Focused Therapy (EFT), che ha rimodellato in modo profondo e positivo la mia consapevolezza emotiva, la regolazione e le competenze relazionali."
+    },
+    "homeOptimization": {
+      "title": "Ottimizzazione domestica",
+      "description": "Esperienza in assicurazioni auto (RCA) con una solida comprensione delle strutture delle polizze, dei prezzi e delle dinamiche dei sinistri. Capace di analizzare e ottimizzare le bollette di elettricità e gas, individuando opportunità di risparmio. Competente in manutenzione domestica di base, piccole riparazioni e soluzioni pratiche di \"domotica analogica\". Capace di organizzare e gestire in modo efficiente la documentazione domestica. Orientato al dettaglio con approccio problem-solving ai compiti operativi quotidiani."
+    },
+    "linux": {
+      "title": "Linux",
+      "description": "Appassionato di configurazione di diverse distribuzioni Linux per differenti casi d'uso personali. Focalizzato sull'approfondire il funzionamento di Ubuntu e personalizzare il sistema operativo secondo esigenze specifiche. Sempre aggiornato sulle novità più recenti."
+    },
+    "digitalEcosystem": {
+      "title": "Ecosistema digitale",
+      "description": "Esperienza nella configurazione e ottimizzazione di dispositivi Samsung e servizi cloud Microsoft per flussi di lavoro produttivi personali. Competente nella configurazione di calendari, contatti e sincronizzazione cross-device con attenzione all'efficienza funzionale e all'organizzazione dei dati. Forte attenzione all'ottimizzazione della privacy, inclusa la separazione degli account e la gestione dei permessi, mantenendo un'usabilità fluida su servizi e dispositivi."
+    },
+    "android": {
+      "title": "Personalizzazione Android",
+      "description": "Comprensione del funzionamento interno di Android da una prospettiva da sviluppatore. Esperienza nella personalizzazione di un dispositivo con ROM custom e fastboot. Attenzione anche a obiettivi fotografici digitali di alta qualità e alle impostazioni digitali."
+    },
+    "threeDPrinting": {
+      "title": "Stampa 3D",
+      "description": "Prototipi decorativi in filamento PLA, con ottimizzazione della stampa, rimozione dei supporti strutturali, post-processing e finitura superficiale con utensili rotanti. Pittura acrilica applicata direttamente sul PLA con primer plastici opzionali, seguita da una mano protettiva trasparente."
+    },
+    "dataAnalysis": {
+      "title": "Analisi dati",
+      "description": "Esperienza nella costruzione di modelli basati su Excel per statistica descrittiva e monitoraggio temporale di dataset personali. Focalizzato sull'analisi dei pattern di utilizzo tramite time logging e sull'estrazione di insight da dati comportamentali reali. Metodi diagnostici applicati per monitorare i trend del ciclo di vita e il degrado delle prestazioni delle batterie di monopattini elettrici, usando dati raccolti in autonomia per valutare efficienza, comportamento di ricarica e variazioni di capacità nel lungo periodo."
+    },
+    "puzzles": {
+      "title": "Puzzle",
+      "description": "Interesse personale di lunga data (tipicamente da 1500 pezzi) come attività di svago per un reset cognitivo. Soggetti che spaziano da illustrazioni e temi animati a dipinti classici e paesaggi panoramici."
+    },
+    "educationTheory": {
+      "title": "Teoria dell'educazione",
+      "description": "Studio delle Scienze dell'Educazione per interesse personale, comprendendo psicologia, pedagogia, didattica, teorie dell'apprendimento e creatività. Un contributo alla mia più ampia formazione professionale e intellettuale nei processi di insegnamento e apprendimento."
+    },
+    "songwriting": {
+      "title": "Scrittura di canzoni",
+      "description": "Scrittura di canzoni in autonomia, focalizzata sulla composizione dei testi e sulla costruzione melodica su armonie di chitarra acustica grezze. Processo creativo plasmato dall'espressione emotiva personale e dalle proprie influenze rock e cantautorali."
+    }
   },
   "archive": {
     "title": "Archivio",
