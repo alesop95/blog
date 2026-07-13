@@ -20,11 +20,13 @@ const BASE = process.env.BASE_PATH ?? ''
 const COPPER = '#b4502a'
 const CREAM = '#fbf9f5'
 
+// Replaced the "AS" text monogram (2026-07-13, Session #10) with a drawn mark: a
+// single bold waveform pulse, legible down to 16px where thin type isn't. Keeps
+// the site's engineering+music identity without spelling out initials.
 const MONOGRAM = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="112" fill="${COPPER}"/>
-  <text x="50%" y="52%" dy="0.06em" text-anchor="middle" dominant-baseline="central"
-        font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="300"
-        letter-spacing="-8" fill="${CREAM}">AS</text>
+  <polyline points="96,336 176,176 256,336 336,176 416,336" fill="none"
+        stroke="${CREAM}" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`
 
 const PNGS: { file: string; size: number }[] = [
