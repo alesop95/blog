@@ -8,13 +8,15 @@ import { ThemeToggle } from './ThemeToggle'
 interface HeaderProps {
   /** If we're on a post page, pass the translation slug for the switcher. */
   translationSlug?: string | null
+  /** For any other page with a deterministic other-locale path. See `LocaleSwitcher`. */
+  targetPath?: string | null
 }
 
 /**
  * Sticky, blurred header. The Logo lives in the home hero, so up here we
  * keep things sparse: a small nav, the locale switcher, and the theme toggle.
  */
-export function Header({ translationSlug = null }: HeaderProps) {
+export function Header({ translationSlug = null, targetPath = null }: HeaderProps) {
   const t = useTranslations()
 
   const initials = siteConfig.name
@@ -41,7 +43,7 @@ export function Header({ translationSlug = null }: HeaderProps) {
 
         <nav className="flex items-center gap-1">
           <Search />
-          <LocaleSwitcher translationSlug={translationSlug} />
+          <LocaleSwitcher translationSlug={translationSlug} targetPath={targetPath} />
           <span aria-hidden className="mx-1 h-4 w-px bg-ink/15" />
           <ThemeToggle />
         </nav>

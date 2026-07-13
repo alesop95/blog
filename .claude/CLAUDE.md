@@ -1,7 +1,19 @@
 # CLAUDE.md - Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-07-13** · Session #10 - **Topic pages (ADR-018)**: the CV project (`my-cv`,
+> Last update: **2026-07-13** · Session #10 continued - **Favicon + locale-switcher fix
+> (ADR-019)**: replaced the "AS" text monogram with a drawn waveform-pulse mark (legible at
+> 16px), only `scripts/build-icons.ts` changes (`public/icons/` regenerates on every build).
+> Then a real bug reported after deploy: on `/it/tag/` clicking "EN" landed on `/en/` instead of
+> `/en/tags` - `LocaleSwitcher` only ever mapped a single post via `translationSlug`, every other
+> static page (tag index/page, archive, reviews, series, year, uses, now) fell back to the other
+> locale's bare home. Fixed with a new `otherLocale()` routing helper + a `targetPath` prop on
+> `LocaleSwitcher`/`Header`, computed server-side by each of the 7 affected page components using
+> the routing helper already matching its section; `TagPage` maps a specific tag 1:1 only when
+> it's a registered topic (ADR-018), otherwise falls back to the tag index rather than guessing.
+> Verified beyond types: built `out/` HTML inspected directly, confirming `/it/tag/` → `/en/tags`,
+> `/en/tags/audiophile` → `/it/tag/audiofilia`, `/it/tag/acustica` (non-topic) → `/en/tags`,
+> `/en/archive` → `/it/archivio`. — Earlier same session: **Topic pages (ADR-018)**: the CV project (`my-cv`,
 > separate repo) had 16 personal interests compacted to one-line bullets, with the original
 > long-form text archived rather than published; this session gives the blog a place to hold that
 > text and grow it into real posts over time. `src/config/topics.ts` maps 16 topic ids to

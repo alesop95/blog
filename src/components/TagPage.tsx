@@ -2,7 +2,7 @@ import type { Route } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { getTopicByTag, topics } from '@/config/topics'
-import { type Locale, tagPath, tagsIndexPath } from '@/i18n/routing'
+import { type Locale, otherLocale, tagPath, tagsIndexPath } from '@/i18n/routing'
 import { getAllTags, getPostsByTag } from '@/lib/posts'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -25,13 +25,24 @@ export async function TagPage({
 }) {
   setRequestLocale(locale)
   const t = await getTranslations()
+  const targetLocale = otherLocale(locale)
+  // The index always maps 1:1. A specific tag maps 1:1 only if it's a
+  // registered topic (ADR-018) - an arbitrary organic tag (e.g. "acoustics",
+  // with no IT/EN pair recorded anywhere) falls back to the other locale's
+  // tag index rather than a guess, or the bare home for the index case itself.
+  const topic = tag ? getTopicByTag(locale, tag) : undefined
+  const targetPath = tag
+    ? topic
+      ? tagPath(targetLocale, topic.tags[targetLocale])
+      : tagsIndexPath(targetLocale)
+    : tagsIndexPath(targetLocale)
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 sm:px-6">
-      <Header />
+      <Header targetPath={targetPath} />
       <main id="main-content" className="flex-1 pb-24 pt-12 sm:pt-20">
         {tag ? (
-          <TaggedPosts locale={locale} tag={tag} t={t} />
+          <TaggedPosts locale={locale} tag={tag} t={t} topic={topic} />
         ) : (
           <TagIndex locale={locale} t={t} />
         )}
@@ -89,16 +100,14 @@ async function TaggedPosts({
   locale,
   tag,
   t,
+  topic,
 }: {
   locale: Locale
   tag: string
   t: T
+  topic: ReturnType<typeof getTopicByTag>
 }) {
   const posts = await getPostsByTag(locale, tag)
-  // Curated interest areas (ADR-018) get an editorial abstract above the list,
-  // sourced from messages/{en,it}.json under `topics.<id>` - independent of
-  // whether a post carries this tag yet.
-  const topic = getTopicByTag(locale, tag)
 
   return (
     <>

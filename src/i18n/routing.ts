@@ -33,6 +33,11 @@ export function isLocale(value: string): value is Locale {
   return (routing.locales as readonly string[]).includes(value)
 }
 
+/** The locale that isn't this one. With exactly two locales, always defined. */
+export function otherLocale(locale: Locale): Locale {
+  return routing.locales.find((l) => l !== locale) ?? routing.defaultLocale
+}
+
 /**
  * The localized URL segment for the posts collection, per locale.
  * EN → `posts`, IT → `articoli`. Single source of truth - used by the route's

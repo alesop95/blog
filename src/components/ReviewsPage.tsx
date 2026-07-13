@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import type { Locale } from '@/i18n/routing'
+import { type Locale, otherLocale, reviewsPath } from '@/i18n/routing'
 import { getReviews } from '@/lib/posts'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -17,7 +17,7 @@ export async function ReviewsPage({ locale }: { locale: Locale }) {
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 sm:px-6">
-      <Header />
+      <Header targetPath={reviewsPath(otherLocale(locale))} />
       <main id="main-content" className="flex-1 pb-24 pt-12 sm:pt-20">
         <h1 className="font-display text-4xl font-semibold tracking-tight">
           {t('reviews.title')}

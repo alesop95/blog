@@ -4,7 +4,7 @@ import type { Route } from 'next'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { type Locale, postPath, routing } from '@/i18n/routing'
+import { type Locale, otherLocale as getOtherLocale, postPath } from '@/i18n/routing'
 
 interface LocaleSwitcherProps {
   /**
@@ -13,6 +13,13 @@ interface LocaleSwitcherProps {
    * instead of falling back to the home of the other locale.
    */
   translationSlug?: string | null
+  /**
+   * For any other page with a deterministic equivalent in the other locale
+   * (tag index/page, archive, reviews, series, year, uses, now), pass that
+   * path already resolved to the OTHER locale - e.g. `tagsIndexPath('en')`
+   * when currently on `/it/tag`. Ignored if `translationSlug` is set.
+   */
+  targetPath?: string | null
 }
 
 const STORAGE_KEY = 'preferred-locale'
@@ -23,6 +30,8 @@ const STORAGE_KEY = 'preferred-locale'
  *           then navigates to the equivalent page in the other locale.
  * • On a post page with a known gemella → goes to that translation
  *   (`postPath` builds the localized URL, e.g. /it/articoli/...).
+ * • On a page with a deterministic other-locale equivalent (tags, archive,
+ *   reviews, series, year, uses, now) → `targetPath`, precomputed by the page.
  * • Otherwise (home, or a post without an articleId twin) → the other-locale
  *   home; a missing twin can't map to an equivalent slug (ADR-003).
  *
@@ -30,7 +39,7 @@ const STORAGE_KEY = 'preferred-locale'
  * routes now, not next-intl `pathnames` (see ADR-006). The router applies the
  * basePath automatically.
  */
-export function LocaleSwitcher({ translationSlug }: LocaleSwitcherProps) {
+export function LocaleSwitcher({ translationSlug, targetPath }: LocaleSwitcherProps) {
   const currentLocale = useLocale() as Locale
   const t = useTranslations('locale')
   const router = useRouter()
@@ -38,19 +47,18 @@ export function LocaleSwitcher({ translationSlug }: LocaleSwitcherProps) {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
-  const otherLocale: Locale =
-    routing.locales.find((l) => l !== currentLocale) ?? routing.defaultLocale
+  const nextLocale = getOtherLocale(currentLocale)
 
   const handleClick = () => {
     try {
-      localStorage.setItem(STORAGE_KEY, otherLocale)
+      localStorage.setItem(STORAGE_KEY, nextLocale)
     } catch {
       // localStorage can throw in private/embedded modes - non-fatal.
     }
 
     const target = translationSlug
-      ? postPath(otherLocale, translationSlug)
-      : `/${otherLocale}`
+      ? postPath(nextLocale, translationSlug)
+      : targetPath ?? `/${nextLocale}`
     router.replace(target as Route)
   }
 
@@ -62,7 +70,7 @@ export function LocaleSwitcher({ translationSlug }: LocaleSwitcherProps) {
     <button
       type="button"
       onClick={handleClick}
-      aria-label={t('switchLabel', { locale: otherLocale.toUpperCase() })}
+      aria-label={t('switchLabel', { locale: nextLocale.toUpperCase() })}
       className="inline-flex h-9 min-w-9 items-center justify-center rounded-full px-2.5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.18em] text-ink/70 transition-colors hover:bg-ink/5 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       {visibleLabel}

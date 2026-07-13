@@ -189,9 +189,30 @@ davvero raccontati, e il CV rimanda qui invece di portarsi dietro la prosa estes
 - [x] Verificato: `pnpm typecheck` e `pnpm lint` puliti sui file toccati (baseline warning altrove
   invariata), `pnpm build:next` genera `/en/tags/<topic>` e `/it/tag/<topic>` con descrizione e
   stato vuoto presenti nell'HTML statico (controllato `audiophile`/`audiofilia`).
-- [ ] Non fatto in questa sessione: scrivere post reali per i 14 topic ancora a zero articoli;
-  cambiare la favicon "AS" (richiesto da Alessio insieme al resto, ma senza indicare il nuovo
-  design - resta in sospeso finché non lo specifica).
+- [x] **Favicon** - il monogramma "AS" sostituito con un'onda audio disegnata (polyline a zigzag),
+  legibile anche a 16px; solo `scripts/build-icons.ts` cambia, `public/icons/` resta gitignorato
+  e si rigenera ad ogni build.
+- [ ] Non fatto in questa sessione: scrivere post reali per i 14 topic ancora a zero articoli.
+
+## Locale switcher: percorsi deterministici oltre ai post (Session #10 - 2026-07-13) ✅ - ADR-019
+
+Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "EN" portava su
+`/en/` invece di `/en/tags`. Causa: `LocaleSwitcher` sapeva mappare solo un singolo post (via
+`translationSlug`); ogni altra pagina statica (indice tag, tag singolo, archivio, recensioni,
+serie, anno, uses, now) ricadeva sempre sulla home dell'altra lingua.
+
+- [x] **`otherLocale(locale)`** in `src/i18n/routing.ts` - l'unica altra lingua, con due lingue.
+- [x] **`LocaleSwitcher`/`Header`** - nuovo prop `targetPath`, usato quando non c'e' un post con
+  `translationSlug`; fallback finale invariato (home dell'altra lingua).
+- [x] **7 componenti pagina** (`ArchivePage`, `ReviewsPage`, `SeriesPage`, `UsesPage`, `NowPage`,
+  `YearReviewPage`, `TagPage`) calcolano ciascuno il proprio `targetPath` lato server con l'helper
+  di routing gia' esistente per quella sezione. Per `TagPage`: l'indice mappa sempre 1:1; un tag
+  specifico mappa 1:1 solo se e' un topic registrato (ADR-018), altrimenti ricade sull'indice tag
+  dell'altra lingua invece di indovinare una traduzione.
+- [x] Verificato: `pnpm typecheck` + `pnpm lint` puliti sui 10 file toccati; `pnpm build:next` +
+  ispezione diretta dell'HTML generato (non solo i tipi) confermano il `targetPath` corretto:
+  `/it/tag/` → `/en/tags`, `/en/tags/audiophile` → `/it/tag/audiofilia`, `/it/tag/acustica` (tag
+  non-topic) → `/en/tags`, `/en/archive` → `/it/archivio`.
 
 ## Wishlist
 
