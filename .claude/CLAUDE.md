@@ -1,7 +1,15 @@
 # CLAUDE.md - Project Memory
 
 > Living document. Updated at the end of every working session.
-> Last update: **2026-07-13** · Session #10 continued - **Favicon + locale-switcher fix
+> Last update: **2026-07-13** · Session #10 continued again - **Now page + tag cleanup**: added a
+> `/now` item (relearning bass, self-taught, for a nascent 2000s pop-punk cover band project) in
+> both locales, bumped `updated`. Removed the standalone `caparezza` tag from both language twins
+> of the Pathosfera review: redundant with the already-structured `review.artist` field (rendered
+> by `<ReviewHeader>`, ADR-009), and it was cluttering `/tags` with a one-off, count-1 entry.
+> Verified `cosa-fa-una-corda`/`what-a-string-does` was already tagged `acustica`/`acoustics` -
+> no change needed. Verified: `pnpm typecheck`, `pnpm test` (15/15), `pnpm build:next` - the
+> `caparezza` route is gone from `out/`, both `/now` pages show the new item. — Earlier same
+> session - **Favicon + locale-switcher fix
 > (ADR-019)**: replaced the "AS" text monogram with a drawn waveform-pulse mark (legible at
 > 16px), only `scripts/build-icons.ts` changes (`public/icons/` regenerates on every build).
 > Then a real bug reported after deploy: on `/it/tag/` clicking "EN" landed on `/en/` instead of
