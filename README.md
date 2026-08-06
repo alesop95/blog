@@ -1,23 +1,18 @@
 # Alessio Sopranzi - writings
 
-Personal blog & writings studio. Bilingual EN + IT, hand-built on Next.js 16 +
-Tailwind v4 + MDX, hosted on GitHub Pages.
+Personal blog & writings studio. Bilingual EN + IT, hand-built on Next.js 16 + Tailwind v4 + MDX, hosted on GitHub Pages.
 
 > **Live URL** - `https://alesop95.github.io/blog` (GitHub Pages project site, repo `blog`; see ADR-004)
 
 ## What this is
 
-A file-based blog: every article is a `.mdx` file in `content/posts/{en,it}/`,
-type-checked frontmatter, build-time static export, no backend, no CMS.
+A file-based blog: every article is a `.mdx` file in `content/posts/{en,it}/`, type-checked frontmatter, build-time static export, no backend, no CMS.
 
-Each article exists in both languages (or only one - locale-exclusive posts
-are explicitly allowed) and is paired across locales via an `articleId`
-frontmatter field.
+Each article exists in both languages (or only one - locale-exclusive posts are explicitly allowed) and is paired across locales via an `articleId` frontmatter field.
 
 ## Project memory
 
-Before reading anything else, read **`.claude/CLAUDE.md`** - it explains the
-current state, conventions, and how to resume work in a fresh session.
+Before reading anything else, read **`.claude/CLAUDE.md`** - it explains the current state, conventions, and how to resume work in a fresh session.
 
 Related docs in `.claude/`:
 
@@ -71,15 +66,11 @@ pnpm check        # biome check --write (lint + format together)
    ```
 
 3. Write the body in MDX. You can `import` components inline.
-4. To add a translation, create the matching file under the other locale with
-   the SAME `articleId`. The locale switcher will link the two automatically.
+4. To add a translation, create the matching file under the other locale with the SAME `articleId`. The locale switcher will link the two automatically.
 
 ## Deploying to GitHub Pages
 
-This project deploys in **project-site mode** at `/blog` (ADR-004): the repo is
-named `blog` and the GitHub Pages user-site root slot (`<user>.github.io`) is
-left free. The `BASE_PATH=/blog` + `NEXT_PUBLIC_SITE_URL=…/blog` wiring already
-lives in `.github/workflows/deploy.yml`.
+This project deploys in **project-site mode** at `/blog` (ADR-004): the repo is named `blog` and the GitHub Pages user-site root slot (`<user>.github.io`) is left free. The `BASE_PATH=/blog` + `NEXT_PUBLIC_SITE_URL=…/blog` wiring already lives in `.github/workflows/deploy.yml`.
 
 **One-time setup** (5 minutes):
 
@@ -93,9 +84,7 @@ lives in `.github/workflows/deploy.yml`.
 
 3. In the repo on github.com: **Settings → Pages → Source: GitHub Actions**.
 
-4. Push to `main`. The `.github/workflows/deploy.yml` workflow builds and
-   publishes the site to `https://<user>.github.io/blog`. After 1-2 minutes the
-   URL is live. (The bare `https://<user>.github.io` 404s on purpose.)
+4. Push to `main`. The `.github/workflows/deploy.yml` workflow builds and publishes the site to `https://<user>.github.io/blog`. After 1-2 minutes the URL is live. (The bare `https://<user>.github.io` 404s on purpose.)
 
 That's it. Every subsequent push to `main` redeploys automatically.
 
@@ -104,14 +93,12 @@ That's it. Every subsequent push to `main` redeploys automatically.
 If you'd rather the blog own the root URL instead of `/blog`:
 
 - Name the repo **`<your-github-username>.github.io`** (exact match).
-- In `deploy.yml` set `BASE_PATH=''` and
-  `NEXT_PUBLIC_SITE_URL=https://<user>.github.io`.
+- In `deploy.yml` set `BASE_PATH=''` and `NEXT_PUBLIC_SITE_URL=https://<user>.github.io`.
 - The URL becomes the bare `https://<user>.github.io`. No other code change.
 
 ### Adding a custom domain later
 
-Currently we use the free GitHub Pages subdomain (see ADR-002). To switch
-to a custom domain later:
+Currently we use the free GitHub Pages subdomain (see ADR-002). To switch to a custom domain later:
 
 1. Buy the domain (cheap registrars: Porkbun, Cloudflare Registrar - ~€7-10/year for `.it`).
 2. Configure DNS at the registrar:
@@ -126,8 +113,7 @@ No code changes beyond `public/CNAME` and the env var.
 ## How i18n works
 
 - Path-based: every real route lives under `/en/...` or `/it/...`.
-- The bare root `/` shows a tiny JS splash that redirects based on
-  `localStorage` preference (set by the locale switcher) or `navigator.language`.
+- The bare root `/` shows a tiny JS splash that redirects based on `localStorage` preference (set by the locale switcher) or `navigator.language`.
 - URL segments are localized: `/en/posts/foo` ↔ `/it/articoli/foo`.
 - Slugs are distinct per locale.
 - Translations are paired via the `articleId` frontmatter field.
@@ -136,5 +122,4 @@ No code changes beyond `public/CNAME` and the env var.
 
 ## License
 
-MIT. Code is freely reusable. Article content is © Alessio Sopranzi -
-ask before republishing.
+MIT. Code is freely reusable. Article content is © Alessio Sopranzi - ask before republishing.

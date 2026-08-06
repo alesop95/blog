@@ -1,7 +1,6 @@
 # ADR-001 · Stack selection
 
-**Date**: 2026-05-27
-**Status**: Accepted
+**Date**: 2026-05-27 **Status**: Accepted
 
 ## Context
 

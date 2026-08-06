@@ -1,7 +1,6 @@
 # ADR-004 · Project-site mode at `/blog` (user-site root left free)
 
-**Date**: 2026-05-27
-**Status**: Accepted (supersedes the *user-site* hosting choice in ADR-002; ADR-002's "free GitHub Pages, no custom domain, no recurring cost" stance still holds)
+**Date**: 2026-05-27 **Status**: Accepted (supersedes the *user-site* hosting choice in ADR-002; ADR-002's "free GitHub Pages, no custom domain, no recurring cost" stance still holds)
 
 ## Context
 

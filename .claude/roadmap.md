@@ -148,8 +148,7 @@ Things that emerge from Alessio's writing needs.
 - [x] **Print stylesheet** - forced-light tokens, chrome hidden, clean essay copy.
 - [x] **Dark-mode contrast** verified (axe) + **Lighthouse budgets all → `error`**.
 
-To activate the dormant integrations: fill `siteConfig.comments` (giscus.app) and
-`siteConfig.newsletter.buttondownUser`. Edit `src/config/uses.ts` / `now.ts` for real content.
+To activate the dormant integrations: fill `siteConfig.comments` (giscus.app) and `siteConfig.newsletter.buttondownUser`. Edit `src/config/uses.ts` / `now.ts` for real content.
 
 ## Media strategy (Session #8 - 2026-06-08) ✅ - ADR-015
 
@@ -171,48 +170,24 @@ Richiesta di Alessio: la home non deve mostrare tutto srotolato. Dettaglio in `_
 
 ## Topic pages: interest coverage beyond music (Session #10 - 2026-07-13) ✅ - ADR-018
 
-Richiesta di Alessio, arrivata dalla sessione sul CV (`my-cv`, repo separato): il CV elenca 16
-interessi personali come bullet compattati a una riga, e il testo lungo originale era stato
-archiviato lì, non pubblicato. Idea: il blog diventa il posto dove quegli interessi vengono
-davvero raccontati, e il CV rimanda qui invece di portarsi dietro la prosa estesa.
+Richiesta di Alessio, arrivata dalla sessione sul CV (`my-cv`, repo separato): il CV elenca 16 interessi personali come bullet compattati a una riga, e il testo lungo originale era stato archiviato lì, non pubblicato. Idea: il blog diventa il posto dove quegli interessi vengono davvero raccontati, e il CV rimanda qui invece di portarsi dietro la prosa estesa.
 
-- [x] **`src/config/topics.ts`** - 16 topic (id + tag EN/IT), 2 dei quali riusano tag già
-  esistenti (`music`/`musica`, `songwriting`/`songwriting`) invece di crearne di paralleli.
-- [x] **`messages/{en,it}.json`** - nuovo namespace `topics.<id>.{title,description}` (16 voci
-  per lingua) + `tags.noPosts` per lo stato vuoto di un topic senza articoli.
-- [x] **`generateStaticParams`** di `tags/[tag]` (EN) e `tag/[tag]` (IT) - unione tra i tag reali
-  (da `getAllTags`) e `topicTags(locale)`: un topic ha una pagina statica anche a zero post.
-- [x] **`TagPage.tsx`** - `TagIndex` mostra i topic anche a conteggio 0; `TaggedPosts` mostra la
-  descrizione del topic (se presente) sotto l'`h1` esistente, senza toccare la struttura dei
-  titoli (a11y heading-order invariato); stato vuoto dedicato (`tags.noPosts`) invece del
-  fallback generico di `<PostsList>`.
-- [x] Verificato: `pnpm typecheck` e `pnpm lint` puliti sui file toccati (baseline warning altrove
-  invariata), `pnpm build:next` genera `/en/tags/<topic>` e `/it/tag/<topic>` con descrizione e
-  stato vuoto presenti nell'HTML statico (controllato `audiophile`/`audiofilia`).
-- [x] **Favicon** - il monogramma "AS" sostituito con un'onda audio disegnata (polyline a zigzag),
-  legibile anche a 16px; solo `scripts/build-icons.ts` cambia, `public/icons/` resta gitignorato
-  e si rigenera ad ogni build.
+- [x] **`src/config/topics.ts`** - 16 topic (id + tag EN/IT), 2 dei quali riusano tag già esistenti (`music`/`musica`, `songwriting`/`songwriting`) invece di crearne di paralleli.
+- [x] **`messages/{en,it}.json`** - nuovo namespace `topics.<id>.{title,description}` (16 voci per lingua) + `tags.noPosts` per lo stato vuoto di un topic senza articoli.
+- [x] **`generateStaticParams`** di `tags/[tag]` (EN) e `tag/[tag]` (IT) - unione tra i tag reali (da `getAllTags`) e `topicTags(locale)`: un topic ha una pagina statica anche a zero post.
+- [x] **`TagPage.tsx`** - `TagIndex` mostra i topic anche a conteggio 0; `TaggedPosts` mostra la descrizione del topic (se presente) sotto l'`h1` esistente, senza toccare la struttura dei titoli (a11y heading-order invariato); stato vuoto dedicato (`tags.noPosts`) invece del fallback generico di `<PostsList>`.
+- [x] Verificato: `pnpm typecheck` e `pnpm lint` puliti sui file toccati (baseline warning altrove invariata), `pnpm build:next` genera `/en/tags/<topic>` e `/it/tag/<topic>` con descrizione e stato vuoto presenti nell'HTML statico (controllato `audiophile`/`audiofilia`).
+- [x] **Favicon** - il monogramma "AS" sostituito con un'onda audio disegnata (polyline a zigzag), legibile anche a 16px; solo `scripts/build-icons.ts` cambia, `public/icons/` resta gitignorato e si rigenera ad ogni build.
 - [ ] Non fatto in questa sessione: scrivere post reali per i 14 topic ancora a zero articoli.
 
 ## Locale switcher: percorsi deterministici oltre ai post (Session #10 - 2026-07-13) ✅ - ADR-019
 
-Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "EN" portava su
-`/en/` invece di `/en/tags`. Causa: `LocaleSwitcher` sapeva mappare solo un singolo post (via
-`translationSlug`); ogni altra pagina statica (indice tag, tag singolo, archivio, recensioni,
-serie, anno, uses, now) ricadeva sempre sulla home dell'altra lingua.
+Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "EN" portava su `/en/` invece di `/en/tags`. Causa: `LocaleSwitcher` sapeva mappare solo un singolo post (via `translationSlug`); ogni altra pagina statica (indice tag, tag singolo, archivio, recensioni, serie, anno, uses, now) ricadeva sempre sulla home dell'altra lingua.
 
 - [x] **`otherLocale(locale)`** in `src/i18n/routing.ts` - l'unica altra lingua, con due lingue.
-- [x] **`LocaleSwitcher`/`Header`** - nuovo prop `targetPath`, usato quando non c'e' un post con
-  `translationSlug`; fallback finale invariato (home dell'altra lingua).
-- [x] **7 componenti pagina** (`ArchivePage`, `ReviewsPage`, `SeriesPage`, `UsesPage`, `NowPage`,
-  `YearReviewPage`, `TagPage`) calcolano ciascuno il proprio `targetPath` lato server con l'helper
-  di routing gia' esistente per quella sezione. Per `TagPage`: l'indice mappa sempre 1:1; un tag
-  specifico mappa 1:1 solo se e' un topic registrato (ADR-018), altrimenti ricade sull'indice tag
-  dell'altra lingua invece di indovinare una traduzione.
-- [x] Verificato: `pnpm typecheck` + `pnpm lint` puliti sui 10 file toccati; `pnpm build:next` +
-  ispezione diretta dell'HTML generato (non solo i tipi) confermano il `targetPath` corretto:
-  `/it/tag/` → `/en/tags`, `/en/tags/audiophile` → `/it/tag/audiofilia`, `/it/tag/acustica` (tag
-  non-topic) → `/en/tags`, `/en/archive` → `/it/archivio`.
+- [x] **`LocaleSwitcher`/`Header`** - nuovo prop `targetPath`, usato quando non c'e' un post con `translationSlug`; fallback finale invariato (home dell'altra lingua).
+- [x] **7 componenti pagina** (`ArchivePage`, `ReviewsPage`, `SeriesPage`, `UsesPage`, `NowPage`, `YearReviewPage`, `TagPage`) calcolano ciascuno il proprio `targetPath` lato server con l'helper di routing gia' esistente per quella sezione. Per `TagPage`: l'indice mappa sempre 1:1; un tag specifico mappa 1:1 solo se e' un topic registrato (ADR-018), altrimenti ricade sull'indice tag dell'altra lingua invece di indovinare una traduzione.
+- [x] Verificato: `pnpm typecheck` + `pnpm lint` puliti sui 10 file toccati; `pnpm build:next` + ispezione diretta dell'HTML generato (non solo i tipi) confermano il `targetPath` corretto: `/it/tag/` → `/en/tags`, `/en/tags/audiophile` → `/it/tag/audiofilia`, `/it/tag/acustica` (tag non-topic) → `/en/tags`, `/en/archive` → `/it/archivio`.
 
 ## Wishlist
 
@@ -223,5 +198,4 @@ serie, anno, uses, now) ricadeva sempre sulla home dell'altra lingua.
 - [x] Spotify "currently listening" embed (`<Spotify>` + `/now` "on repeat", config-gated, ADR-017)
 - [ ] Custom domain (declined - Porkbun/Cloudflare Registrar ~€8/year, 30-min migration if reconsidered)
 
-> Wishlist effectively done. The blog is feature-complete across phases 1-4 + extras + media +
-> integrations; the only remaining item (custom domain) is a deliberate no.
+> Wishlist effectively done. The blog is feature-complete across phases 1-4 + extras + media + integrations; the only remaining item (custom domain) is a deliberate no.
