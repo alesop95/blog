@@ -19,9 +19,11 @@
     SFMono-Regular, Menlo, monospace;
 
   /* Colours - light mode defaults. Dark overrides in @variant dark below.    */
-  --color-paper: oklch(0.985 0.005 80);   /* warm paper background          */
-  --color-ink: oklch(0.18 0.015 80);      /* near-black with a warm tilt    */
-  --color-accent: oklch(0.52 0.16 50);    /* warm copper - amp glow (AA as small text on paper) */
+  /* Palette shared with the rest of the site ecosystem (CV, skills, projects), */
+  /* sourced from main.tex: DarkBlue #172B45, NavyBlue #091F3A, SoftBlue #2E4A7D. */
+  --color-paper: oklch(0.985 0.006 255);  /* cool near-white background     */
+  --color-ink: oklch(0.24 0.059 255);     /* NavyBlue #091F3A               */
+  --color-accent: oklch(0.41 0.092 261.5); /* SoftBlue #2E4A7D, CV accent   */
 
   /* Radii & shadows -------------------------------------------------------- */
   --radius-sm: 4px;
@@ -33,9 +35,9 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root.dark {
-  --color-paper: oklch(0.16 0.012 80);
-  --color-ink: oklch(0.94 0.008 80);
-  --color-accent: oklch(0.74 0.14 60);
+  --color-paper: oklch(0.17 0.035 255);   /* dark navy background           */
+  --color-ink: oklch(0.94 0.010 255);     /* cool near-white text           */
+  --color-accent: oklch(0.72 0.063 254.7); /* LightSkyBlue #8AA7CC          */
 }
 
 /* -------------------------------------------------------------------------- */
