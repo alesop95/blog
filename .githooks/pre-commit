@@ -5,3 +5,7 @@
 # now-ignored files from versioning. Removals are staged into this commit.
 # The files are kept on disk. See scripts/prune-gitignored.mjs.
 node scripts/prune-gitignored.mjs
+
+# Passo identita, dal gancio globale della macchina: un core.hooksPath locale
+# scavalca quello globale, quindi il presidio va richiamato esplicitamente.
+"$HOME/.githooks/pre-commit" || exit 1
