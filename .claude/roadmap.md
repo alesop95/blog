@@ -4,7 +4,7 @@
 
 ---
 
-## Phase 1 - Foundation ✅ (Session #1 - 2026-05-27)
+## Phase 1 - Foundation [done] (Session #1 - 2026-05-27)
 
 The minimum viable site: scaffolding, layout, one post, deploy-ready.
 
@@ -24,7 +24,7 @@ The minimum viable site: scaffolding, layout, one post, deploy-ready.
 - [x] README with setup, dev, content authoring, deploy instructions
 - [x] `.gitignore`, `.env.example`
 
-## Phase R1 - Re-platform: GitHub Pages + bilingual ✅ (Session #2 - 2026-05-27)
+## Phase R1 - Re-platform: GitHub Pages + bilingual [done] (Session #2 - 2026-05-27)
 
 Pivot from Vercel/EN to GitHub Pages/bilingual after owner decision against any recurring cost (custom domain priced too high) and request for native EN+IT from day one.
 
@@ -45,7 +45,7 @@ Pivot from Vercel/EN to GitHub Pages/bilingual after owner decision against any 
 - [x] GitHub Actions deploy workflow (`.github/workflows/deploy.yml`)
 - [x] Updated README with GitHub Pages user-site instructions
 
-## Phase 2-A - Reading experience (Sessions #3-#4 - 2026-05-27) ✅
+## Phase 2-A - Reading experience (Sessions #3-#4 - 2026-05-27) [done]
 
 Make the act of reading a delight.
 
@@ -83,7 +83,7 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] Home wordmark non più cliccabile (fix GET a vuoto verso sé stessa).
 - [ ] Applicare lo stesso pattern (segmento localizzato + generateStaticParams) a tag/archivio in Phase 2-B, NON `pathnames` next-intl.
 
-## Phase 2-C - Polish editoriale (Session #4 → completata Session #7, 2026-06-03) ✅
+## Phase 2-C - Polish editoriale (Session #4 → completata Session #7, 2026-06-03) [done]
 
 - [x] View Transitions on route change - React `<ViewTransition>` wraps the locale layout's children; `experimental.viewTransition: true` in `next.config`. Soft ~220ms `root` crossfade, sticky masthead anchored (`view-transition-name: site-header`), reduced-motion guard. **ADR-008**.
 - [x] Pull-quote `<Quote>` MDX component - `<figure class="pullquote">` (centred display-serif, never justified), demoed bilingually in the Caparezza review.
@@ -101,7 +101,7 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] Archive by year: `/en/archive` + `/it/archivio` - posts grouped by year (static localized folders, `<ArchivePage>`, `archiveSection`/`archivePath`); footer link; sitemap (paired).
 - [x] Related posts (by tag overlap) - `getRelatedPosts` (shared-tag count, then recency); section on post pages. Dormant until ≥2 same-locale posts share a tag (current seed posts have disjoint tags).
 
-## Phase 3 - Quality gates (Session #7 - 2026-06-03) ✅ - see **ADR-010**
+## Phase 3 - Quality gates (Session #7 - 2026-06-03) [done] - see **ADR-010**
 
 - [x] **Vitest unit tests** on `src/lib/posts.ts` - exported `PostFrontmatterSchema`; 13 tests covering frontmatter edge cases (required title, 280-char desc, date coercion, `type` enum, half-step `rating`, URL `link`) + helper invariants (sort, `getReviews` purity, tag order, `articleId` pairing). In `pnpm test` + `verify` + CI.
 - [x] **a11y audit (axe + walkthrough)** - `@axe-core/playwright` on EN+IT pages, zero violations (color-contrast + iframe-contents documented exclusions). Found & fixed: home missing h1 (`Logo`→`<h1>`), `heading-order` on index lists (`PostsList` `headingLevel` prop), `<aside>` landmark nesting (`Callout`/`ReviewHeader`→`<div role="note">`). Added skip-to-content link + `#main-content`; hardened Search modal (input label, localized close, focus return).
@@ -109,7 +109,7 @@ Richieste di Alessio. Dettaglio in `_notes/DIARIO.md`; decisione in **ADR-005**.
 - [x] **Lighthouse CI** - `@lhci/cli` (`lighthouserc.cjs`) on 3 URLs; category budgets in `warn` mode (promote to `error` after first run calibrates). Dedicated `lighthouse` CI job.
 - [x] **CI topology** - `ci.yml`: `verify` (typecheck·lint·test·build) + `e2e` (Playwright) + `lighthouse`, none touching `deploy.yml`.
 
-> ✅ **Color-contrast debt resolved (Session #7, ADR-012)**: muted palette darkened (`text-ink/{55,45,40}`→`/70`, accent `oklch(0.52)`), axe `color-contrast` re-enabled (0 violations), Lighthouse a11y budget → `error`. Open: dark-mode contrast pass (axe tests light only); Linux visual baselines for CI; promote perf/seo/best-practices budgets to `error`.
+> **Color-contrast debt resolved (Session #7, ADR-012)**: muted palette darkened (`text-ink/{55,45,40}`→`/70`, accent `oklch(0.52)`), axe `color-contrast` re-enabled (0 violations), Lighthouse a11y budget → `error`. Open: dark-mode contrast pass (axe tests light only); Linux visual baselines for CI; promote perf/seo/best-practices budgets to `error`.
 
 ## Finishing touches (Session #7 - 2026-06-04) - ADR-012
 
@@ -132,7 +132,7 @@ Things that emerge from Alessio's writing needs.
 
 > All Phase 4 items shipped. Viz components + Series are **dormant** until content uses them (wired, tested, documented in `_notes/AUTHORING.md`). Demo: draft `content/posts/en/component-showcase.mdx`.
 
-## "Nice extras" program (Session #8 - 2026-06-04) ✅ - ADR-013, ADR-014
+## "Nice extras" program (Session #8 - 2026-06-04) [done] - ADR-013, ADR-014
 
 12 features, one at a time, all verified (Vitest 15 · Playwright 22 · build green):
 
@@ -150,7 +150,7 @@ Things that emerge from Alessio's writing needs.
 
 To activate the dormant integrations: fill `siteConfig.comments` (giscus.app) and `siteConfig.newsletter.buttondownUser`. Edit `src/config/uses.ts` / `now.ts` for real content.
 
-## Media strategy (Session #8 - 2026-06-08) ✅ - ADR-015
+## Media strategy (Session #8 - 2026-06-08) [done] - ADR-015
 
 Hybrid, zero recurring cost:
 - [x] **Photos** - responsive pipeline: originals in `_media/<slug>/` (gitignored) → `pnpm build:media` (sharp) → WebP 480/960/1440 in `public/images/<slug>/` + `src/generated/image-manifest.json`; `<MdxImage>` emits `srcset`/`sizes` (+ plain `<img>` fallback).
@@ -159,7 +159,7 @@ Hybrid, zero recurring cost:
 - [x] **AVIF variants** + shared `<ResponsiveImage>` (`<picture>` AVIF→WebP), applied to `<MdxImage>` **and** `<Figure>`.
 - [x] **`pnpm build:video`** - optional ffmpeg clip compressor (→ MP4 + poster); not in `build`.
 
-## Home UX - collapsible disclosures (Session #9 - 2026-06-09) ✅
+## Home UX - collapsible disclosures (Session #9 - 2026-06-09) [done]
 
 Richiesta di Alessio: la home non deve mostrare tutto srotolato. Dettaglio in `_notes/DIARIO.md`.
 
@@ -168,7 +168,7 @@ Richiesta di Alessio: la home non deve mostrare tutto srotolato. Dettaglio in `_
 - [x] **Stile disclosure** - `.disclosure`/`.disclosure__chev` in `globals.css` (marker nativo nascosto, chevron lucide che ruota su `[open]`); neutralizzato dalla guardia globale reduced-motion. Conteggi via `tags.count` (nessuna nuova stringa i18n). Nessuna nuova ADR (riusa il pattern `<details>` già adottato dal `Toc`).
 - [x] Verificato: typecheck + lint puliti (baseline ~30 warning invariata), `next build` verde, HTML della home con i `<details>` annidati.
 
-## Topic pages: interest coverage beyond music (Session #10 - 2026-07-13) ✅ - ADR-018
+## Topic pages: interest coverage beyond music (Session #10 - 2026-07-13) [done] - ADR-018
 
 Richiesta di Alessio, arrivata dalla sessione sul CV (`my-cv`, repo separato): il CV elenca 16 interessi personali come bullet compattati a una riga, e il testo lungo originale era stato archiviato lì, non pubblicato. Idea: il blog diventa il posto dove quegli interessi vengono davvero raccontati, e il CV rimanda qui invece di portarsi dietro la prosa estesa.
 
@@ -180,7 +180,7 @@ Richiesta di Alessio, arrivata dalla sessione sul CV (`my-cv`, repo separato): i
 - [x] **Favicon** - il monogramma "AS" sostituito con un'onda audio disegnata (polyline a zigzag), legibile anche a 16px; solo `scripts/build-icons.ts` cambia, `public/icons/` resta gitignorato e si rigenera ad ogni build.
 - [ ] Non fatto in questa sessione: scrivere post reali per i 14 topic ancora a zero articoli.
 
-## Locale switcher: percorsi deterministici oltre ai post (Session #10 - 2026-07-13) ✅ - ADR-019
+## Locale switcher: percorsi deterministici oltre ai post (Session #10 - 2026-07-13) [done] - ADR-019
 
 Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "EN" portava su `/en/` invece di `/en/tags`. Causa: `LocaleSwitcher` sapeva mappare solo un singolo post (via `translationSlug`); ogni altra pagina statica (indice tag, tag singolo, archivio, recensioni, serie, anno, uses, now) ricadeva sempre sulla home dell'altra lingua.
 
@@ -206,7 +206,7 @@ Lavori chiesti dal proprietario, in quest'ordine. La decisione sull'hosting è i
 
 - [x] Store di pnpm dentro il progetto (`.npmrc` con `store-dir=.pnpm-store`) e rimozione dei residui di Word tracciati nella radice. Resta da ricreare `node_modules` dal nuovo store.
 - [x] Base verde: typecheck, lint, test 15/15 e build completa rieseguiti il 2026-11-20 (dettaglio in `current-work.md`); controlli tipografici di `chiudi` corretti nei documenti tracciati. Resta l'allineamento al template, da lanciare dal template.
-- [ ] Rimozione dello slop da README, commenti, documentazione e memoria; i post si toccano solo per tipografia (perimetro da confermare).
+- [x] Rimozione dello slop da README, commenti, documentazione e memoria; i post si toccano solo per tipografia (perimetro confermato il 2026-11-20). README riscritto sui fatti verificati, `CLAUDE.md` riallineato, emoji tolte da roadmap, ADR-003, ADR-006 e `bio.ts`, due frasi fatte tolte dai commenti.
 - [ ] Sicurezza: `public/_headers` con CSP, blindatura dei workflow, audit dipendenze, Dependabot; migrazione a Cloudflare Pages dopo la decisione sull'indirizzo (ADR-020).
 - [ ] Revisione senior del codice.
 - [ ] Design system scelto insieme al proprietario (non `intrawelt-design`, che è il marchio aziendale).

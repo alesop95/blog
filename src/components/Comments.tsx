@@ -8,7 +8,7 @@ import { siteConfig } from '@/config/site'
 /**
  * Giscus comments (GitHub Discussions), loaded client-side. Renders nothing
  * until configured in `siteConfig.comments` (repo + repoId + categoryId), so the
- * site works untouched out of the box. The widget's theme follows next-themes:
+ * site works without it. The widget's theme follows next-themes:
  * the script is injected once, then theme changes are pushed via postMessage.
  * Carries `data-pagefind-ignore` so comments never pollute the search index.
  */

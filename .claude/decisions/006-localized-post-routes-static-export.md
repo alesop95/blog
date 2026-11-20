@@ -24,7 +24,7 @@ Stop relying on next-intl `pathnames` for posts. Make the localized collection s
 
 ## Consequences
 
-- ✅ `/it/articoli/<slug>/` and `/en/posts/<slug>/` are emitted as real files - no 404. Verified in `out/`: `it/articoli/…` exists, `it/posts/…` gone, home link + sitemap match.
+- Verified: `/it/articoli/<slug>/` and `/en/posts/<slug>/` are emitted as real files - no 404. Verified in `out/`: `it/articoli/…` exists, `it/posts/…` gone, home link + sitemap match.
 - We lose next-intl's automatic pathname rewriting for posts - irrelevant, since it never worked on static export anyway. The `postPath` helper is simpler and explicit.
 - Future localized collections (tags `/en/tags` ↔ `/it/tag`, archive, etc.) should follow the **same pattern** (dynamic localized segment + `generateStaticParams`), NOT next-intl `pathnames`. ADR-003's `pathnames` snippet for tags is superseded accordingly.
 - After renaming a route folder, `.next/types` goes stale → `pnpm typecheck` fails on a dangling validator import. Fix: delete `.next` before re-running `pnpm verify`.

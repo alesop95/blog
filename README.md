@@ -1,125 +1,64 @@
 # Alessio Sopranzi - writings
 
-Personal blog & writings studio. Bilingual EN + IT, hand-built on Next.js 16 + Tailwind v4 + MDX, hosted on GitHub Pages.
+Personal blog of Alessio Sopranzi, written in English and Italian. It is a static site built with Next.js 16, Tailwind CSS v4 and MDX, exported to plain files and served from GitHub Pages at `https://alesop95.github.io/blog`. A move to Cloudflare Pages, needed to send HTTP security headers, is decided but not yet done: see ADR-020.
 
-> **Live URL** - `https://alesop95.github.io/blog` (GitHub Pages project site, repo `blog`; see ADR-004)
+## How the site is built
 
-## What this is
+Every article is an `.mdx` file under `content/posts/en/` or `content/posts/it/`. Its YAML frontmatter is validated with Zod at build time, so a malformed field stops the build instead of reaching the page. There is no backend and no CMS: `next build` with `output: 'export'` writes the whole site to `out/`, and Pagefind indexes it for search.
 
-A file-based blog: every article is a `.mdx` file in `content/posts/{en,it}/`, type-checked frontmatter, build-time static export, no backend, no CMS.
-
-Each article exists in both languages (or only one - locale-exclusive posts are explicitly allowed) and is paired across locales via an `articleId` frontmatter field.
+Each article is published in both languages. The two files have different slugs and are paired by sharing the same `articleId` in their frontmatter; the schema accepts a post without it, but the editorial rule of the project (working agreement 6 in `.claude/CLAUDE.md`) is that every post has its twin.
 
 ## Project memory
 
-Before reading anything else, read **`.claude/CLAUDE.md`** - it explains the current state, conventions, and how to resume work in a fresh session.
+The state of the project, its conventions and the way to resume work live in `.claude/`. Start from `.claude/CLAUDE.md`; the technical detail is in `.claude/architecture.md`, the plan in `.claude/roadmap.md`, the latest verified state in `.claude/context/current-work.md`, and every non-trivial choice has an Architecture Decision Record in `.claude/decisions/` (ADR-001 to ADR-020).
 
-Related docs in `.claude/`:
+## Running it locally
 
-- `architecture.md` - technical deep-dive
-- `roadmap.md` - phases and checkboxes
-- `decisions/` - Architecture Decision Records
-  - `001-stack.md` - framework + tooling choices
-  - `002-hosting-github-pages.md` - why GitHub Pages and no custom domain
-  - `003-i18n.md` - bilingual design
-
-## Quick start
-
-Prerequisites: Node ≥20.11, pnpm ≥9.
+It needs Node 20.11 or later and pnpm 9 or later. The pnpm store is kept inside the project (`.npmrc`, folder `.pnpm-store/`, ignored by git).
 
 ```bash
 pnpm install
-pnpm dev          # opens http://localhost:3000
-                  # → root splash redirects to /en/ or /it/ based on browser
+pnpm dev
 ```
 
-The dev server shows drafts. Production builds hide them.
+The development server listens on `http://localhost:8642`. The root page redirects to `/en/` or `/it/` from the locale saved by the language switcher, or else from the browser language. Drafts (`draft: true`) are visible in development and left out of production builds.
 
-## Common commands
+## Commands
 
 ```bash
-pnpm dev          # dev server with hot reload
-pnpm build        # next build + OG image generation
-pnpm build:next   # just the Next.js build (skip OG)
-pnpm build:og     # just the OG images
-pnpm verify       # typecheck + lint + full build (CI parity)
+pnpm dev          # development server on port 8642
+pnpm build        # media check, icons, OG images, next build, Pagefind index
+pnpm build:next   # next build only
+pnpm build:og     # OG images only
+pnpm verify       # typecheck, lint, unit tests, full build (what CI runs)
 pnpm typecheck    # tsc --noEmit
 pnpm lint         # biome lint
-pnpm format       # biome format --write
-pnpm check        # biome check --write (lint + format together)
+pnpm test         # Vitest unit tests
+pnpm test:e2e     # Playwright smoke, accessibility and visual tests
+pnpm check        # biome lint and format, with fixes written
 ```
 
 ## Adding a post
 
-1. Create `content/posts/<locale>/<slug>.mdx` (locale is `en` or `it`).
-2. Add the YAML frontmatter:
+Create `content/posts/<locale>/<slug>.mdx`, where the locale is `en` or `it`, and start it with the frontmatter. The fields below are the ones a normal post uses; the full schema, including reviews, series and the drop cap, is `PostFrontmatterSchema` in `src/lib/posts.ts`.
 
-   ```yaml
-   ---
-   title: "..."
-   description: "..."
-   date: 2026-05-27
-   tags: ["..."]
-   articleId: "stable-id-shared-across-translations"    # optional
-   draft: false                                          # default
-   ---
-   ```
+```yaml
+---
+title: "..."
+description: "..."            # at most 280 characters
+date: 2026-05-27
+tags: ["..."]
+articleId: "shared-id"        # same value in the other language
+draft: false
+---
+```
 
-3. Write the body in MDX. You can `import` components inline.
-4. To add a translation, create the matching file under the other locale with the SAME `articleId`. The locale switcher will link the two automatically.
+The body is MDX, so the components registered in `src/components/MDXComponents.tsx` can be used directly. Then write the twin in the other locale with the same `articleId`: the language switcher links the two pages from that field.
 
-## Deploying to GitHub Pages
+## Deployment
 
-This project deploys in **project-site mode** at `/blog` (ADR-004): the repo is named `blog` and the GitHub Pages user-site root slot (`<user>.github.io`) is left free. The `BASE_PATH=/blog` + `NEXT_PUBLIC_SITE_URL=…/blog` wiring already lives in `.github/workflows/deploy.yml`.
+A push to `main` runs `.github/workflows/deploy.yml`, which typechecks, lints, builds with `BASE_PATH=/blog` and publishes `out/` through the official GitHub Pages actions. The repository is a GitHub project site, so the site lives under `/blog` and the user-site root `alesop95.github.io` is deliberately left empty (ADR-004). Pull requests run `.github/workflows/ci.yml` instead.
 
-**One-time setup** (5 minutes):
+## Licence
 
-1. Create a public GitHub repo named **`blog`**.
-
-2. Replace the placeholder in `src/config/site.ts` if your username differs:
-
-   ```ts
-   const githubUsername = 'your-github-username'  // ← change to your real username
-   ```
-
-3. In the repo on github.com: **Settings → Pages → Source: GitHub Actions**.
-
-4. Push to `main`. The `.github/workflows/deploy.yml` workflow builds and publishes the site to `https://<user>.github.io/blog`. After 1-2 minutes the URL is live. (The bare `https://<user>.github.io` 404s on purpose.)
-
-That's it. Every subsequent push to `main` redeploys automatically.
-
-### Alternative: user-site mode (blog at the bare root)
-
-If you'd rather the blog own the root URL instead of `/blog`:
-
-- Name the repo **`<your-github-username>.github.io`** (exact match).
-- In `deploy.yml` set `BASE_PATH=''` and `NEXT_PUBLIC_SITE_URL=https://<user>.github.io`.
-- The URL becomes the bare `https://<user>.github.io`. No other code change.
-
-### Adding a custom domain later
-
-Currently we use the free GitHub Pages subdomain (see ADR-002). To switch to a custom domain later:
-
-1. Buy the domain (cheap registrars: Porkbun, Cloudflare Registrar - ~€7-10/year for `.it`).
-2. Configure DNS at the registrar:
-   - 4 A records on the apex: `185.199.108.153`, `109.153`, `110.153`, `111.153`.
-   - 1 CNAME on `www` pointing to `alesop95.github.io`.
-3. Create `public/CNAME` containing just your domain (one line, e.g. `alessioblog.it`).
-4. Repo Settings → Pages → Custom domain → enter the domain → wait → tick **Enforce HTTPS**.
-5. Update `NEXT_PUBLIC_SITE_URL` in the deploy workflow.
-
-No code changes beyond `public/CNAME` and the env var.
-
-## How i18n works
-
-- Path-based: every real route lives under `/en/...` or `/it/...`.
-- The bare root `/` shows a tiny JS splash that redirects based on `localStorage` preference (set by the locale switcher) or `navigator.language`.
-- URL segments are localized: `/en/posts/foo` ↔ `/it/articoli/foo`.
-- Slugs are distinct per locale.
-- Translations are paired via the `articleId` frontmatter field.
-- UI strings live in `messages/{en,it}.json`.
-- See `.claude/decisions/003-i18n.md` for details.
-
-## License
-
-MIT. Code is freely reusable. Article content is © Alessio Sopranzi - ask before republishing.
+The code is MIT licensed. The articles are © Alessio Sopranzi: ask before republishing them.

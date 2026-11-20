@@ -1,14 +1,14 @@
 # CLAUDE.md - Project Memory
 
-Indice operativo del progetto. Decisioni, architettura e roadmap restano nelle rispettive sedi canoniche: `.claude/decisions/`, `.claude/architecture.md` e `.claude/roadmap.md`. Lo stato applicativo ultimo noto e in `.claude/context/current-work.md`. Le convenzioni e gli accordi di lavoro restano qui sotto.
+Indice operativo del progetto. Decisioni, architettura e roadmap restano nelle rispettive sedi canoniche: `.claude/decisions/`, `.claude/architecture.md` e `.claude/roadmap.md`. Lo stato applicativo ultimo noto è in `.claude/context/current-work.md`. Le convenzioni e gli accordi di lavoro restano qui sotto.
 
 ## 1. Project identity
 
-**Name**: Alessio Sopranzi - writings **URL**: `https://alesop95.github.io/blog` (GitHub Pages **project site**, repo `blog`, `basePath: /blog` - free forever). See ADR-004. **Owner**: Alessio Sopranzi · GitHub: [`alesop95`](https://github.com/alesop95) **Type**: Personal blog / writings studio **Inspired by**: [`dgopsq/writings`](https://github.com/dgopsq/writings) - same conceptual shape (file-based MDX, no custom backend, static rendering), rebuilt from scratch on the modern 2026 stack and personalised to Alessio's voice.
+**Name**: Alessio Sopranzi - writings **URL**: `https://alesop95.github.io/blog` (GitHub Pages **project site**, repo `blog`, `basePath: /blog`, no cost). See ADR-004; migration to Cloudflare Pages decided in ADR-020. **Owner**: Alessio Sopranzi · GitHub: [`alesop95`](https://github.com/alesop95) **Type**: Personal blog / writings studio **Inspired by**: [`dgopsq/writings`](https://github.com/dgopsq/writings) - same conceptual shape (file-based MDX, no custom backend, static rendering), rebuilt from scratch on Next.js 16 and written in Alessio's voice.
 
-> **Hosting shape (ADR-004)**: the blog is a GitHub *project site* at `/blog`. The single **user-site root slot (`alesop95.github.io`) is deliberately left empty** - no repo, bare domain 404s - so it stays free for a future portfolio/landing page. Coexists independently with the pre-existing `https://alesop95.github.io/skills/` project site. Each GitHub user has one user-site slot (root URL) and unlimited project sites (sub-path URLs), all free forever.
+> **Hosting shape (ADR-004)**: the blog is a GitHub *project site* at `/blog`. The single **user-site root slot (`alesop95.github.io`) is deliberately left empty** - no repo, bare domain 404s - so it stays free for a future portfolio/landing page. Coexists independently with the pre-existing `https://alesop95.github.io/skills/` project site. Each GitHub user has one user-site slot (root URL) and unlimited project sites (sub-path URLs), all free of charge.
 
-> **Custom domain decision (Session #2)**: Alessio investigated `alessioblog.it` on Register.it. Quoted at €71.43/year (€58.55 + 22% IVA) - too expensive for a personal blog, and Alessio explicitly does not want any recurring cost tied to URL personalisation. Decision: **stay on the free `*.github.io` subdomain indefinitely**. If a custom domain is wanted in the future, the cheapest acceptable path is Porkbun or Cloudflare Registrar (~€8/year for a `.it`), and the migration is a 30-minute DNS + GitHub setting change with zero code impact.
+> **Custom domain decision (Session #2)**: Alessio investigated `alessioblog.it` on Register.it. Quoted at €71.43/year (€58.55 + 22% IVA) - too expensive for a personal blog, and Alessio explicitly does not want any recurring cost tied to URL personalisation. Decision: **stay on the free `*.github.io` subdomain indefinitely**. If a custom domain is wanted in the future, the cheapest acceptable path is Porkbun or Cloudflare Registrar (~€8/year for a `.it`), and the migration is a 30-minute DNS + GitHub setting change with zero code impact. Moving to Cloudflare Pages (ADR-020) reopens this choice, because without a custom domain the public address becomes `*.pages.dev`.
 
 ### Editorial positioning (from BIOPIC)
 
@@ -42,11 +42,11 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 | Theme switching | **`next-themes`** | Light/dark/system, no flash. |
 | OG images | **`satori` + `sharp`** at build time | Pre-rendered PNG per post per locale, stored in `public/og/{locale}/{slug}.png`. |
 | Icons | **`lucide-react`** | UI icons. |
-| Package manager | **pnpm** | Fast, content-addressable. |
-| Lint / format | **Biome 2** | Single tool, Rust-fast. |
-| Hosting | **GitHub Pages** (project site `/blog`) | Free forever, generous limits, HTTPS auto, CDN. Public repo named `blog`, `basePath: /blog` (ADR-004). User-site root slot left free. |
+| Package manager | **pnpm** | Content-addressable store, kept inside the project in `.pnpm-store/` (`.npmrc`). |
+| Lint / format | **Biome 2** | One tool for lint and format. |
+| Hosting | **GitHub Pages** (project site `/blog`) | Free, with HTTPS and a CDN. Public repo named `blog`, `basePath: /blog` (ADR-004). User-site root slot left free. GitHub Pages cannot send HTTP headers, hence the planned move to Cloudflare Pages (ADR-020). |
 | Deploy | GitHub Actions → GitHub Pages | Build with `output: 'export'`, publish via official actions. |
-| CI | GitHub Actions | Typecheck + lint + build on PR. |
+| CI | GitHub Actions | On pull requests: typecheck, lint, unit tests and build; Playwright smoke and accessibility tests; Lighthouse CI. |
 
 **Hosting trade-offs accepted** (see ADR-002):
 
@@ -103,10 +103,7 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 │   ├── roadmap.md
 │   ├── onboarding.md
 │   └── decisions/
-│       ├── 001-stack.md
-│       ├── 002-hosting-github-pages.md
-│       ├── 003-i18n.md
-│       └── 004-project-site-blog.md
+│       └── 001-stack.md … 020-cloudflare-pages-security-headers.md
 ├── .github/workflows/
 │   ├── ci.yml                   ← typecheck + lint + build on PR
 │   └── deploy.yml               ← build + deploy to gh-pages on push to main
@@ -177,12 +174,9 @@ Bilingual from day one (EN + IT) because Alessio writes natively in both. Defaul
 
 ## 7. Current state
 
-Le decisioni delle tappe precedenti sono negli ADR001-019 sotto `.claude/decisions/`; architettura e piano sono nei relativi documenti. Per lo stato ultimo noto leggere `.claude/context/current-work.md`. I resoconti duplicati non vengono mantenuti come seconda memoria.
+Le decisioni delle tappe precedenti sono negli ADR-001…020 sotto `.claude/decisions/`; architettura e piano sono nei relativi documenti. Per lo stato ultimo noto leggere `.claude/context/current-work.md`. I resoconti duplicati non vengono mantenuti come seconda memoria.
 
-🔜 **Next session**:
-- Adopt the dormant viz components in more real content as topics call for them.
-- Optional polish: dark-mode contrast pass (axe tests light only); promote Lighthouse perf/seo/best-practices budgets to `error` after first-run calibration; Linux visual baselines for CI.
-- Wishlist (uncommitted): Giscus comments, "Now"/"Uses" pages, custom domain. The blog is otherwise feature-complete across phases 1-4.
+Il piano in corso è la sezione Session #11 di `.claude/roadmap.md`: pulizia dei testi generati, sicurezza e migrazione a Cloudflare Pages, revisione senior del codice, design system. Restano facoltativi il passaggio di contrasto in tema scuro (le prove axe girano solo in tema chiaro), il passaggio a `error` dei budget Lighthouse dopo la calibrazione e le baseline visive Linux per la CI.
 
 ---
 
@@ -208,8 +202,8 @@ The project is fully recoverable from this folder. **Suggested opening prompt**:
 
 **Cosa porta avanti il contesto del progetto, e cosa no:**
 
-- ✅ **Porta avanti**: tutto ciò che è nel repository Git (codice, contenuti, `.claude/`, configurazioni). Questa è la totalità della verità.
-- ❌ **Non porta avanti**: chat history, conversazioni informali, decisioni discusse ma non scritte. Se è importante e non è in `.claude/`, è perso.
+- Porta avanti: tutto ciò che è nel repository Git (codice, contenuti, `.claude/`, configurazioni). Questa è la totalità della verità.
+- Non porta avanti: chat history, conversazioni informali, decisioni discusse ma non scritte. Se è importante e non è in `.claude/`, è perso.
 
 Quindi la regola: **alla fine di ogni sessione di lavoro significativa, Claude deve aggiornare `.claude/CLAUDE.md` e `.claude/roadmap.md`**, e creare/aggiornare ADR per decisioni di architettura. Se questo non avviene, Alessio segnala nella sessione successiva.
 

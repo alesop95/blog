@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site'
  * Buttondown email-subscribe box. A plain HTML form that POSTs to Buttondown
  * (no JS, no client bundle) - on submit it opens Buttondown's confirmation page
  * in a new tab. Renders nothing until `siteConfig.newsletter.buttondownUser` is
- * set, so the site works untouched out of the box.
+ * set, so the site works without it.
  */
 export function Newsletter() {
   const t = useTranslations('newsletter')

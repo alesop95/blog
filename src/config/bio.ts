@@ -70,7 +70,7 @@ export const bio: Record<Locale, BioParagraph[]> = {
     },
   ],
 
-  // ⚠️ DRAFT - traduzione fedele dall'inglese. Da rivedere e
+  // DRAFT - traduzione fedele dall'inglese. Da rivedere e
   //    riscrivere a voce d'autore quando Alessio ne ha voglia.
   it: [
     {
