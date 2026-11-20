@@ -202,11 +202,12 @@ Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "E
 
 ## Session #11 - 2026-11-20: manutenzione senior, sicurezza, design system
 
-Lavori chiesti dal proprietario, in quest'ordine. La decisione sull'hosting è in ADR-020.
+Lavori chiesti dal proprietario, in quest'ordine. Hosting: ADR-020 (migrare a Cloudflare Pages) superata dalla ADR-021 (restare su GitHub Pages).
 
 - [x] Store di pnpm dentro il progetto (`.npmrc` con `store-dir=.pnpm-store`) e rimozione dei residui di Word tracciati nella radice. Resta da ricreare `node_modules` dal nuovo store.
 - [x] Base verde: typecheck, lint, test 15/15 e build completa rieseguiti il 2026-11-20 (dettaglio in `current-work.md`); controlli tipografici di `chiudi` corretti nei documenti tracciati. Resta l'allineamento al template, da lanciare dal template.
 - [x] Rimozione dello slop da README, commenti, documentazione e memoria; i post si toccano solo per tipografia (perimetro confermato il 2026-11-20). README riscritto sui fatti verificati, `CLAUDE.md` riallineato, emoji tolte da roadmap, ADR-003, ADR-006 e `bio.ts`, due frasi fatte tolte dai commenti.
-- [ ] Sicurezza: `public/_headers` con CSP, blindatura dei workflow, audit dipendenze, Dependabot; migrazione a Cloudflare Pages dopo la decisione sull'indirizzo (ADR-020).
+- [ ] Tornata completa del gate dei pacchetti (`/gate-pacchetti`, lanciata dal proprietario), mai fatta dopo l'inizializzazione: catalogo per settore, filoni e novità del template dal 2026-07-13.
+- [ ] Sicurezza: CSP e Referrer-Policy via `<meta>`, blindatura dei workflow, audit dipendenze, Dependabot (ADR-021).
 - [ ] Revisione senior del codice.
 - [ ] Design system scelto insieme al proprietario (non `intrawelt-design`, che è il marchio aziendale).

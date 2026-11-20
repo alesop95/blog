@@ -1,6 +1,6 @@
 # ADR-020 - Hosting: da GitHub Pages a Cloudflare Pages per poter inviare header di sicurezza
 
-**Status**: Accepted (direzione) · indirizzo pubblico da decidere · **Date**: 2026-11-20 · **Session**: #11
+**Status**: Superseded by ADR-021 (2026-11-20, stessa sessione) · **Date**: 2026-11-20 · **Session**: #11
 
 ## Context
 
