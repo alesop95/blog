@@ -1,7 +1,25 @@
 # Lavoro corrente e ultimo riscontro applicativo
 
-Ultimo stato applicativo documentato:13/07/2026, trasferito dall’indice durante il riallineamento del30/10. Non sono stati rieseguiti build o test applicativi in questa passata.
+Ultimo stato applicativo documentato: 13/07/2026, trasferito dall’indice durante il riallineamento del 30/10. Non sono stati rieseguiti build o test applicativi in questa passata.
 
 Riscontro storico: **2026-07-13** · Session #10 continued again - **Now page + tag cleanup**: added a `/now` item (relearning bass, self-taught, for a nascent 2000s pop-punk cover band project) in both locales, bumped `updated`. Removed the standalone `caparezza` tag from both language twins of the Pathosfera review: redundant with the already-structured `review.artist` field (rendered by `<ReviewHeader>`, ADR-009), and it was cluttering `/tags` with a one-off, count-1 entry. Verified `cosa-fa-una-corda`/`what-a-string-does` was already tagged `acustica`/`acoustics` - no change needed. Verified: `pnpm typecheck`, `pnpm test` (15/15), `pnpm build:next` - the `caparezza` route is gone from `out/`, both `/now` pages show the new item.
 
 Per il piano corrente usare `.claude/roadmap.md`, per i vincoli `.claude/CLAUDE.md`, per il dettaglio tecnico `.claude/architecture.md` e per le decisioni `.claude/decisions/`. Le date e gli esiti storici non sono prove nuove.
+
+## Session #11 - 2026-11-20
+
+Riscontro applicativo nuovo, preso con i `node_modules` installati il 2026-06-03 (ancora integri grazie ai collegamenti fisici, benché lo store da cui provenivano sia stato rimosso): `pnpm typecheck` esce a 0; `pnpm test` dà 15 prove passate su 15 (Vitest 4.1.8, un file); `pnpm lint` esce a 0 con 32 avvisi e 1 info su 90 file, dopo aver escluso `.claude/**` e `.agents/**` dal perimetro di Biome (i 5 errori `useNodejsImportProtocol` stavano in 3 file JavaScript del template, che l'allineamento sovrascrive); `pnpm build` completa (icone, OG, `next build`, Pagefind) ed esce a 0.
+
+Store di pnpm: `.npmrc` con `store-dir=.pnpm-store`, verificato con `pnpm store path` che risponde `E:\blog-alessio\.pnpm-store\v3`. Tolti dal repository i due residui di Word tracciati (`~$UDIO STACK.docx`, `~WRL3086.tmp`) e aggiunti al `.gitignore` gli schemi `~$*` e `~WRL*.tmp`. Hosting: decisione di migrare a Cloudflare Pages in ADR-020.
+
+### Pendenze aperte
+
+- Reinstallare le dipendenze dal nuovo store: `node_modules` va ricreato, perché pnpm rifiuta un `node_modules` legato a uno store diverso da quello configurato. Finché non si fa, un `pnpm install` fallisce con `ERR_PNPM_UNEXPECTED_STORE`.
+- Difetto di lingua del documento: `src/app/layout.tsx` emette `<html lang="en">` fisso, e il layout `[locale]` mette `lang={locale}` solo su un `<div>` interno. Misura sull'export del 2026-11-20: `out/it/index.html` e le pagine `out/it/articoli/*/index.html` controllate portano `lang="en"`, e Pagefind dichiara «Discovered 1 language: en» con 12 pagine indicizzate. Effetti: ricerca italiana indicizzata come inglese, sillabazione e segnale di lingua errati. Correzione prevista: due layout radice tramite gruppi di route, uno per lo splash e uno per `[locale]` che renda `<html lang={locale}>`. Da fare nella revisione senior.
+- Pagefind indicizza solo 12 pagine su 78 HTML, perché indicizza solo le pagine con `data-pagefind-body` (i post): comportamento voluto da ADR-007, da riverificare dopo la correzione della lingua.
+- Allineamento al template: il progetto è a `3755559` (2026-11-17), il template è 5 commit avanti con modifiche ai soli strumenti di macchina, nessuna applicativa. Si lancia dal template con `allinea-tutti.ps1`.
+- Perimetro della rimozione dello slop da confermare: proposto README, commenti nel codice, documentazione e memoria; la prosa dei post solo per tipografia.
+- Indirizzo pubblico dopo la migrazione a Cloudflare Pages (ADR-020, questione aperta): `*.pages.dev` senza costi o dominio proprio con costo annuo.
+- Lo schema di `biome.json` punta alla 2.2.0 mentre Biome installato è 2.4.16: da riallineare nella revisione senior.
+- `chiudi` era rosso già su `HEAD` per i tre controlli tipografici. Corretti nei documenti tracciati 17 accenti scritti con l'apostrofo (`fix-accents.py`), 4 accenti mancanti più 2 forme ambigue lette a mano (`fix-missing-accents.py`), e sostituiti con il codice Unicode i trattini lunghi citati come esempio in ADR-012 e in `TEST-CHECKLIST.md`. Resta rosso solo per `out/`, l'export di build ignorato da git che gli strumenti percorrono comunque (6 file per `fix-dashes.py`, 48 per `fix-missing-accents.py`, tutti generati): si toglie `out/` prima di `chiudi`. **Template:** L-001, registrata in `.claude/memory/lezioni-template.md`.
+- Difetto del template da correggere a monte, non qui: `.claude/norme/git-commands-format.md` riga 84 scrive «si da' per inerzia», che è un indicativo e va scritto «si dà». La copia nel progetto non si corregge, perché la passata di allineamento del 2026-11-17 la tiene in attesa di `chiudi-allineamento` e `chiudi` ferma un commit che la tocca (osservato il 2026-11-20).

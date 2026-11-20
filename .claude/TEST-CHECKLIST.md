@@ -34,10 +34,10 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
 - [ ] Barra di lettura si riempie scrollando.
 - [ ] Drop-cap + testo giustificato.
 - [ ] `<Score>`: ▶ suona il brano; clic su singola nota la suona; leggibile in dark; dimensione contenuta.
-- [ ] Circolo delle quinte: clic su tonalita -> accordo gia' dal primo click.
+- [ ] Circolo delle quinte: clic su tonalita -> accordo già dal primo click.
 - [ ] EQ playground: muovi Gain -> finestra NON trema; Type/Freq/Q live; Pink noise suona.
 - [ ] Diagram SVG (ok in dark); YouTube embed.
-- [ ] Footnote -> sezione Note a fondo pagina (piu' piccola); freccia di ritorno.
+- [ ] Footnote -> sezione Note a fondo pagina (più piccola); freccia di ritorno.
 - [ ] Pull-quote centrata, nessun errore in console.
 
 ### `/en/posts/what-a-string-does` (<-> `/it/articoli/cosa-fa-una-corda`) [dev]
@@ -54,7 +54,7 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
 ### Trasversali
 - [ ] Stampa (Ctrl+P su un articolo) [dev/build]: niente chrome/correlati/commenti/controlli; palette chiara anche in dark; footnote presenti.
 - [ ] Reduced-motion (DevTools Rendering): transizioni istantanee.
-- [ ] TOC scroll-spy: dormiente finche' non c'e' un post >1500 parole.
+- [ ] TOC scroll-spy: dormiente finché non c'è un post >1500 parole.
 - [ ] Dark mode: articolo leggibile (testo/score/diagrammi/accent) - contrasto AA.
 
 ### Ricerca ⌘K [build]/[live] (NON in dev)
@@ -80,7 +80,7 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
 - [ ] Newsletter: username Buttondown in `siteConfig.newsletter.buttondownUser` -> box in fondo home.
 
 ## 3bis. Igiene repo (git)
-- [ ] Aggiungi un pattern a `.gitignore` per un file gia' tracciato, poi committa -> il pre-commit hook lo **de-indicizza** (lo vedi nel log) tenendolo su disco. O manuale: `pnpm gitignore:prune`. *(Setup hook: `pnpm install` imposta `core.hooksPath=.githooks`; su Unix eventualmente `chmod +x .githooks/pre-commit`.)*
+- [ ] Aggiungi un pattern a `.gitignore` per un file già tracciato, poi committa -> il pre-commit hook lo **de-indicizza** (lo vedi nel log) tenendolo su disco. O manuale: `pnpm gitignore:prune`. *(Setup hook: `pnpm install` imposta `core.hooksPath=.githooks`; su Unix eventualmente `chmod +x .githooks/pre-commit`.)*
 
 ## 4. Produzione / deploy [live]
 
@@ -90,4 +90,4 @@ Esempio reale già in repo: `what-a-string-does` / `cosa-fa-una-corda`.
 - [ ] Favicon "AS" nella scheda; `/manifest.webmanifest` raggiungibile.
 - [ ] OG: condividi un post o apri `/og/en/<slug>.png`.
 - [ ] `sitemap.xml` e `/en/feed.xml` rispondono.
-- [ ] 0 trattini lunghi (-/—) negli articoli; solo `-`.
+- [ ] 0 trattini lunghi (U+2013, U+2014) negli articoli; solo `-`.

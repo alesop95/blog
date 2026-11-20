@@ -6,7 +6,7 @@ Three finishing decisions, grouped because they landed together.
 
 ## 1. Typography: plain hyphen everywhere (reverses ADR-005's dash note)
 
-**Decision**: the canonical separator / parenthetical glyph is a **plain hyphen-minus `-` (U+002D)**, spaced as ` - `. **Never** an en dash `–` or em dash `—`.
+**Decision**: the canonical separator / parenthetical glyph is a **plain hyphen-minus `-` (U+002D)**, spaced as ` - `. **Never** an en dash (U+2013) or em dash (U+2014).
 
 This **reverses** the Session #5 convention (em → en dash). Alessio's call: he wants the short hyphen everywhere ("mai quello lungo") - the en dash read badly on the page.
 

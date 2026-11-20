@@ -53,3 +53,6 @@ _media/
 
 # Altri file e cartelle da ignorare
 _notes/
+# Word lock and temp files
+~$*
+~WRL*.tmp

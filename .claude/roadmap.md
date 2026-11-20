@@ -185,8 +185,8 @@ Richiesta di Alessio, arrivata dalla sessione sul CV (`my-cv`, repo separato): i
 Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "EN" portava su `/en/` invece di `/en/tags`. Causa: `LocaleSwitcher` sapeva mappare solo un singolo post (via `translationSlug`); ogni altra pagina statica (indice tag, tag singolo, archivio, recensioni, serie, anno, uses, now) ricadeva sempre sulla home dell'altra lingua.
 
 - [x] **`otherLocale(locale)`** in `src/i18n/routing.ts` - l'unica altra lingua, con due lingue.
-- [x] **`LocaleSwitcher`/`Header`** - nuovo prop `targetPath`, usato quando non c'e' un post con `translationSlug`; fallback finale invariato (home dell'altra lingua).
-- [x] **7 componenti pagina** (`ArchivePage`, `ReviewsPage`, `SeriesPage`, `UsesPage`, `NowPage`, `YearReviewPage`, `TagPage`) calcolano ciascuno il proprio `targetPath` lato server con l'helper di routing gia' esistente per quella sezione. Per `TagPage`: l'indice mappa sempre 1:1; un tag specifico mappa 1:1 solo se e' un topic registrato (ADR-018), altrimenti ricade sull'indice tag dell'altra lingua invece di indovinare una traduzione.
+- [x] **`LocaleSwitcher`/`Header`** - nuovo prop `targetPath`, usato quando non c'è un post con `translationSlug`; fallback finale invariato (home dell'altra lingua).
+- [x] **7 componenti pagina** (`ArchivePage`, `ReviewsPage`, `SeriesPage`, `UsesPage`, `NowPage`, `YearReviewPage`, `TagPage`) calcolano ciascuno il proprio `targetPath` lato server con l'helper di routing già esistente per quella sezione. Per `TagPage`: l'indice mappa sempre 1:1; un tag specifico mappa 1:1 solo se è un topic registrato (ADR-018), altrimenti ricade sull'indice tag dell'altra lingua invece di indovinare una traduzione.
 - [x] Verificato: `pnpm typecheck` + `pnpm lint` puliti sui 10 file toccati; `pnpm build:next` + ispezione diretta dell'HTML generato (non solo i tipi) confermano il `targetPath` corretto: `/it/tag/` → `/en/tags`, `/en/tags/audiophile` → `/it/tag/audiofilia`, `/it/tag/acustica` (tag non-topic) → `/en/tags`, `/en/archive` → `/it/archivio`.
 
 ## Wishlist
@@ -199,3 +199,14 @@ Bug segnalato da Alessio dopo il deploy: su `/it/tag/` (indice tag), cliccare "E
 - [ ] Custom domain (declined - Porkbun/Cloudflare Registrar ~€8/year, 30-min migration if reconsidered)
 
 > Wishlist effectively done. The blog is feature-complete across phases 1-4 + extras + media + integrations; the only remaining item (custom domain) is a deliberate no.
+
+## Session #11 - 2026-11-20: manutenzione senior, sicurezza, design system
+
+Lavori chiesti dal proprietario, in quest'ordine. La decisione sull'hosting è in ADR-020.
+
+- [x] Store di pnpm dentro il progetto (`.npmrc` con `store-dir=.pnpm-store`) e rimozione dei residui di Word tracciati nella radice. Resta da ricreare `node_modules` dal nuovo store.
+- [x] Base verde: typecheck, lint, test 15/15 e build completa rieseguiti il 2026-11-20 (dettaglio in `current-work.md`); controlli tipografici di `chiudi` corretti nei documenti tracciati. Resta l'allineamento al template, da lanciare dal template.
+- [ ] Rimozione dello slop da README, commenti, documentazione e memoria; i post si toccano solo per tipografia (perimetro da confermare).
+- [ ] Sicurezza: `public/_headers` con CSP, blindatura dei workflow, audit dipendenze, Dependabot; migrazione a Cloudflare Pages dopo la decisione sull'indirizzo (ADR-020).
+- [ ] Revisione senior del codice.
+- [ ] Design system scelto insieme al proprietario (non `intrawelt-design`, che è il marchio aziendale).
