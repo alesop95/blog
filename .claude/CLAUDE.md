@@ -183,22 +183,7 @@ Il piano in corso è la sezione Session #11 di `.claude/roadmap.md`: pulizia dei
 
 ## 8. How to resume this project in a fresh chat
 
-The project is fully recoverable from this folder. **Suggested opening prompt**:
-
-> ```
-> Sto continuando il progetto del mio blog personale "Alessio Sopranzi - writings"
-> (URL https://alesop95.github.io/blog, host GitHub Pages project site, bilingue EN+IT).
-> Tutto lo stato è nel repository. Per favore:
->
-> 1. Leggi `.claude/CLAUDE.md` per il contesto generale.
-> 2. Leggi `.claude/architecture.md` per i dettagli tecnici.
-> 3. Leggi `.claude/roadmap.md` per vedere fasi e checkbox.
-> 4. Skim di `.claude/decisions/*.md` per le ADR già stabilite.
->
-> Siamo a fine [Sessione N - descrizione]. Devo procedere con [Fase X-Y].
-> Non assumere nulla che non sia scritto in `.claude/`. Se serve una decisione
-> nuova, proponila e apri una ADR prima di scrivere codice.
-> ```
+Il progetto si ricostruisce da questa cartella: la ripresa si fa con la skill `riprendi`, e il prompt della sessione corrente sta in `_notes/RESUME-PROMPT.md`, riscritto a ogni giro.
 
 **Cosa porta avanti il contesto del progetto, e cosa no:**
 
